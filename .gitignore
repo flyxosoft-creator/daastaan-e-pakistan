@@ -1,0 +1,48 @@
+# Daastaan-e-Pakistan — .gitignore
+
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Build outputs
+.next/
+dist/
+build/
+out/
+
+# Environment
+.env
+.env.local
+.env.*.local
+.env.production
+
+# Turbo cache
+.turbo/
+
+# Prisma
+packages/api/prisma/migrations/*.sql.bak
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/settings.json
+.idea/
+*.swp
+
+# Logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# Test coverage
+coverage/
+
+# Vercel
+.vercel/
+
+# Misc
+*.tgz
+*.temp
+

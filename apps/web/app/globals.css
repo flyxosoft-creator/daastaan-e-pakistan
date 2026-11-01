@@ -1,0 +1,166 @@
+/* ─── Google Fonts ─────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── CSS Custom Properties ─────────────────────────── */
+:root {
+  --color-green: #123c2d;
+  --color-green-dark: #0a2418;
+  --color-green-light: #1a5040;
+  --color-ivory: #f7f3e9;
+  --color-ivory-dark: #ede8d8;
+  --color-gold: #b99550;
+  --color-gold-light: #d4af6e;
+  --color-charcoal: #292d2a;
+
+  --font-serif: 'Playfair Display', Georgia, serif;
+  --font-sans: 'Plus Jakarta Sans', system-ui, sans-serif;
+
+  --radius-card: 1rem;
+  --shadow-card: 0 4px 24px -4px rgba(18, 60, 45, 0.12), 0 2px 8px -2px rgba(18, 60, 45, 0.08);
+  --shadow-card-hover: 0 12px 40px -8px rgba(18, 60, 45, 0.22), 0 4px 16px -4px rgba(18, 60, 45, 0.14);
+}
+
+/* ─── Base Styles ───────────────────────────────────── */
+@layer base {
+  html {
+    background-color: var(--color-ivory);
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    color: var(--color-charcoal);
+    background-color: var(--color-ivory);
+  }
+
+  h1, h2, h3 {
+    font-family: var(--font-serif);
+    font-weight: 700;
+  }
+
+  /* Selection */
+  ::selection {
+    background-color: var(--color-gold);
+    color: #fff;
+  }
+
+  ::-moz-selection {
+    background-color: var(--color-gold);
+    color: #fff;
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--color-ivory-dark);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-gold);
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-gold-light);
+  }
+}
+
+/* ─── Component Utilities ───────────────────────────── */
+@layer components {
+  /* Pakistani Geometric Pattern Overlay */
+  .pattern-overlay {
+    background-image:
+      repeating-linear-gradient(
+        45deg,
+        rgba(185, 149, 80, 0.06) 0px,
+        rgba(185, 149, 80, 0.06) 1px,
+        transparent 1px,
+        transparent 10px
+      ),
+      repeating-linear-gradient(
+        -45deg,
+        rgba(185, 149, 80, 0.06) 0px,
+        rgba(185, 149, 80, 0.06) 1px,
+        transparent 1px,
+        transparent 10px
+      );
+  }
+
+  .pattern-overlay-dark {
+    background-image:
+      repeating-linear-gradient(
+        45deg,
+        rgba(185, 149, 80, 0.08) 0px,
+        rgba(185, 149, 80, 0.08) 1px,
+        transparent 1px,
+        transparent 12px
+      ),
+      repeating-linear-gradient(
+        -45deg,
+        rgba(185, 149, 80, 0.08) 0px,
+        rgba(185, 149, 80, 0.08) 1px,
+        transparent 1px,
+        transparent 12px
+      );
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center gap-2 px-6 py-3 rounded-full bg-brand-gold text-white font-semibold text-sm transition-all duration-200 hover:bg-brand-gold-dark hover:shadow-gold active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold focus-visible:ring-offset-2;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center gap-2 px-6 py-3 rounded-full border-2 border-brand-gold text-brand-gold font-semibold text-sm transition-all duration-200 hover:bg-brand-gold hover:text-white active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold focus-visible:ring-offset-2;
+  }
+
+  .btn-outline-white {
+    @apply inline-flex items-center gap-2 px-6 py-3 rounded-full border-2 border-white text-white font-semibold text-sm transition-all duration-200 hover:bg-white hover:text-brand-green active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2;
+  }
+
+  .card {
+    @apply bg-white rounded-2xl shadow-card overflow-hidden transition-all duration-300 hover:shadow-card-hover hover:-translate-y-1;
+  }
+
+  .section-title {
+    @apply font-serif text-3xl md:text-4xl lg:text-5xl font-bold leading-tight;
+  }
+
+  .section-subtitle {
+    @apply text-base md:text-lg text-brand-charcoal/70 max-w-2xl;
+  }
+
+  .container-section {
+    @apply container mx-auto px-4 sm:px-6 lg:px-8;
+  }
+}
+
+/* ─── Shimmer Animation ─────────────────────────────── */
+@layer utilities {
+  .shimmer {
+    background: linear-gradient(90deg, #f0ebe0 25%, #e5ded0 50%, #f0ebe0 75%);
+    background-size: 200% 100%;
+    animation: shimmer 2s linear infinite;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+}

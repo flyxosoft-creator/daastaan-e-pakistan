@@ -1,0 +1,23 @@
+{
+  "name": "Daastaan-e-Pakistan",
+  "short_name": "Daastaan",
+  "description": "Discover Pakistan. Live Its Stories. Nationwide Tourism Marketplace.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F7F3E9",
+  "theme_color": "#123C2D",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
+

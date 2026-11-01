@@ -1,0 +1,39 @@
+version: '3.9'
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: dep_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: dep_user
+      POSTGRES_PASSWORD: dep_dev_password
+      POSTGRES_DB: dep_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7-alpine
+    container_name: dep_redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    command: redis-server --save 60 1 --loglevel warning
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: dep_pgadmin
+    restart: unless-stopped
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@daastaan.dev
+      PGADMIN_DEFAULT_PASSWORD: dev_password
+    ports:
+      - "5050:80"
+    depends_on:
+      - postgres
+
+volumes:
+  postgres_data:
+
