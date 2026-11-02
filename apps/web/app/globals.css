@@ -10,8 +10,8 @@
   --color-green: #123c2d;
   --color-green-dark: #0a2418;
   --color-green-light: #1a5040;
-  --color-ivory: #ffffff;
-  --color-ivory-dark: #f5f4ef;
+  --color-ivory: #faf6ed;
+  --color-ivory-dark: #f3ece0;
   --color-gold: #b99550;
   --color-gold-light: #d4af6e;
   --color-charcoal: #1f2923;
@@ -27,7 +27,7 @@
 /* ─── Base Styles ───────────────────────────────────── */
 @layer base {
   html {
-    background-color: #ffffff;
+    background-color: #faf6ed;
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -36,7 +36,7 @@
   body {
     font-family: var(--font-sans);
     color: var(--color-charcoal);
-    background-color: #ffffff;
+    background-color: #faf6ed;
   }
 
   h1, h2, h3 {

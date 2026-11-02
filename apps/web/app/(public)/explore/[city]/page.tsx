@@ -140,7 +140,7 @@ export default function CityExplorePage({
   const cityData = CITIES[cityKey] || CITIES.lahore;
 
   return (
-    <div className="min-h-screen bg-white flex flex-col font-sans">
+    <div className="min-h-screen bg-[#FAF6ED] flex flex-col font-sans">
       <Header />
 
       {/* Hero Banner with Image */}
@@ -185,8 +185,8 @@ export default function CityExplorePage({
       </section>
 
       {/* City Packages Section */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 flex-1 w-full space-y-10 bg-[#FAF9F5]">
-        <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between pb-4 border-b border-gray-200 gap-4 bg-white p-5 rounded-2xl shadow-xs">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 flex-1 w-full space-y-10 bg-[#F3ECE0]">
+        <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between pb-4 border-b border-[#E8DFD0] gap-4 bg-[#FAF6ED] p-5 rounded-2xl shadow-2xs">
           <div>
             <h2 className="font-serif text-2xl sm:text-3xl font-bold text-gray-900">
               Featured Tours in{' '}

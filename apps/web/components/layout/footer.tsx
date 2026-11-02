@@ -19,10 +19,10 @@ export function Footer() {
   };
 
   return (
-    <footer className="bg-[#FAF9F5] text-gray-700 pt-16 pb-12 border-t border-gray-200">
+    <footer className="bg-[#F3ECE0] text-gray-800 pt-16 pb-12 border-t border-[#E8DFD0]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Top Preferences & Global Quick Access Bar */}
-        <div className="mb-12 pb-8 border-b border-gray-200 flex flex-wrap items-center justify-between gap-4">
+        <div className="mb-12 pb-8 border-b border-[#E8DFD0] flex flex-wrap items-center justify-between gap-4">
           <div className="flex flex-wrap items-center gap-3 sm:gap-4">
             <span className="text-xs uppercase font-bold tracking-wider text-[#123C2D]">
               Travel Preferences:
@@ -33,7 +33,7 @@ export function Footer() {
               <select
                 value={selectedCity}
                 onChange={(e) => setSelectedCity(e.target.value)}
-                className="bg-white border border-gray-300 hover:border-[#123C2D] rounded-full px-3.5 py-1.5 text-xs text-gray-800 focus:outline-none focus:border-[#123C2D] cursor-pointer shadow-sm"
+                className="bg-[#FAF6ED] border border-[#DACFBF] hover:border-[#123C2D] rounded-full px-3.5 py-1.5 text-xs text-gray-800 focus:outline-none focus:border-[#123C2D] cursor-pointer shadow-2xs"
                 aria-label="Select Destination City"
               >
                 <option value="Lahore">📍 Lahore Tours</option>
@@ -48,7 +48,7 @@ export function Footer() {
               <select
                 value={selectedCurrency}
                 onChange={(e) => setSelectedCurrency(e.target.value)}
-                className="bg-white border border-gray-300 hover:border-[#123C2D] rounded-full px-3 py-1.5 text-xs text-gray-800 focus:outline-none focus:border-[#123C2D] cursor-pointer shadow-sm"
+                className="bg-[#FAF6ED] border border-[#DACFBF] hover:border-[#123C2D] rounded-full px-3 py-1.5 text-xs text-gray-800 focus:outline-none focus:border-[#123C2D] cursor-pointer shadow-2xs"
                 aria-label="Select Currency"
               >
                 <option value="PKR">PKR (₨)</option>
@@ -62,7 +62,7 @@ export function Footer() {
             {/* Universal Safety Protocol Link */}
             <Link
               href="/safety-guide"
-              className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white border border-emerald-900/20 text-[#123C2D] text-xs font-semibold hover:bg-emerald-50/50 transition shadow-sm"
+              className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#FAF6ED] border border-emerald-900/20 text-[#123C2D] text-xs font-semibold hover:bg-emerald-50/50 transition shadow-2xs"
             >
               <Shield className="w-3.5 h-3.5 text-[#B99550]" />
               <span>Universal Safety & SOS</span>
@@ -71,7 +71,7 @@ export function Footer() {
             {/* Member Sign In / Sign Up */}
             <Link
               href="/login"
-              className="text-xs font-semibold px-4 py-1.5 rounded-full border border-gray-300 text-gray-700 hover:bg-white transition"
+              className="text-xs font-semibold px-4 py-1.5 rounded-full border border-[#DACFBF] text-gray-800 hover:bg-[#FAF6ED] transition"
             >
               Sign In
             </Link>

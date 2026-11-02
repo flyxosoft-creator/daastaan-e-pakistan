@@ -30,9 +30,9 @@ export function Header() {
   }, []);
 
   return (
-    <header className="sticky top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-100 shadow-sm transition-all">
+    <header className="sticky top-0 left-0 right-0 z-50 bg-[#FAF6ED]/95 backdrop-blur-md border-b border-[#E8DFD0] shadow-xs transition-all">
       {/* ─── Light Subtle Top Utility Bar ────────────────────────────── */}
-      <div className="bg-[#FAF9F6] text-gray-600 text-[11px] sm:text-xs border-b border-gray-100 py-1.5 px-4 sm:px-6 lg:px-8">
+      <div className="bg-[#F3ECE0] text-gray-700 text-[11px] sm:text-xs border-b border-[#E8DFD0] py-1.5 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           {/* Left: Contact Info */}
           <div className="flex items-center space-x-3 sm:space-x-5">
@@ -66,7 +66,7 @@ export function Header() {
                 href="https://instagram.com"
                 target="_blank"
                 rel="noreferrer"
-                className="w-5 h-5 rounded-full bg-gray-100 hover:bg-[#123C2D] flex items-center justify-center text-gray-600 hover:text-white transition-all"
+                className="w-5 h-5 rounded-full bg-[#EAE1D2] hover:bg-[#123C2D] flex items-center justify-center text-gray-700 hover:text-white transition-all"
                 aria-label="Instagram"
               >
                 <Instagram className="w-3 h-3" />
@@ -75,7 +75,7 @@ export function Header() {
                 href="https://facebook.com"
                 target="_blank"
                 rel="noreferrer"
-                className="w-5 h-5 rounded-full bg-gray-100 hover:bg-[#123C2D] flex items-center justify-center text-gray-600 hover:text-white transition-all"
+                className="w-5 h-5 rounded-full bg-[#EAE1D2] hover:bg-[#123C2D] flex items-center justify-center text-gray-700 hover:text-white transition-all"
                 aria-label="Facebook"
               >
                 <Facebook className="w-3 h-3" />
@@ -184,7 +184,7 @@ export function Header() {
 
       {/* ─── Mobile Menu Drawer ─────────────────────────────────────── */}
       {mobileMenuOpen && (
-        <div className="lg:hidden bg-white shadow-2xl border-b border-gray-200 px-6 py-5 space-y-3">
+        <div className="lg:hidden bg-[#FAF6ED] shadow-2xl border-b border-[#E8DFD0] px-6 py-5 space-y-3">
           <Link
             href="/explore"
             onClick={() => setMobileMenuOpen(false)}

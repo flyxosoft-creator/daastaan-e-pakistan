@@ -113,11 +113,11 @@ export default function ExplorePage() {
   });
 
   return (
-    <div className="min-h-screen bg-white flex flex-col font-sans">
+    <div className="min-h-screen bg-[#FAF6ED] flex flex-col font-sans">
       <Header />
 
       {/* Modern Light Hero Strip with Subtle Grid & Ambient Glow */}
-      <section className="relative pt-12 pb-12 sm:pt-16 sm:pb-16 px-4 bg-white border-b border-gray-100 overflow-hidden bg-tech-grid">
+      <section className="relative pt-12 pb-12 sm:pt-16 sm:pb-16 px-4 bg-[#FAF6ED] border-b border-[#E8DFD0] overflow-hidden bg-tech-grid">
         <div className="ambient-glow absolute inset-0 pointer-events-none" />
         <div className="relative max-w-7xl mx-auto text-center space-y-4">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#123C2D]/5 border border-[#123C2D]/10 text-[#123C2D] text-xs font-semibold tracking-wide shadow-xs">
@@ -135,7 +135,7 @@ export default function ExplorePage() {
       </section>
 
       {/* Main Content Area */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-12 flex-1 w-full bg-[#FAF9F5]">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-12 flex-1 w-full bg-[#F3ECE0]">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           {/* Filters Sidebar */}
           <div className="lg:col-span-1">
@@ -151,7 +151,7 @@ export default function ExplorePage() {
           {/* Results Grid */}
           <div className="lg:col-span-3 space-y-6">
             {/* Top Toolbar */}
-            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between pb-4 border-b border-gray-200 gap-4 bg-white p-4 rounded-xl shadow-xs">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between pb-4 border-b border-[#E8DFD0] gap-4 bg-[#FAF6ED] p-4 rounded-xl shadow-2xs">
               <span className="text-sm text-gray-700 font-medium">
                 Showing{' '}
                 <strong className="text-[#123C2D] font-bold">{filteredPackages.length}</strong>{' '}

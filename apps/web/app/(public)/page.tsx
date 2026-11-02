@@ -292,11 +292,11 @@ function HeroSection() {
 /* ─── 2. Feature Highlights Bar (Directly below hero) ─────────────── */
 function FeatureHighlightsBar() {
   return (
-    <section className="bg-[#FAF9F5] border-b border-gray-200 py-6 px-4 sm:px-6 lg:px-8 shadow-xs">
-      <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-5 divide-y md:divide-y-0 md:divide-x divide-gray-200 text-[#123C2D]">
+    <section className="bg-[#F3ECE0] border-b border-[#E8DFD0] py-6 px-4 sm:px-6 lg:px-8 shadow-xs">
+      <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-5 divide-y md:divide-y-0 md:divide-x divide-[#E8DFD0] text-[#123C2D]">
         {/* 1. Breathtaking Landscapes */}
         <div className="flex items-center justify-center gap-3 p-3 text-left">
-          <div className="w-10 h-10 rounded-xl bg-white border border-gray-200 flex items-center justify-center shrink-0 shadow-xs">
+          <div className="w-10 h-10 rounded-xl bg-[#FAF6ED] border border-[#E8DFD0] flex items-center justify-center shrink-0 shadow-xs">
             <Mountain className="w-5 h-5 text-[#123C2D]" />
           </div>
           <div className="text-xs sm:text-sm font-bold leading-tight text-[#123C2D]">
@@ -306,7 +306,7 @@ function FeatureHighlightsBar() {
 
         {/* 2. Rich Cultural Heritage */}
         <div className="flex items-center justify-center gap-3 p-3 text-left">
-          <div className="w-10 h-10 rounded-xl bg-white border border-gray-200 flex items-center justify-center shrink-0 shadow-xs">
+          <div className="w-10 h-10 rounded-xl bg-[#FAF6ED] border border-[#E8DFD0] flex items-center justify-center shrink-0 shadow-xs">
             <Landmark className="w-5 h-5 text-[#123C2D]" />
           </div>
           <div className="text-xs sm:text-sm font-bold leading-tight text-[#123C2D]">
@@ -316,7 +316,7 @@ function FeatureHighlightsBar() {
 
         {/* 3. Vibrant Traditions */}
         <div className="flex items-center justify-center gap-3 p-3 text-left">
-          <div className="w-10 h-10 rounded-xl bg-white border border-gray-200 flex items-center justify-center shrink-0 shadow-xs">
+          <div className="w-10 h-10 rounded-xl bg-[#FAF6ED] border border-[#E8DFD0] flex items-center justify-center shrink-0 shadow-xs">
             <Sparkles className="w-5 h-5 text-[#123C2D]" />
           </div>
           <div className="text-xs sm:text-sm font-bold leading-tight text-[#123C2D]">
@@ -326,7 +326,7 @@ function FeatureHighlightsBar() {
 
         {/* 4. Warm Hospitality */}
         <div className="flex items-center justify-center gap-3 p-3 text-left">
-          <div className="w-10 h-10 rounded-xl bg-white border border-gray-200 flex items-center justify-center shrink-0 shadow-xs">
+          <div className="w-10 h-10 rounded-xl bg-[#FAF6ED] border border-[#E8DFD0] flex items-center justify-center shrink-0 shadow-xs">
             <Users className="w-5 h-5 text-[#123C2D]" />
           </div>
           <div className="text-xs sm:text-sm font-bold leading-tight text-[#123C2D]">
@@ -336,7 +336,7 @@ function FeatureHighlightsBar() {
 
         {/* 5. Unforgettable Journeys */}
         <div className="flex items-center justify-center gap-3 p-3 text-left col-span-2 md:col-span-1 border-t md:border-t-0">
-          <div className="w-10 h-10 rounded-xl bg-white border border-gray-200 flex items-center justify-center shrink-0 shadow-xs">
+          <div className="w-10 h-10 rounded-xl bg-[#FAF6ED] border border-[#E8DFD0] flex items-center justify-center shrink-0 shadow-xs">
             <Globe className="w-5 h-5 text-[#123C2D]" />
           </div>
           <div className="text-xs sm:text-sm font-bold leading-tight text-[#123C2D]">
@@ -492,7 +492,7 @@ function DiscoverPakistanSection() {
   };
 
   return (
-    <section className="py-16 sm:py-24 bg-white overflow-hidden">
+    <section className="py-16 sm:py-24 bg-[#FAF6ED] overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Title Header with Slider Navigation Controls */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8 sm:mb-12">
@@ -648,7 +648,7 @@ function DiscoverPakistanSection() {
 /* ─── 3. Callout Ribbon Banner ────────────────────────────────────── */
 function CalloutRibbonBanner() {
   return (
-    <section className="py-6 px-4 sm:px-6 lg:px-8 bg-white">
+    <section className="py-6 px-4 sm:px-6 lg:px-8 bg-[#FAF6ED]">
       <div className="max-w-7xl mx-auto bg-gradient-to-r from-[#123C2D] via-[#1a5540] to-[#123C2D] text-white rounded-3xl p-6 sm:p-8 lg:p-10 shadow-xl border border-[#B99550]/30 flex flex-col md:flex-row items-center justify-between gap-6">
         {/* Left: Silhouette Artwork */}
         <div className="hidden lg:flex items-center opacity-90 hover:opacity-100 transition-opacity">
@@ -719,7 +719,7 @@ function HowItWorksSection() {
   const inView = useInView(ref, { once: true, amount: 0.2 });
 
   return (
-    <section id="how-it-works" className="py-20 bg-white" ref={ref}>
+    <section id="how-it-works" className="py-20 bg-[#FAF6ED]" ref={ref}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <AnimatedSection className="text-center mb-14 space-y-2">
           <p className="text-xs font-bold uppercase tracking-widest text-[#B99550]">
@@ -749,7 +749,7 @@ function HowItWorksSection() {
                 custom={i}
                 initial="hidden"
                 animate={inView ? 'visible' : 'hidden'}
-                className="flex flex-col items-center text-center group bg-[#FAF9F5] hover:bg-white p-6 rounded-2xl border border-gray-200/80 hover:border-[#B99550]/50 hover:shadow-lg transition-all duration-300"
+                className="flex flex-col items-center text-center group bg-[#F3ECE0] hover:bg-[#FAF6ED] p-6 rounded-2xl border border-[#E8DFD0] hover:border-[#B99550]/50 hover:shadow-lg transition-all duration-300"
               >
                 {/* Number + icon circle */}
                 <div className="relative mb-5">
@@ -790,7 +790,7 @@ const tierColors: Record<string, string> = {
 
 function FeaturedPackagesSection() {
   return (
-    <section className="py-20 bg-[#FAF9F5] border-t border-b border-gray-200/80">
+    <section className="py-20 bg-[#F3ECE0] border-t border-b border-[#E8DFD0]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-10">
         <AnimatedSection className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
           <div className="space-y-1">
@@ -891,7 +891,7 @@ const avatarColors = [
 
 function TrustedGuidesSection() {
   return (
-    <section className="py-20 bg-white overflow-hidden">
+    <section className="py-20 bg-[#FAF6ED] overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <AnimatedSection className="text-center mb-12 space-y-1">
           <p className="text-xs font-bold uppercase tracking-widest text-[#B99550]">
@@ -914,7 +914,7 @@ function TrustedGuidesSection() {
               key={guide.name}
               variants={fadeUp}
               custom={i}
-              className="flex flex-col items-center text-center group cursor-pointer bg-[#FAF9F5] p-5 rounded-2xl border border-gray-200/80 hover:border-[#B99550]/50 hover:shadow-md transition-all"
+              className="flex flex-col items-center text-center group cursor-pointer bg-[#F3ECE0] hover:bg-[#FAF6ED] p-5 rounded-2xl border border-[#E8DFD0] hover:border-[#B99550]/50 hover:shadow-md transition-all"
             >
               {/* Avatar */}
               <div className="relative mb-3">
@@ -967,7 +967,7 @@ const reviews = [
 
 function LatestReviewsSection() {
   return (
-    <section className="py-20 bg-[#FAF9F5] border-t border-b border-gray-200/80">
+    <section className="py-20 bg-[#F3ECE0] border-t border-b border-[#E8DFD0]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <AnimatedSection className="text-center mb-12 space-y-1">
           <p className="text-xs font-bold uppercase tracking-widest text-[#B99550]">
@@ -1042,7 +1042,7 @@ const blogPosts = [
 
 function FromTheBlogSection() {
   return (
-    <section className="py-24 bg-white">
+    <section className="py-24 bg-[#FAF6ED]">
       <div className="container-section">
         <AnimatedSection className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12">
           <div>
@@ -1130,7 +1130,7 @@ function CTABannerSection() {
 /* ─── Main Export ────────────────────────────────────── */
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-white flex flex-col font-sans">
+    <div className="min-h-screen bg-[#FAF6ED] flex flex-col font-sans">
       <Header />
       <main className="flex-1">
         {/* 1. Cinematic Hero with Transitioning Destinations Directly Under Header */}

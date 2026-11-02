@@ -39,11 +39,11 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="min-h-screen bg-white flex flex-col font-sans">
+    <div className="min-h-screen bg-[#FAF6ED] flex flex-col font-sans">
       <Header />
 
       {/* Modern Light Hero Strip with Subtle Grid & Ambient Glow */}
-      <section className="relative pt-12 pb-12 sm:pt-16 sm:pb-16 px-4 bg-white border-b border-gray-100 overflow-hidden bg-tech-grid">
+      <section className="relative pt-12 pb-12 sm:pt-16 sm:pb-16 px-4 bg-[#FAF6ED] border-b border-[#E8DFD0] overflow-hidden bg-tech-grid">
         <div className="ambient-glow absolute inset-0 pointer-events-none" />
         <div className="relative max-w-4xl mx-auto text-center space-y-4">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#123C2D]/5 border border-[#123C2D]/10 text-[#123C2D] text-xs font-semibold tracking-wide shadow-xs">
@@ -81,7 +81,7 @@ export default function ContactPage() {
             <div className="space-y-4">
               <a
                 href="tel:+923324541952"
-                className="flex items-start gap-4 p-5 rounded-2xl bg-[#FAF9F5] border border-gray-200/90 hover:border-[#B99550]/50 hover:shadow-md transition-all group"
+                className="flex items-start gap-4 p-5 rounded-2xl bg-[#F3ECE0] border border-[#E8DFD0] hover:border-[#B99550]/50 hover:shadow-md transition-all group"
               >
                 <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-[#123C2D] to-[#1F5C45] text-[#B99550] flex items-center justify-center shrink-0 shadow-xs group-hover:scale-105 transition-transform">
                   <Phone className="w-5 h-5" />

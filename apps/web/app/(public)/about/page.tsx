@@ -8,11 +8,11 @@ import { Compass, Users, Shield, Heart, Award, ArrowRight, Sparkles, CheckCircle
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen bg-white flex flex-col font-sans">
+    <div className="min-h-screen bg-[#FAF6ED] flex flex-col font-sans">
       <Header />
 
       {/* Modern Light Hero Strip with Subtle Grid & Ambient Glow */}
-      <section className="relative pt-12 pb-12 sm:pt-16 sm:pb-16 px-4 bg-white border-b border-gray-100 overflow-hidden bg-tech-grid">
+      <section className="relative pt-12 pb-12 sm:pt-16 sm:pb-16 px-4 bg-[#FAF6ED] border-b border-[#E8DFD0] overflow-hidden bg-tech-grid">
         <div className="ambient-glow absolute inset-0 pointer-events-none" />
         <div className="relative max-w-4xl mx-auto text-center space-y-4">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#123C2D]/5 border border-[#123C2D]/10 text-[#123C2D] text-xs font-semibold tracking-wide shadow-xs">
@@ -64,7 +64,7 @@ export default function AboutPage() {
         </div>
 
         {/* Core Values */}
-        <div className="bg-[#FAF9F5] rounded-3xl p-8 sm:p-14 border border-gray-200/90 shadow-xs space-y-10">
+        <div className="bg-[#F3ECE0] rounded-3xl p-8 sm:p-14 border border-[#E8DFD0] shadow-xs space-y-10">
           <div className="text-center max-w-2xl mx-auto space-y-2">
             <p className="text-xs font-bold uppercase tracking-widest text-[#B99550]">
               Our Commitments

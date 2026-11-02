@@ -45,7 +45,7 @@ export default function SignupPage() {
   };
 
   return (
-    <div className="min-h-screen bg-white bg-tech-grid relative flex flex-col justify-center py-12 sm:px-6 lg:px-8 font-sans">
+    <div className="min-h-screen bg-[#FAF6ED] bg-tech-grid relative flex flex-col justify-center py-12 sm:px-6 lg:px-8 font-sans">
       <div className="ambient-glow absolute inset-0 pointer-events-none" />
       <div className="relative z-10 sm:mx-auto sm:w-full sm:max-w-md space-y-3">
         <Link

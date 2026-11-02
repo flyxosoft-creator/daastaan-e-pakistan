@@ -180,11 +180,11 @@ export default function PackageDetailPage({
     : `${pkg.durationHours || 4} Hours`;
 
   return (
-    <div className="min-h-screen bg-white flex flex-col font-sans">
+    <div className="min-h-screen bg-[#FAF6ED] flex flex-col font-sans">
       <Header />
 
       {/* Breadcrumb Strip */}
-      <div className="bg-[#FAF9F5] border-b border-gray-100 py-3.5 px-4 sm:px-6 lg:px-8">
+      <div className="bg-[#F3ECE0] border-b border-[#E8DFD0] py-3.5 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto flex items-center gap-2 text-xs text-gray-600">
           <Link href="/" className="hover:text-[#123C2D]">Home</Link>
           <ChevronRight className="w-3 h-3 text-gray-400" />

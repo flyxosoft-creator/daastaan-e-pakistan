@@ -75,7 +75,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="scroll-smooth">
-      <body className="font-sans antialiased bg-white text-gray-800 selection:bg-[#B99550] selection:text-white">
+      <body className="font-sans antialiased bg-[#FAF6ED] text-gray-800 selection:bg-[#B99550] selection:text-white">
         <Providers>
           {children}
           <Toaster
