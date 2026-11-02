@@ -332,7 +332,7 @@ function CalloutRibbonBanner() {
           <img
             src="/images/monuments-silhouette.png"
             alt="Pakistani Architectural Monuments Silhouette"
-            className="h-10 sm:h-12 w-auto object-contain brightness-0 invert"
+            className="h-10 sm:h-12 w-auto object-contain"
           />
         </div>
 
