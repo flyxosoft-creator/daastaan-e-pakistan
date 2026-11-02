@@ -3,6 +3,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { motion, useInView, useAnimation, AnimatePresence } from 'framer-motion';
 import {
   ChevronDown,
@@ -24,6 +25,7 @@ import {
   Twitter,
   ChevronRight,
   Sparkles,
+  Search,
 } from 'lucide-react';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
@@ -74,182 +76,240 @@ function AnimatedSection({
   );
 }
 
-/* ─── 1. Hero Section ────────────────────────────────── */
-const MOUNTAIN_VISTAS = [
+/* ─── 1. Hero Section (Matching Official Montage Mockup) ───────────── */
+function HeroSection() {
+  const router = useRouter();
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      router.push(`/explore?q=${encodeURIComponent(searchQuery.trim())}`);
+    } else {
+      router.push('/explore');
+    }
+  };
+
+  return (
+    <section className="relative pt-[104px] sm:pt-[112px] bg-[#EAE8E2] overflow-hidden">
+      {/* Background Panoramic Montage of Pakistan (Faisal Mosque, Karakoram, Lahore Fort, Truck Art) */}
+      <div className="relative min-h-[460px] sm:min-h-[520px] lg:min-h-[580px] w-full flex items-center justify-center">
+        <div className="absolute inset-0 z-0">
+          <img
+            src="/images/hero-pakistan-montage.jpg"
+            alt="Daastaan e Pakistan — Faisal Mosque, Karakoram Mountains, Lahore Fort & Truck Art"
+            className="w-full h-full object-cover object-center"
+          />
+          {/* Subtle gradient to ensure flawless readability */}
+          <div className="absolute inset-0 bg-gradient-to-b from-white/40 via-transparent to-white/60" />
+        </div>
+
+        {/* Center Content Overlay */}
+        <div className="relative z-10 max-w-4xl mx-auto text-center px-4 sm:px-6 py-12 sm:py-16">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="space-y-3"
+          >
+            {/* Title with Calligraphic Charm */}
+            <h1 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold text-[#123C2D] tracking-tight drop-shadow-sm">
+              Daastaan e Pakistan
+            </h1>
+
+            {/* Golden Swoosh Underline */}
+            <div className="w-44 sm:w-60 h-1.5 bg-gradient-to-r from-transparent via-[#B99550] to-transparent rounded-full mx-auto" />
+
+            {/* Subtitle */}
+            <p className="font-serif italic text-sm sm:text-lg lg:text-xl text-[#292D2A] max-w-2xl mx-auto leading-relaxed drop-shadow-sm pt-1">
+              Discover the Land, Experience the Culture,
+              <br className="hidden sm:inline" /> Be a Part of Our Story
+            </p>
+          </motion.div>
+
+          {/* Interactive Search Bar Matching Mockup */}
+          <motion.form
+            initial={{ opacity: 0, y: 25 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            onSubmit={handleSearch}
+            className="max-w-2xl mx-auto mt-6 sm:mt-8 w-full"
+          >
+            <div className="relative flex items-center bg-white rounded-full shadow-2xl p-1.5 sm:p-2 border border-gray-200/90 hover:border-[#123C2D]/50 transition-all">
+              <Search className="w-5 h-5 text-gray-400 ml-3.5 shrink-0" />
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search Tours, Destinations or Experiences..."
+                className="w-full bg-transparent px-3.5 py-2 sm:py-2.5 text-xs sm:text-sm text-gray-800 placeholder-gray-500 focus:outline-none"
+              />
+              <button
+                type="submit"
+                className="px-6 sm:px-8 py-2.5 sm:py-3 rounded-full bg-[#123C2D] hover:bg-[#0c2b20] text-white font-semibold text-xs sm:text-sm tracking-wide transition shadow-md hover:shadow-lg shrink-0"
+              >
+                Search
+              </button>
+            </div>
+          </motion.form>
+        </div>
+      </div>
+
+      {/* ─── Feature Highlights Bar (Directly below hero) ─────────────── */}
+      <div className="bg-[#F6F3EC] border-y border-[#E2DCce] py-4 sm:py-5 px-4 sm:px-6 lg:px-8 shadow-inner">
+        <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-5 divide-y md:divide-y-0 md:divide-x divide-[#D8D2C2] text-[#123C2D]">
+          {/* 1. Breathtaking Landscapes */}
+          <div className="flex items-center justify-center gap-3 p-3 text-left">
+            <Mountain className="w-7 h-7 text-[#123C2D] shrink-0" />
+            <div className="text-xs sm:text-sm font-bold leading-tight">
+              Breathtaking<br />Landscapes
+            </div>
+          </div>
+
+          {/* 2. Rich Cultural Heritage */}
+          <div className="flex items-center justify-center gap-3 p-3 text-left">
+            <Landmark className="w-7 h-7 text-[#123C2D] shrink-0" />
+            <div className="text-xs sm:text-sm font-bold leading-tight">
+              Rich Cultural<br />Heritage
+            </div>
+          </div>
+
+          {/* 3. Vibrant Traditions */}
+          <div className="flex items-center justify-center gap-3 p-3 text-left">
+            <Sparkles className="w-7 h-7 text-[#123C2D] shrink-0" />
+            <div className="text-xs sm:text-sm font-bold leading-tight">
+              Vibrant<br />Traditions
+            </div>
+          </div>
+
+          {/* 4. Warm Hospitality */}
+          <div className="flex items-center justify-center gap-3 p-3 text-left">
+            <Users className="w-7 h-7 text-[#123C2D] shrink-0" />
+            <div className="text-xs sm:text-sm font-bold leading-tight">
+              Warm<br />Hospitality
+            </div>
+          </div>
+
+          {/* 5. Unforgettable Journeys */}
+          <div className="flex items-center justify-center gap-3 p-3 text-left col-span-2 md:col-span-1 border-t md:border-t-0">
+            <Globe className="w-7 h-7 text-[#123C2D] shrink-0" />
+            <div className="text-xs sm:text-sm font-bold leading-tight">
+              Unforgettable<br />Journeys
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ─── 2. Discover Pakistan Section (Matching 5 Cards Grid) ─────────── */
+const DISCOVER_CARDS = [
   {
-    id: 'karakoram',
-    name: 'Karakoram & Hunza Valley',
-    sub: 'Passu Cones & Alpine Waters',
-    image: '/images/hero-cinematic-pakistan.jpg',
+    title: 'Northern Pakistan',
+    image: '/images/card-northern-pakistan.jpg',
+    href: '/explore?region=northern',
   },
   {
-    id: 'attabad',
-    name: 'Attabad Glacial Lake',
-    sub: 'Turquoise Jewel of Gojal',
-    image: '/images/hero-mountains-lake.jpg',
+    title: 'Historical Cities',
+    image: '/images/card-historical-cities.jpg',
+    href: '/explore/lahore',
   },
   {
-    id: 'skardu',
-    name: 'Shangrila & Skardu Peaks',
-    sub: 'Gateway to the Giants of Baltistan',
-    image: '/images/hero-hunza.jpg',
+    title: 'Coastal Beauty',
+    image: '/images/card-coastal-beauty.jpg',
+    href: '/explore?region=coastal',
+  },
+  {
+    title: 'Culture & Traditions',
+    image: '/images/card-culture-traditions.jpg',
+    href: '/explore?category=culture',
+  },
+  {
+    title: 'Adventure Tours',
+    image: '/images/card-adventure-tours.jpg',
+    href: '/explore?category=adventure',
   },
 ];
 
-function HeroSection() {
-  const [activeVistaIndex, setActiveVistaIndex] = useState(0);
-  const currentVista = MOUNTAIN_VISTAS[activeVistaIndex];
-
+function DiscoverPakistanSection() {
   return (
-    <section className="relative min-h-[95vh] sm:min-h-screen flex items-end justify-start overflow-hidden">
-      {/* Background Live Photographic Pakistan Mountain Landscape */}
-      <div className="absolute inset-0 z-0">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={currentVista.id}
-            initial={{ opacity: 0, scale: 1.02 }}
-            animate={{ opacity: 1, scale: 1.06 }}
-            exit={{ opacity: 0 }}
-            transition={{
-              opacity: { duration: 1.2 },
-              scale: { duration: 20, repeat: Infinity, repeatType: 'reverse', ease: 'easeInOut' },
-            }}
-            className="w-full h-full absolute inset-0"
-          >
-            <img
-              src={currentVista.image}
-              alt={currentVista.name}
-              className="w-full h-full object-cover object-center"
-            />
-          </motion.div>
-        </AnimatePresence>
-
-        {/* Cinematic Subtle Overlays - High Contrast for Text without Muting the Mountains */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-black/35" />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/25 to-transparent w-full lg:w-3/4" />
-
-        {/* Ambient Warm Golden Sunlight Scrim */}
-        <div className="absolute top-0 right-0 w-96 h-96 bg-amber-500/10 blur-[120px] rounded-full pointer-events-none" />
-      </div>
-
-      {/* Hero Content - Authentic Left-Aligned Layout Matching Official Brand Mockup */}
-      <div className="relative z-10 max-w-7xl mx-auto w-full px-6 sm:px-8 lg:px-12 pb-16 sm:pb-24 pt-36 lg:pt-40">
-        <div className="max-w-2xl space-y-6">
-          {/* Tagline Urdu Accent */}
-          <motion.div
-            variants={fadeUp}
-            initial="hidden"
-            animate="visible"
-            custom={0}
-            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-black/40 backdrop-blur-md border border-[#B99550]/40 text-[#B99550] text-xs font-semibold tracking-wider uppercase"
-          >
-            <span className="font-serif">داستان پاکستان</span>
-            <span className="text-white/40">•</span>
-            <span>Live Photographic Journey Through Pakistan</span>
-          </motion.div>
-
-          {/* Main Headline - Matches Image 4 Mockup Exactly */}
-          <motion.h1
-            variants={fadeUp}
-            initial="hidden"
-            animate="visible"
-            custom={1}
-            className="font-serif text-white text-4xl sm:text-6xl lg:text-7xl font-bold leading-[1.08] tracking-tight drop-shadow-[0_4px_24px_rgba(0,0,0,0.8)]"
-          >
-            Discover Pakistan.
-            <br />
-            <span className="text-white drop-shadow-[0_4px_24px_rgba(0,0,0,0.8)]">Live Its Stories.</span>
-          </motion.h1>
-
-          {/* Subtitle */}
-          <motion.p
-            variants={fadeUp}
-            initial="hidden"
-            animate="visible"
-            custom={2}
-            className="text-white/95 text-sm sm:text-lg leading-relaxed max-w-xl font-normal drop-shadow-[0_2px_12px_rgba(0,0,0,0.8)]"
-          >
-            Connect with verified local guides for authentic cultural walks, legendary food trails, and breathtaking mountain expeditions across Pakistan.
-          </motion.p>
-
-          {/* Primary CTA - Golden Pill Button Matching Mockup */}
-          <motion.div
-            variants={fadeUp}
-            initial="hidden"
-            animate="visible"
-            custom={3}
-            className="flex flex-wrap items-center gap-4 pt-2"
-          >
-            <Link
-              href="/explore"
-              className="inline-flex items-center justify-center px-8 sm:px-10 py-4 rounded-full bg-[#B99550] hover:bg-[#c9a65f] text-[#123C2D] font-bold text-xs sm:text-sm tracking-[0.2em] uppercase shadow-[0_10px_30px_rgba(185,149,80,0.4)] hover:shadow-[0_15px_40px_rgba(185,149,80,0.6)] hover:scale-105 transition-all duration-300"
-            >
-              Explore Destinations
-            </Link>
-
-            <Link
-              href="/safety-guide"
-              className="inline-flex items-center gap-2 px-6 py-4 rounded-full bg-black/40 hover:bg-black/60 backdrop-blur-md text-white text-xs sm:text-sm font-semibold border border-[#B99550]/40 transition-all duration-300 shadow-lg"
-            >
-              <ShieldCheck className="w-4 h-4 text-[#B99550]" />
-              <span>Universal Safety Protocol</span>
-            </Link>
-          </motion.div>
-
-          {/* Trust Badges Strip */}
-          <motion.div
-            variants={fadeUp}
-            initial="hidden"
-            animate="visible"
-            custom={4}
-            className="pt-6 border-t border-white/20 flex flex-wrap items-center gap-6 sm:gap-8 text-xs text-white/90 drop-shadow-md"
-          >
-            <div className="flex items-center gap-2">
-              <Globe className="w-4 h-4 text-[#B99550]" />
-              <span className="font-medium">175+ Countries Welcome</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <ShieldCheck className="w-4 h-4 text-emerald-400" />
-              <span className="font-medium">Police-Cleared Guides</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <Star className="w-4 h-4 text-amber-300 fill-amber-300" />
-              <span className="font-medium">4.88★ Average Traveler Rating</span>
-            </div>
-          </motion.div>
-        </div>
-      </div>
-
-      {/* Interactive Live Mountain Vista Switcher (Bottom Right) */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1, duration: 0.8 }}
-        className="absolute bottom-6 right-6 sm:right-12 z-20 flex flex-col items-end gap-2"
-      >
-        <div className="hidden sm:flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/50 backdrop-blur-md border border-white/20 text-[11px] text-white/90">
-          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-          <span className="font-medium">Live Vista:</span>
-          <span className="text-[#B99550] font-semibold">{currentVista.name}</span>
+    <section className="py-14 sm:py-16 bg-[#FDFCF9]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Title Header with Horizontal Lines */}
+        <div className="flex items-center justify-center gap-4 mb-8 sm:mb-10">
+          <div className="h-[1.5px] bg-[#123C2D]/30 w-16 sm:w-28" />
+          <h2 className="font-serif text-2xl sm:text-4xl font-bold text-[#123C2D] tracking-tight">
+            Discover Pakistan
+          </h2>
+          <div className="h-[1.5px] bg-[#123C2D]/30 w-16 sm:w-28" />
         </div>
 
-        <div className="flex items-center gap-1.5 p-1 rounded-full bg-black/40 backdrop-blur-md border border-white/20">
-          {MOUNTAIN_VISTAS.map((vista, idx) => (
-            <button
-              key={vista.id}
-              onClick={() => setActiveVistaIndex(idx)}
-              className={`px-3 py-1 rounded-full text-xs font-medium transition-all ${
-                activeVistaIndex === idx
-                  ? 'bg-[#B99550] text-[#123C2D] font-bold shadow-md'
-                  : 'text-white/80 hover:text-white hover:bg-white/10'
-              }`}
-              title={`Switch to ${vista.name}`}
+        {/* 5 Photo Cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+          {DISCOVER_CARDS.map((card) => (
+            <Link
+              key={card.title}
+              href={card.href}
+              className="group relative rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 h-44 sm:h-48 border border-gray-200"
             >
-              {idx === 0 ? '🏔️ Karakoram' : idx === 1 ? '🌊 Attabad' : '🌲 Skardu'}
-            </button>
+              <img
+                src={card.image}
+                alt={card.title}
+                className="w-full h-full object-cover object-center group-hover:scale-110 transition-transform duration-700"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
+              <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between">
+                <span className="text-white font-bold text-xs sm:text-sm drop-shadow-md leading-tight">
+                  {card.title}
+                </span>
+                <div className="w-6 h-6 rounded-full border border-white/60 flex items-center justify-center text-white text-xs group-hover:bg-[#B99550] group-hover:border-[#B99550] group-hover:text-[#123C2D] transition-colors shrink-0">
+                  <ChevronRight className="w-3.5 h-3.5" />
+                </div>
+              </div>
+            </Link>
           ))}
         </div>
-      </motion.div>
+      </div>
+    </section>
+  );
+}
+
+/* ─── 3. Callout Ribbon Banner ────────────────────────────────────── */
+function CalloutRibbonBanner() {
+  return (
+    <section className="bg-gradient-to-r from-[#0B251B] via-[#123C2D] to-[#0B251B] text-white py-4 sm:py-5 px-4 sm:px-6 lg:px-8 border-y border-[#B99550]/30 shadow-md">
+      <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+        {/* Left: Silhouette Artwork */}
+        <div className="hidden lg:flex items-center opacity-85 hover:opacity-100 transition-opacity">
+          <img
+            src="/images/monuments-silhouette.png"
+            alt="Pakistani Architectural Monuments Silhouette"
+            className="h-10 sm:h-12 w-auto object-contain brightness-0 invert"
+          />
+        </div>
+
+        {/* Center: Script Text */}
+        <div className="text-center">
+          <p className="font-serif italic text-base sm:text-xl lg:text-2xl text-white font-normal drop-shadow-sm">
+            Every journey tells a story...{' '}
+            <span className="text-[#E5B558] font-semibold underline decoration-[#E5B558]/60 underline-offset-4">
+              Let's explore Pakistan together!
+            </span>
+          </p>
+        </div>
+
+        {/* Right: Golden CTA Button */}
+        <div>
+          <Link
+            href="/explore"
+            className="inline-flex items-center gap-1.5 px-6 py-2.5 rounded-full bg-[#E5A83B] hover:bg-[#d4972a] text-[#0B251B] font-bold text-xs sm:text-sm tracking-wide shadow-lg hover:shadow-xl transition-all duration-300"
+          >
+            <span>Explore More</span>
+            <ChevronRight className="w-4 h-4" />
+          </Link>
+        </div>
+      </div>
     </section>
   );
 }
@@ -775,19 +835,28 @@ function CTABannerSection() {
 /* ─── Main Export ────────────────────────────────────── */
 export default function HomePage() {
   return (
-    <>
-      <Header transparent />
-      <main>
+    <div className="min-h-screen bg-[#FDFCF9] flex flex-col font-sans">
+      <Header />
+      <main className="flex-1">
+        {/* 1. Hero with Panorama + Search + Feature Highlights Bar */}
         <HeroSection />
+
+        {/* 2. Discover Pakistan 5 Cards Grid */}
+        <DiscoverPakistanSection />
+
+        {/* 3. Callout Ribbon Banner */}
+        <CalloutRibbonBanner />
+
+        {/* 4. Core Tour Catalog & Platform Features */}
+        <FeaturedPackagesSection />
         <HowItWorksSection />
         <PackageCategoriesSection />
-        <FeaturedPackagesSection />
         <TrustedGuidesSection />
         <LatestReviewsSection />
         <FromTheBlogSection />
         <CTABannerSection />
       </main>
       <Footer />
-    </>
+    </div>
   );
 }

@@ -3,11 +3,22 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu, X } from 'lucide-react';
+import {
+  Menu,
+  X,
+  Mail,
+  Phone,
+  Instagram,
+  Facebook,
+  Search,
+  ChevronDown,
+  Plane,
+} from 'lucide-react';
 
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const pathname = usePathname();
 
   useEffect(() => {
@@ -18,101 +29,329 @@ export function Header() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const isHome = pathname === '/';
-
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled || !isHome
-          ? 'bg-[#123C2D]/95 backdrop-blur-md shadow-xl py-2 sm:py-3 border-b border-[#B99550]/20'
-          : 'bg-gradient-to-b from-black/80 via-black/35 to-transparent py-4 sm:py-6'
-      }`}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between">
-          {/* Daastaan-e-Pakistan Official Horizontal Logo */}
-          <Link href="/" className="flex items-center group py-1">
-            <div className="relative flex items-center">
-              <img
-                src="/images/logo-official-horizontal.png"
-                alt="Daastaan-e-Pakistan — Discover Pakistan. Live Its Stories."
-                className="h-14 sm:h-18 lg:h-20 xl:h-22 w-auto max-w-[320px] sm:max-w-[420px] lg:max-w-[480px] object-contain transition-transform duration-300 group-hover:scale-105 drop-shadow-[0_4px_20px_rgba(0,0,0,0.8)]"
-              />
+    <header className="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+      {/* ─── Top Contact Bar ────────────────────────────────────────── */}
+      <div className="bg-[#0B251B] text-white/90 text-xs border-b border-[#B99550]/20 py-1.5 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto flex items-center justify-between">
+          {/* Left: Contact Info */}
+          <div className="flex items-center space-x-3 sm:space-x-5 text-[11px] sm:text-xs">
+            <a
+              href="mailto:enquiries@daastaanepakistan.org"
+              className="flex items-center gap-1.5 hover:text-[#B99550] transition-colors"
+            >
+              <Mail className="w-3.5 h-3.5 text-[#B99550]" />
+              <span className="hidden sm:inline">enquiries@daastaanepakistan.org</span>
+              <span className="sm:hidden">Email Us</span>
+            </a>
+            <span className="text-white/30">|</span>
+            <a
+              href="tel:+923324541952"
+              className="flex items-center gap-1.5 hover:text-[#B99550] transition-colors"
+            >
+              <Phone className="w-3.5 h-3.5 text-[#B99550]" />
+              <span>+92 332 4541952</span>
+              <span className="hidden md:inline">| +92 300 8492551</span>
+            </a>
+          </div>
+
+          {/* Right: Social Icons & Plan Your Trip */}
+          <div className="flex items-center space-x-3 sm:space-x-4">
+            <div className="flex items-center space-x-2.5">
+              <a
+                href="https://instagram.com"
+                target="_blank"
+                rel="noreferrer"
+                className="w-5 h-5 rounded-full bg-gradient-to-tr from-amber-500 via-rose-500 to-purple-600 flex items-center justify-center text-white hover:opacity-90 transition-opacity"
+                aria-label="Instagram"
+              >
+                <Instagram className="w-3 h-3" />
+              </a>
+              <a
+                href="https://facebook.com"
+                target="_blank"
+                rel="noreferrer"
+                className="w-5 h-5 rounded-full bg-[#1877F2] flex items-center justify-center text-white hover:opacity-90 transition-opacity"
+                aria-label="Facebook"
+              >
+                <Facebook className="w-3 h-3" />
+              </a>
             </div>
+
+            <Link
+              href="/explore"
+              className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#B99550] hover:bg-[#a38240] text-[#0B251B] text-[11px] sm:text-xs font-bold tracking-wide transition-all shadow-sm"
+            >
+              <Plane className="w-3 h-3 text-[#0B251B]" />
+              <span>Plan Your Trip</span>
+            </Link>
+          </div>
+        </div>
+      </div>
+
+      {/* ─── Main White Header / Navigation ─────────────────────────── */}
+      <div className="bg-white/98 backdrop-blur-md shadow-md border-b border-gray-100 py-2 sm:py-2.5 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto flex items-center justify-between">
+          {/* Logo with Pakistan Map & Landmarks */}
+          <Link href="/" className="flex items-center group py-0.5">
+            <img
+              src="/images/logo-map-pakistan.png"
+              alt="Daastaan e Pakistan — Discover • Explore • Experience"
+              className="h-12 sm:h-14 lg:h-16 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+            />
           </Link>
 
-          {/* Desktop Nav - Only Important Navigation Matching Brand Mockup */}
-          <nav className="hidden md:flex items-center space-x-8 lg:space-x-12 text-xs sm:text-sm font-semibold tracking-[0.22em] uppercase text-white drop-shadow-md">
+          {/* Desktop Nav Items */}
+          <nav className="hidden lg:flex items-center space-x-1 xl:space-x-2 text-xs xl:text-sm font-medium text-gray-800">
+            {/* Home Pill */}
             <Link
-              href="/explore"
-              className="hover:text-[#B99550] transition-colors relative py-1 after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-[#B99550] after:scale-x-0 hover:after:scale-x-100 after:transition-transform"
+              href="/"
+              className={`px-3.5 py-1.5 rounded-md font-semibold transition-colors ${
+                pathname === '/'
+                  ? 'bg-[#123C2D] text-white'
+                  : 'text-gray-700 hover:text-[#123C2D] hover:bg-gray-100'
+              }`}
             >
-              Destinations
+              Home
             </Link>
+
+            {/* About Us Dropdown */}
+            <div
+              className="relative"
+              onMouseEnter={() => setOpenDropdown('about')}
+              onMouseLeave={() => setOpenDropdown(null)}
+            >
+              <button className="flex items-center gap-1 px-3 py-1.5 rounded-md hover:text-[#123C2D] hover:bg-gray-100 transition-colors">
+                <span>About Us</span>
+                <ChevronDown className="w-3.5 h-3.5 opacity-70" />
+              </button>
+              {openDropdown === 'about' && (
+                <div className="absolute top-full left-0 w-48 bg-white shadow-xl rounded-lg border border-gray-100 py-2 mt-1 z-50">
+                  <Link
+                    href="/about"
+                    className="block px-4 py-2 text-xs text-gray-700 hover:bg-[#F7F3E9] hover:text-[#123C2D]"
+                  >
+                    Our Story & Mission
+                  </Link>
+                  <Link
+                    href="/safety-guide"
+                    className="block px-4 py-2 text-xs text-gray-700 hover:bg-[#F7F3E9] hover:text-[#123C2D]"
+                  >
+                    Universal Safety Protocol
+                  </Link>
+                </div>
+              )}
+            </div>
+
+            {/* Explore Pakistan Dropdown */}
+            <div
+              className="relative"
+              onMouseEnter={() => setOpenDropdown('explore')}
+              onMouseLeave={() => setOpenDropdown(null)}
+            >
+              <button className="flex items-center gap-1 px-3 py-1.5 rounded-md hover:text-[#123C2D] hover:bg-gray-100 transition-colors">
+                <span>Explore Pakistan</span>
+                <ChevronDown className="w-3.5 h-3.5 opacity-70" />
+              </button>
+              {openDropdown === 'explore' && (
+                <div className="absolute top-full left-0 w-52 bg-white shadow-xl rounded-lg border border-gray-100 py-2 mt-1 z-50">
+                  <Link
+                    href="/explore/lahore"
+                    className="block px-4 py-2 text-xs text-gray-700 hover:bg-[#F7F3E9] hover:text-[#123C2D]"
+                  >
+                    📍 Lahore (Walled City)
+                  </Link>
+                  <Link
+                    href="/explore/islamabad"
+                    className="block px-4 py-2 text-xs text-gray-700 hover:bg-[#F7F3E9] hover:text-[#123C2D]"
+                  >
+                    📍 Islamabad & Margalla
+                  </Link>
+                  <Link
+                    href="/explore?region=northern"
+                    className="block px-4 py-2 text-xs text-gray-700 hover:bg-[#F7F3E9] hover:text-[#123C2D]"
+                  >
+                    🏔️ Northern Pakistan
+                  </Link>
+                  <Link
+                    href="/explore?region=coastal"
+                    className="block px-4 py-2 text-xs text-gray-700 hover:bg-[#F7F3E9] hover:text-[#123C2D]"
+                  >
+                    🌊 Coastal Beauty
+                  </Link>
+                </div>
+              )}
+            </div>
+
+            {/* Tours & Travel Dropdown */}
+            <div
+              className="relative"
+              onMouseEnter={() => setOpenDropdown('tours')}
+              onMouseLeave={() => setOpenDropdown(null)}
+            >
+              <button className="flex items-center gap-1 px-3 py-1.5 rounded-md hover:text-[#123C2D] hover:bg-gray-100 transition-colors">
+                <span>Tours & Travel</span>
+                <ChevronDown className="w-3.5 h-3.5 opacity-70" />
+              </button>
+              {openDropdown === 'tours' && (
+                <div className="absolute top-full left-0 w-48 bg-white shadow-xl rounded-lg border border-gray-100 py-2 mt-1 z-50">
+                  <Link
+                    href="/explore"
+                    className="block px-4 py-2 text-xs text-gray-700 hover:bg-[#F7F3E9] hover:text-[#123C2D]"
+                  >
+                    All Curated Tours
+                  </Link>
+                  <Link
+                    href="/explore?tier=PREMIUM"
+                    className="block px-4 py-2 text-xs text-gray-700 hover:bg-[#F7F3E9] hover:text-[#123C2D]"
+                  >
+                    Royal & Luxury Tiers
+                  </Link>
+                  <Link
+                    href="/explore?category=adventure"
+                    className="block px-4 py-2 text-xs text-gray-700 hover:bg-[#F7F3E9] hover:text-[#123C2D]"
+                  >
+                    Adventure Expeditions
+                  </Link>
+                </div>
+              )}
+            </div>
+
+            {/* Our Services Dropdown */}
+            <div
+              className="relative"
+              onMouseEnter={() => setOpenDropdown('services')}
+              onMouseLeave={() => setOpenDropdown(null)}
+            >
+              <button className="flex items-center gap-1 px-3 py-1.5 rounded-md hover:text-[#123C2D] hover:bg-gray-100 transition-colors">
+                <span>Our Services</span>
+                <ChevronDown className="w-3.5 h-3.5 opacity-70" />
+              </button>
+              {openDropdown === 'services' && (
+                <div className="absolute top-full left-0 w-52 bg-white shadow-xl rounded-lg border border-gray-100 py-2 mt-1 z-50">
+                  <Link
+                    href="/safety-guide"
+                    className="block px-4 py-2 text-xs text-gray-700 hover:bg-[#F7F3E9] hover:text-[#123C2D]"
+                  >
+                    Verified Local Guides
+                  </Link>
+                  <Link
+                    href="/explore"
+                    className="block px-4 py-2 text-xs text-gray-700 hover:bg-[#F7F3E9] hover:text-[#123C2D]"
+                  >
+                    Custom Itinerary Builder
+                  </Link>
+                  <Link
+                    href="/safety-guide"
+                    className="block px-4 py-2 text-xs text-gray-700 hover:bg-[#F7F3E9] hover:text-[#123C2D]"
+                  >
+                    24/7 Universal Safety & SOS
+                  </Link>
+                </div>
+              )}
+            </div>
+
+            {/* Blog */}
             <Link
-              href="/explore"
-              className="hover:text-[#B99550] transition-colors relative py-1 after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-[#B99550] after:scale-x-0 hover:after:scale-x-100 after:transition-transform"
+              href="/blog"
+              className="px-3 py-1.5 rounded-md hover:text-[#123C2D] hover:bg-gray-100 transition-colors"
             >
-              Experiences
+              Blog
             </Link>
-            <Link
-              href="/about"
-              className="hover:text-[#B99550] transition-colors relative py-1 after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-[#B99550] after:scale-x-0 hover:after:scale-x-100 after:transition-transform"
-            >
-              About
-            </Link>
+
+            {/* Contact Us */}
             <Link
               href="/contact"
-              className="hover:text-[#B99550] transition-colors relative py-1 after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-[#B99550] after:scale-x-0 hover:after:scale-x-100 after:transition-transform"
+              className="px-3 py-1.5 rounded-md hover:text-[#123C2D] hover:bg-gray-100 transition-colors"
             >
-              Contact
+              Contact Us
+            </Link>
+
+            {/* Search Icon Trigger */}
+            <Link
+              href="/explore"
+              className="p-2 rounded-full hover:bg-gray-100 text-gray-700 hover:text-[#123C2D] transition-colors ml-1"
+              aria-label="Search tours and destinations"
+            >
+              <Search className="w-4 h-4" />
             </Link>
           </nav>
 
           {/* Mobile Menu Trigger */}
-          <div className="md:hidden flex items-center">
+          <div className="lg:hidden flex items-center space-x-2">
+            <Link
+              href="/explore"
+              className="p-2 rounded-full text-gray-700 hover:bg-gray-100"
+              aria-label="Search"
+            >
+              <Search className="w-4 h-4" />
+            </Link>
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 rounded-lg text-[#F7F3E9] hover:bg-white/10 focus:outline-none"
+              className="p-2 rounded-md text-gray-700 hover:bg-gray-100 focus:outline-none"
               aria-label="Toggle navigation menu"
             >
-              {mobileMenuOpen ? <X className="w-7 h-7" /> : <Menu className="w-7 h-7" />}
+              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6 text-[#123C2D]" />}
             </button>
           </div>
         </div>
       </div>
 
-      {/* Mobile Drawer */}
+      {/* ─── Mobile Menu Drawer ─────────────────────────────────────── */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-[#123C2D]/98 backdrop-blur-xl border-b border-[#B99550]/30 px-6 py-6 space-y-4">
+        <div className="lg:hidden bg-white shadow-2xl border-b border-gray-200 px-6 py-5 space-y-3">
           <Link
-            href="/explore"
+            href="/"
             onClick={() => setMobileMenuOpen(false)}
-            className="block text-[#F7F3E9] text-base font-semibold tracking-wider uppercase hover:text-[#B99550]"
+            className="block text-[#123C2D] font-bold text-sm py-1"
           >
-            Destinations
-          </Link>
-          <Link
-            href="/explore"
-            onClick={() => setMobileMenuOpen(false)}
-            className="block text-[#F7F3E9] text-base font-semibold tracking-wider uppercase hover:text-[#B99550]"
-          >
-            Experiences
+            Home
           </Link>
           <Link
             href="/about"
             onClick={() => setMobileMenuOpen(false)}
-            className="block text-[#F7F3E9] text-base font-semibold tracking-wider uppercase hover:text-[#B99550]"
+            className="block text-gray-700 font-medium text-sm py-1 hover:text-[#123C2D]"
           >
-            About
+            About Us
+          </Link>
+          <Link
+            href="/explore"
+            onClick={() => setMobileMenuOpen(false)}
+            className="block text-gray-700 font-medium text-sm py-1 hover:text-[#123C2D]"
+          >
+            Explore Pakistan
+          </Link>
+          <Link
+            href="/explore"
+            onClick={() => setMobileMenuOpen(false)}
+            className="block text-gray-700 font-medium text-sm py-1 hover:text-[#123C2D]"
+          >
+            Tours & Travel
+          </Link>
+          <Link
+            href="/safety-guide"
+            onClick={() => setMobileMenuOpen(false)}
+            className="block text-gray-700 font-medium text-sm py-1 hover:text-[#123C2D]"
+          >
+            Our Services & Safety
           </Link>
           <Link
             href="/contact"
             onClick={() => setMobileMenuOpen(false)}
-            className="block text-[#F7F3E9] text-base font-semibold tracking-wider uppercase hover:text-[#B99550]"
+            className="block text-gray-700 font-medium text-sm py-1 hover:text-[#123C2D]"
           >
-            Contact
+            Contact Us
           </Link>
+          <div className="pt-3 border-t border-gray-100">
+            <Link
+              href="/explore"
+              onClick={() => setMobileMenuOpen(false)}
+              className="w-full text-center py-2.5 rounded-full bg-[#123C2D] text-white font-bold text-xs flex items-center justify-center gap-1.5"
+            >
+              <Plane className="w-3.5 h-3.5 text-[#B99550]" />
+              <span>Plan Your Trip</span>
+            </Link>
+          </div>
         </div>
       )}
     </header>
