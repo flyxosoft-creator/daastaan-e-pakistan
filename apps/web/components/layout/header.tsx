@@ -91,7 +91,7 @@ export function Header() {
           {/* Official Daastaan-e-Pakistan Horizontal Logo (Prominent, High-Res, Crisp) */}
           <Link href="/" className="flex items-center group py-0.5">
             <img
-              src="/images/logo-official-horizontal-dark.png"
+              src="/images/logos/Daastaan-e-Pakistan_Horizontal-Logo.png"
               alt="Daastaan-e-Pakistan — Discover Pakistan. Live Its Stories."
               className="h-12 sm:h-14 lg:h-16 w-auto object-contain transition-transform duration-300 group-hover:scale-[1.02]"
             />

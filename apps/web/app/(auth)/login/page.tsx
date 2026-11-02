@@ -47,7 +47,7 @@ export default function LoginPage() {
         <div className="flex flex-col items-center">
           <Link href="/">
             <img
-              src="/images/final-official-logo.png"
+              src="/images/logos/Daastaan-e-Pakistan_Primary-Heritage-Logo.png"
               alt="Daastaan-e-Pakistan — Official Logo"
               className="h-20 sm:h-24 w-auto object-contain mx-auto drop-shadow-md"
             />

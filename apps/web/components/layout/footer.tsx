@@ -90,7 +90,7 @@ export function Footer() {
           <div className="lg:col-span-2 space-y-4">
             <Link href="/" className="inline-block group">
               <img
-                src="/images/final-official-logo.png"
+                src="/images/logos/Daastaan-e-Pakistan_Primary-Heritage-Logo.png"
                 alt="Daastaan-e-Pakistan — Official Emblem"
                 className="h-20 sm:h-24 w-auto object-contain transition-transform group-hover:scale-105 drop-shadow-md"
               />
