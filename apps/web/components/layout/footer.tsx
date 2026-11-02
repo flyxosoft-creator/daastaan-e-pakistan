@@ -86,16 +86,16 @@ export function Footer() {
 
         {/* Main Columns */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 mb-12">
-          {/* Brand Info - Showcases Official Final Logo */}
+          {/* Brand Info - Same Official Horizontal Logo as Header */}
           <div className="lg:col-span-2 space-y-4">
             <Link href="/" className="inline-block group">
               <img
-                src="/images/logos/Daastaan-e-Pakistan_Primary-Heritage-Logo.png"
-                alt="Daastaan-e-Pakistan — Official Emblem"
-                className="h-20 sm:h-24 w-auto object-contain transition-transform group-hover:scale-105 drop-shadow-md"
+                src="/images/logos/Daastaan-e-Pakistan_Horizontal-Logo.png"
+                alt="Daastaan-e-Pakistan — Discover Pakistan. Live Its Stories."
+                className="h-14 sm:h-16 lg:h-18 w-auto object-contain transition-transform group-hover:scale-105"
               />
             </Link>
-            <p className="text-sm text-gray-600 max-w-sm leading-relaxed">
+            <p className="text-sm text-gray-700 max-w-sm leading-relaxed">
               Nationwide digital tourism marketplace connecting travellers with verified local guides.
               Discover authentic cultural, culinary, and natural experiences across Pakistan.
             </p>
@@ -104,7 +104,7 @@ export function Footer() {
                 href="https://instagram.com"
                 target="_blank"
                 rel="noreferrer"
-                className="w-8 h-8 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-700 hover:bg-[#123C2D] hover:text-white transition-colors shadow-sm"
+                className="w-8 h-8 rounded-full bg-[#FAF6ED] border border-[#DACFBF] flex items-center justify-center text-gray-700 hover:bg-[#123C2D] hover:text-white transition-colors shadow-2xs"
                 aria-label="Instagram"
               >
                 <Instagram className="w-4 h-4" />
@@ -113,7 +113,7 @@ export function Footer() {
                 href="https://facebook.com"
                 target="_blank"
                 rel="noreferrer"
-                className="w-8 h-8 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-700 hover:bg-[#123C2D] hover:text-white transition-colors shadow-sm"
+                className="w-8 h-8 rounded-full bg-[#FAF6ED] border border-[#DACFBF] flex items-center justify-center text-gray-700 hover:bg-[#123C2D] hover:text-white transition-colors shadow-2xs"
                 aria-label="Facebook"
               >
                 <Facebook className="w-4 h-4" />
@@ -122,7 +122,7 @@ export function Footer() {
                 href="https://twitter.com"
                 target="_blank"
                 rel="noreferrer"
-                className="w-8 h-8 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-700 hover:bg-[#123C2D] hover:text-white transition-colors shadow-sm"
+                className="w-8 h-8 rounded-full bg-[#FAF6ED] border border-[#DACFBF] flex items-center justify-center text-gray-700 hover:bg-[#123C2D] hover:text-white transition-colors shadow-2xs"
                 aria-label="Twitter"
               >
                 <Twitter className="w-4 h-4" />

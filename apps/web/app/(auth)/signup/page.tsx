@@ -56,13 +56,13 @@ export default function SignupPage() {
           <span>Back to Home</span>
         </Link>
 
-        {/* Official Final Logo */}
+        {/* Official Horizontal Logo */}
         <div className="flex flex-col items-center">
           <Link href="/">
             <img
-              src="/images/logos/Daastaan-e-Pakistan_Primary-Heritage-Logo.png"
+              src="/images/logos/Daastaan-e-Pakistan_Horizontal-Logo.png"
               alt="Daastaan-e-Pakistan — Official Logo"
-              className="h-20 sm:h-24 w-auto object-contain mx-auto drop-shadow-md"
+              className="h-14 sm:h-16 w-auto object-contain mx-auto transition-transform hover:scale-105"
             />
           </Link>
           <h2 className="mt-3 text-center font-serif text-2xl sm:text-3xl font-bold tracking-tight text-[#123C2D]">
