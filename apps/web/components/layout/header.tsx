@@ -30,24 +30,24 @@ export function Header() {
   }, []);
 
   return (
-    <header className="sticky top-0 left-0 right-0 z-50 shadow-md">
-      {/* ─── Top Contact Bar ────────────────────────────────────────── */}
-      <div className="bg-[#0B251B] text-white/90 text-xs border-b border-[#B99550]/20 py-2 px-4 sm:px-6 lg:px-8">
+    <header className="sticky top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-100 shadow-sm transition-all">
+      {/* ─── Light Subtle Top Utility Bar ────────────────────────────── */}
+      <div className="bg-[#FAF9F6] text-gray-600 text-[11px] sm:text-xs border-b border-gray-100 py-1.5 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           {/* Left: Contact Info */}
-          <div className="flex items-center space-x-3 sm:space-x-5 text-[11px] sm:text-xs">
+          <div className="flex items-center space-x-3 sm:space-x-5">
             <a
               href="mailto:enquiries@daastaanepakistan.org"
-              className="flex items-center gap-1.5 hover:text-[#B99550] transition-colors"
+              className="flex items-center gap-1.5 hover:text-[#123C2D] transition-colors"
             >
               <Mail className="w-3.5 h-3.5 text-[#B99550]" />
               <span className="hidden sm:inline">enquiries@daastaanepakistan.org</span>
-              <span className="sm:hidden">Email Us</span>
+              <span className="sm:hidden">Email</span>
             </a>
-            <span className="text-white/30">|</span>
+            <span className="text-gray-300">|</span>
             <a
               href="tel:+923324541952"
-              className="flex items-center gap-1.5 hover:text-[#B99550] transition-colors"
+              className="flex items-center gap-1.5 hover:text-[#123C2D] transition-colors"
             >
               <Phone className="w-3.5 h-3.5 text-[#B99550]" />
               <span>+92 332 4541952</span>
@@ -55,14 +55,18 @@ export function Header() {
             </a>
           </div>
 
-          {/* Right: Social Icons & Plan Your Trip */}
+          {/* Right: Certified Badge & Socials */}
           <div className="flex items-center space-x-3 sm:space-x-4">
-            <div className="flex items-center space-x-2.5">
+            <span className="hidden sm:inline-flex items-center gap-1 text-[11px] font-medium text-[#123C2D] bg-[#123C2D]/5 px-2.5 py-0.5 rounded-full border border-[#123C2D]/10">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#123C2D] animate-pulse" />
+              Verified Storytellers Nationwide
+            </span>
+            <div className="flex items-center space-x-2">
               <a
                 href="https://instagram.com"
                 target="_blank"
                 rel="noreferrer"
-                className="w-5 h-5 rounded-full bg-white/10 hover:bg-[#B99550] flex items-center justify-center text-white hover:text-[#0B251B] transition-all"
+                className="w-5 h-5 rounded-full bg-gray-100 hover:bg-[#123C2D] flex items-center justify-center text-gray-600 hover:text-white transition-all"
                 aria-label="Instagram"
               >
                 <Instagram className="w-3 h-3" />
@@ -71,26 +75,18 @@ export function Header() {
                 href="https://facebook.com"
                 target="_blank"
                 rel="noreferrer"
-                className="w-5 h-5 rounded-full bg-white/10 hover:bg-[#B99550] flex items-center justify-center text-white hover:text-[#0B251B] transition-all"
+                className="w-5 h-5 rounded-full bg-gray-100 hover:bg-[#123C2D] flex items-center justify-center text-gray-600 hover:text-white transition-all"
                 aria-label="Facebook"
               >
                 <Facebook className="w-3 h-3" />
               </a>
             </div>
-
-            <Link
-              href="/explore"
-              className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-[#B99550] hover:bg-[#a38240] text-[#0B251B] text-[11px] sm:text-xs font-bold tracking-wide transition-all shadow-sm"
-            >
-              <Plane className="w-3 h-3 text-[#0B251B]" />
-              <span>Plan Your Trip</span>
-            </Link>
           </div>
         </div>
       </div>
 
-      {/* ─── Main White Header / Navigation ─────────────────────────── */}
-      <div className="bg-white/98 backdrop-blur-md shadow-sm border-b border-gray-100 py-2.5 sm:py-3 px-4 sm:px-6 lg:px-8">
+      {/* ─── Main Clean Navigation Bar ──────────────────────────────── */}
+      <div className="py-2.5 sm:py-3.5 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           {/* Official Daastaan-e-Pakistan Horizontal Logo (Prominent, High-Res, Crisp) */}
           <Link href="/" className="flex items-center group py-0.5">
@@ -123,9 +119,11 @@ export function Header() {
 
             <Link
               href="/safety-guide"
-              className="transition-colors hover:text-[#123C2D] flex items-center gap-1"
+              className={`transition-colors hover:text-[#123C2D] ${
+                pathname === '/safety-guide' ? 'text-[#123C2D] font-bold border-b-2 border-[#123C2D] pb-1' : ''
+              }`}
             >
-              <span>UNIVERSAL SAFETY</span>
+              UNIVERSAL SAFETY
             </Link>
 
             <Link
@@ -158,9 +156,9 @@ export function Header() {
             </Link>
             <Link
               href="/explore"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#123C2D] hover:bg-[#1b4f3c] text-white text-xs font-bold tracking-wide transition-all shadow-sm hover:shadow"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-[#123C2D] to-[#1F5C45] hover:from-[#0B251B] hover:to-[#123C2D] text-white text-xs font-bold tracking-wide shadow-md shadow-[#123C2D]/15 hover:shadow-lg transition-all duration-300 hover:scale-[1.02]"
             >
-              <span>Book a Tour</span>
+              <span>Book a Tour ↗</span>
             </Link>
           </div>
 

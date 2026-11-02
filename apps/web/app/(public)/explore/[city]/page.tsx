@@ -6,7 +6,7 @@ import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
 import { PackageCard, PackageCardData } from '@/components/catalog/package-card';
 import { PackageTier } from '@dep/shared';
-import { MapPin, Shield, Star, Users, ArrowRight, Award } from 'lucide-react';
+import { MapPin, Shield, Star, Users, ArrowRight, Award, Compass, ChevronRight } from 'lucide-react';
 
 interface CityData {
   name: string;
@@ -25,7 +25,7 @@ const CITIES: Record<string, CityData> = {
     slug: 'lahore',
     urduName: 'لاہور',
     tagline: 'Heart of Mughal Heritage, Art & World-Class Street Food',
-    heroImage: 'https://images.unsplash.com/photo-1598890777032-bde835ba27c2?q=80&w=1600&auto=format&fit=crop',
+    heroImage: '/images/hero-lahore.jpg',
     description:
       'Known as the cultural capital of Pakistan, Lahore is a city alive with 2,000 years of living history. From the UNESCO World Heritage Lahore Fort and the breathtaking tilework of Wazir Khan Mosque to the bustling lanes of Gawalmandi Food Street, Lahore welcomes every traveller with open arms and unforgettable stories.',
     highlights: ['Walled City (Androon Lahore)', 'Badshahi Mosque & Fort', 'Gawalmandi Food Trail', 'Shalimar Gardens'],
@@ -78,11 +78,11 @@ const CITIES: Record<string, CityData> = {
     name: 'Islamabad',
     slug: 'islamabad',
     urduName: 'اسلام آباد',
-    tagline: 'Scenic Serenity, Modern Architecture & Margalla Wilderness',
-    heroImage: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=1600&auto=format&fit=crop',
+    tagline: 'Modern Capital Encircling Ancient Himalayan Margalla Ridges',
+    heroImage: 'https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?q=80&w=1600&auto=format&fit=crop',
     description:
-      'Pakistan’s capital nestled right at the foothills of the Himalayas. Islamabad offers a harmonious balance of pristine national parks, modern architecture like the majestic Faisal Mosque, and vibrant handicraft heritage at Lok Virsa Museum. The ideal starting point for nature lovers and families.',
-    highlights: ['Margalla Hills National Park', 'Faisal Mosque', 'Daman-e-Koh Overlook', 'Lok Virsa Folk Museum'],
+      'Set against the verdant Margalla Hills, Islamabad pairs cosmopolitan tranquility with centuries-old Potohar settlements. Home to the monumental Faisal Mosque, lush botanical gardens, and panoramic hiking ridges overlooking the capital basin.',
+    highlights: ['Faisal Mosque Architecture', 'Margalla Ridge Hiking Trails', 'Lok Virsa Folk Museum', 'Daman-e-Koh Panorama'],
     packages: [
       {
         id: '3',
@@ -140,33 +140,33 @@ export default function CityExplorePage({
   const cityData = CITIES[cityKey] || CITIES.lahore;
 
   return (
-    <div className="min-h-screen bg-[#F7F3E9] flex flex-col font-sans">
+    <div className="min-h-screen bg-white flex flex-col font-sans">
       <Header />
 
       {/* Hero Banner with Image */}
-      <section className="relative pt-32 pb-20 px-4 min-h-[460px] flex items-center bg-[#123C2D]">
+      <section className="relative min-h-[380px] sm:min-h-[440px] flex items-center bg-gray-950 overflow-hidden">
         <img
           src={cityData.heroImage}
           alt={cityData.name}
-          className="absolute inset-0 w-full h-full object-cover opacity-35"
+          className="absolute inset-0 w-full h-full object-cover opacity-45"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#123C2D] via-[#123C2D]/60 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-black/60" />
 
-        <div className="relative max-w-7xl mx-auto w-full text-center space-y-4">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#B99550]/20 border border-[#B99550]/40 text-[#B99550] text-xs font-semibold tracking-wider uppercase">
+        <div className="relative max-w-7xl mx-auto w-full text-center px-4 py-16 space-y-4">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/15 backdrop-blur-md border border-white/20 text-[#E5B558] text-xs font-semibold tracking-wider uppercase">
             <MapPin className="w-3.5 h-3.5" />
             <span>Destination City • {cityData.urduName}</span>
           </div>
 
-          <h1 className="font-serif text-4xl sm:text-6xl font-bold text-[#F7F3E9] tracking-tight">
+          <h1 className="font-serif text-4xl sm:text-6xl font-bold text-white tracking-tight">
             Explore {cityData.name}
           </h1>
 
-          <p className="text-[#B99550] font-serif text-lg sm:text-xl italic max-w-2xl mx-auto">
+          <p className="text-[#E5B558] font-serif text-lg sm:text-xl italic max-w-2xl mx-auto drop-shadow-sm">
             {cityData.tagline}
           </p>
 
-          <p className="text-gray-300 max-w-2xl mx-auto text-sm leading-relaxed pt-2">
+          <p className="text-white/90 max-w-2xl mx-auto text-sm leading-relaxed pt-2">
             {cityData.description}
           </p>
 
@@ -175,7 +175,7 @@ export default function CityExplorePage({
             {cityData.highlights.map((h, i) => (
               <span
                 key={i}
-                className="px-3 py-1 rounded-full bg-white/10 backdrop-blur-md text-xs text-[#F7F3E9] border border-white/15"
+                className="px-3.5 py-1 rounded-full bg-white/20 backdrop-blur-md text-xs text-white border border-white/25 font-medium"
               >
                 ✓ {h}
               </span>
@@ -185,53 +185,31 @@ export default function CityExplorePage({
       </section>
 
       {/* City Packages Section */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 flex-1 w-full space-y-12">
-        <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between pb-4 border-b border-[#B99550]/20 gap-4">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 flex-1 w-full space-y-10 bg-[#FAF9F5]">
+        <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between pb-4 border-b border-gray-200 gap-4 bg-white p-5 rounded-2xl shadow-xs">
           <div>
-            <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#123C2D]">
-              Featured Tours in {cityData.name}
+            <h2 className="font-serif text-2xl sm:text-3xl font-bold text-gray-900">
+              Featured Tours in{' '}
+              <span className="text-gradient-brand">{cityData.name}</span>
             </h2>
-            <p className="text-sm text-gray-600 mt-1">
+            <p className="text-xs sm:text-sm text-gray-600 mt-1">
               Handcrafted itineraries guided by vetted local storytellers and cultural experts.
             </p>
           </div>
 
           <Link
             href="/explore"
-            className="text-xs font-bold text-[#123C2D] hover:text-[#B99550] flex items-center gap-1.5 transition"
+            className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-[#123C2D] hover:text-[#B99550] transition-colors"
           >
             <span>View All Pakistan Tours</span>
-            <ArrowRight className="w-4 h-4 text-[#B99550]" />
+            <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {cityData.packages.map((pkg) => (
             <PackageCard key={pkg.id} pkg={pkg} />
           ))}
-        </div>
-
-        {/* Safety & Trust Banner for the City */}
-        <div className="bg-[#123C2D] text-[#F7F3E9] rounded-2xl p-8 border border-[#B99550]/30 shadow-lg flex flex-col md:flex-row items-center justify-between gap-6">
-          <div className="space-y-2 text-center md:text-left">
-            <div className="flex items-center justify-center md:justify-start gap-2 text-[#B99550] font-semibold text-sm">
-              <Shield className="w-4 h-4" />
-              <span>Universal Safety Guarantee in {cityData.name}</span>
-            </div>
-            <h3 className="font-serif text-xl sm:text-2xl font-bold">
-              Travel with Peace of Mind
-            </h3>
-            <p className="text-xs sm:text-sm text-gray-300 max-w-xl">
-              Every tour in {cityData.name} includes police-cleared CNIC-verified guides, real-time trip GPS tracking, emergency SOS alerts, and 24/7 dedicated support.
-            </p>
-          </div>
-
-          <Link
-            href="/safety-guide"
-            className="px-6 py-3 rounded-full bg-[#B99550] text-[#123C2D] hover:bg-[#c9a65f] font-semibold text-xs whitespace-nowrap shadow-md transition"
-          >
-            Learn How Safety Works
-          </Link>
         </div>
       </main>
 
@@ -239,4 +217,3 @@ export default function CityExplorePage({
     </div>
   );
 }
-

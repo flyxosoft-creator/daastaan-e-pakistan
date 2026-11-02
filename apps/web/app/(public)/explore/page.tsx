@@ -113,27 +113,29 @@ export default function ExplorePage() {
   });
 
   return (
-    <div className="min-h-screen bg-[#F7F3E9] flex flex-col font-sans">
+    <div className="min-h-screen bg-white flex flex-col font-sans">
       <Header />
 
-      {/* Hero Strip */}
-      <section className="bg-[#123C2D] text-[#F7F3E9] pt-32 pb-14 px-4 border-b border-[#B99550]/20">
-        <div className="max-w-7xl mx-auto text-center space-y-3">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#B99550]/20 text-[#B99550] text-xs font-semibold uppercase tracking-wider">
-            <Compass className="w-3.5 h-3.5" />
+      {/* Modern Light Hero Strip with Subtle Grid & Ambient Glow */}
+      <section className="relative pt-12 pb-12 sm:pt-16 sm:pb-16 px-4 bg-white border-b border-gray-100 overflow-hidden bg-tech-grid">
+        <div className="ambient-glow absolute inset-0 pointer-events-none" />
+        <div className="relative max-w-7xl mx-auto text-center space-y-4">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#123C2D]/5 border border-[#123C2D]/10 text-[#123C2D] text-xs font-semibold tracking-wide shadow-xs">
+            <Compass className="w-3.5 h-3.5 text-[#B99550]" />
             <span>Curated Tours by Verified Local Guides</span>
           </div>
-          <h1 className="font-serif text-3xl sm:text-5xl font-bold tracking-tight">
-            Explore Experiences Across Pakistan
+          <h1 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-gray-900">
+            Discover Experiences Across{' '}
+            <span className="text-gradient-brand">Pakistan</span>
           </h1>
-          <p className="text-gray-300 max-w-2xl mx-auto text-sm sm:text-base">
-            Every journey tells a story. Choose your destination, meet your guide, and experience Pakistan with authentic local warmth.
+          <p className="text-gray-600 max-w-2xl mx-auto text-sm sm:text-base leading-relaxed">
+            Every journey tells a story. Choose your destination, meet your guide, and experience Pakistan with authentic local warmth and safety.
           </p>
         </div>
       </section>
 
       {/* Main Content Area */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex-1 w-full">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-12 flex-1 w-full bg-[#FAF9F5]">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           {/* Filters Sidebar */}
           <div className="lg:col-span-1">
@@ -149,10 +151,10 @@ export default function ExplorePage() {
           {/* Results Grid */}
           <div className="lg:col-span-3 space-y-6">
             {/* Top Toolbar */}
-            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between pb-4 border-b border-gray-200 gap-4">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between pb-4 border-b border-gray-200 gap-4 bg-white p-4 rounded-xl shadow-xs">
               <span className="text-sm text-gray-700 font-medium">
                 Showing{' '}
-                <strong className="text-[#123C2D]">{filteredPackages.length}</strong>{' '}
+                <strong className="text-[#123C2D] font-bold">{filteredPackages.length}</strong>{' '}
                 curated tours
               </span>
 
@@ -161,7 +163,7 @@ export default function ExplorePage() {
                 <select
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value)}
-                  className="text-xs border border-gray-200 rounded-lg px-3 py-1.5 bg-white text-gray-800 focus:outline-none focus:border-[#B99550]"
+                  className="text-xs border border-gray-200 rounded-lg px-3 py-1.5 bg-[#FAF9F5] text-gray-800 focus:outline-none focus:border-[#B99550] cursor-pointer"
                 >
                   <option value="popular">Most Popular</option>
                   <option value="rating">Highest Rated</option>
@@ -178,7 +180,7 @@ export default function ExplorePage() {
                 ))}
               </div>
             ) : (
-              <div className="bg-white rounded-2xl p-12 text-center border border-gray-200 space-y-3">
+              <div className="bg-white rounded-2xl p-12 text-center border border-gray-200 space-y-3 shadow-xs">
                 <Sparkles className="w-10 h-10 text-[#B99550] mx-auto opacity-70" />
                 <h3 className="font-serif text-lg font-bold text-[#123C2D]">
                   No tours found for this selection
@@ -190,7 +192,7 @@ export default function ExplorePage() {
                   onClick={() =>
                     setFilters({ city: '', tier: '', duration: '', groupSize: '' })
                   }
-                  className="px-4 py-2 bg-[#123C2D] text-white text-xs font-semibold rounded-lg hover:bg-[#1c5540] transition"
+                  className="px-5 py-2.5 bg-[#123C2D] text-white text-xs font-bold rounded-full hover:bg-[#1c5540] transition shadow-sm"
                 >
                   Clear Filters
                 </button>
@@ -204,4 +206,3 @@ export default function ExplorePage() {
     </div>
   );
 }
-

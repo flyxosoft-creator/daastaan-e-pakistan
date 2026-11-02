@@ -19,12 +19,12 @@ export function Footer() {
   };
 
   return (
-    <footer className="bg-[#0D241B] text-[#F7F3E9] pt-16 pb-12 border-t border-[#B99550]/20">
+    <footer className="bg-[#FAF9F5] text-gray-700 pt-16 pb-12 border-t border-gray-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Top Preferences & Global Quick Access Bar (Moved from Header for Cleanliness) */}
-        <div className="mb-12 pb-8 border-b border-[#B99550]/20 flex flex-wrap items-center justify-between gap-4">
+        {/* Top Preferences & Global Quick Access Bar */}
+        <div className="mb-12 pb-8 border-b border-gray-200 flex flex-wrap items-center justify-between gap-4">
           <div className="flex flex-wrap items-center gap-3 sm:gap-4">
-            <span className="text-xs uppercase font-semibold tracking-wider text-[#B99550]">
+            <span className="text-xs uppercase font-bold tracking-wider text-[#123C2D]">
               Travel Preferences:
             </span>
 
@@ -33,11 +33,13 @@ export function Footer() {
               <select
                 value={selectedCity}
                 onChange={(e) => setSelectedCity(e.target.value)}
-                className="bg-[#123C2D] border border-[#B99550]/40 rounded-full px-3.5 py-1.5 text-xs text-[#F7F3E9] focus:outline-none focus:border-[#B99550] cursor-pointer"
+                className="bg-white border border-gray-300 hover:border-[#123C2D] rounded-full px-3.5 py-1.5 text-xs text-gray-800 focus:outline-none focus:border-[#123C2D] cursor-pointer shadow-sm"
                 aria-label="Select Destination City"
               >
                 <option value="Lahore">📍 Lahore Tours</option>
                 <option value="Islamabad">📍 Islamabad Tours</option>
+                <option value="Hunza">🏔️ Hunza & Gilgit</option>
+                <option value="Karachi">🌊 Karachi Tours</option>
               </select>
             </div>
 
@@ -46,7 +48,7 @@ export function Footer() {
               <select
                 value={selectedCurrency}
                 onChange={(e) => setSelectedCurrency(e.target.value)}
-                className="bg-[#123C2D] border border-[#B99550]/40 rounded-full px-3 py-1.5 text-xs text-[#F7F3E9] focus:outline-none focus:border-[#B99550] cursor-pointer"
+                className="bg-white border border-gray-300 hover:border-[#123C2D] rounded-full px-3 py-1.5 text-xs text-gray-800 focus:outline-none focus:border-[#123C2D] cursor-pointer shadow-sm"
                 aria-label="Select Currency"
               >
                 <option value="PKR">PKR (₨)</option>
@@ -60,22 +62,22 @@ export function Footer() {
             {/* Universal Safety Protocol Link */}
             <Link
               href="/safety-guide"
-              className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#123C2D] border border-[#B99550]/40 text-[#B99550] text-xs font-medium hover:bg-[#B99550]/20 transition"
+              className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white border border-emerald-900/20 text-[#123C2D] text-xs font-semibold hover:bg-emerald-50/50 transition shadow-sm"
             >
-              <Shield className="w-3.5 h-3.5" />
+              <Shield className="w-3.5 h-3.5 text-[#B99550]" />
               <span>Universal Safety & SOS</span>
             </Link>
 
             {/* Member Sign In / Sign Up */}
             <Link
               href="/login"
-              className="text-xs font-semibold px-4 py-1.5 rounded-full border border-white/30 text-white hover:bg-white/10 transition"
+              className="text-xs font-semibold px-4 py-1.5 rounded-full border border-gray-300 text-gray-700 hover:bg-white transition"
             >
               Sign In
             </Link>
             <Link
               href="/signup"
-              className="text-xs font-bold px-4 py-1.5 rounded-full bg-[#B99550] text-[#123C2D] hover:bg-[#c9a65f] transition uppercase tracking-wider"
+              className="text-xs font-bold px-4 py-1.5 rounded-full bg-[#123C2D] text-white hover:bg-[#0B251B] transition uppercase tracking-wider shadow-sm"
             >
               Join Daastaan
             </Link>
@@ -90,19 +92,19 @@ export function Footer() {
               <img
                 src="/images/final-official-logo.png"
                 alt="Daastaan-e-Pakistan — Official Emblem"
-                className="h-20 sm:h-24 w-auto object-contain transition-transform group-hover:scale-105 drop-shadow-xl"
+                className="h-20 sm:h-24 w-auto object-contain transition-transform group-hover:scale-105 drop-shadow-md"
               />
             </Link>
-            <p className="text-sm text-gray-300 max-w-sm leading-relaxed">
+            <p className="text-sm text-gray-600 max-w-sm leading-relaxed">
               Nationwide digital tourism marketplace connecting travellers with verified local guides.
               Discover authentic cultural, culinary, and natural experiences across Pakistan.
             </p>
-            <div className="flex items-center space-x-4 pt-2">
+            <div className="flex items-center space-x-3 pt-2">
               <a
                 href="https://instagram.com"
                 target="_blank"
                 rel="noreferrer"
-                className="w-9 h-9 rounded-full bg-[#123C2D] flex items-center justify-center text-[#B99550] hover:bg-[#B99550] hover:text-[#123C2D] transition-colors"
+                className="w-8 h-8 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-700 hover:bg-[#123C2D] hover:text-white transition-colors shadow-sm"
                 aria-label="Instagram"
               >
                 <Instagram className="w-4 h-4" />
@@ -111,7 +113,7 @@ export function Footer() {
                 href="https://facebook.com"
                 target="_blank"
                 rel="noreferrer"
-                className="w-9 h-9 rounded-full bg-[#123C2D] flex items-center justify-center text-[#B99550] hover:bg-[#B99550] hover:text-[#123C2D] transition-colors"
+                className="w-8 h-8 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-700 hover:bg-[#123C2D] hover:text-white transition-colors shadow-sm"
                 aria-label="Facebook"
               >
                 <Facebook className="w-4 h-4" />
@@ -120,7 +122,7 @@ export function Footer() {
                 href="https://twitter.com"
                 target="_blank"
                 rel="noreferrer"
-                className="w-9 h-9 rounded-full bg-[#123C2D] flex items-center justify-center text-[#B99550] hover:bg-[#B99550] hover:text-[#123C2D] transition-colors"
+                className="w-8 h-8 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-700 hover:bg-[#123C2D] hover:text-white transition-colors shadow-sm"
                 aria-label="Twitter"
               >
                 <Twitter className="w-4 h-4" />
@@ -130,58 +132,58 @@ export function Footer() {
 
           {/* Quick Links */}
           <div className="space-y-3">
-            <h4 className="text-sm font-semibold uppercase tracking-wider text-[#B99550]">
+            <h4 className="text-xs font-bold uppercase tracking-wider text-[#123C2D]">
               Destinations
             </h4>
-            <ul className="space-y-2 text-sm text-gray-300">
+            <ul className="space-y-2 text-sm text-gray-600">
               <li>
-                <Link href="/explore/lahore" className="hover:text-[#B99550] transition">
+                <Link href="/explore/lahore" className="hover:text-[#123C2D] transition font-medium">
                   Lahore (Walled City)
                 </Link>
               </li>
               <li>
-                <Link href="/explore/islamabad" className="hover:text-[#B99550] transition">
+                <Link href="/explore/islamabad" className="hover:text-[#123C2D] transition font-medium">
                   Islamabad & Margalla
                 </Link>
               </li>
               <li>
-                <Link href="/explore" className="hover:text-[#B99550] transition">
-                  All Tours & Packages
+                <Link href="/explore?region=northern" className="hover:text-[#123C2D] transition font-medium">
+                  Hunza & Gilgit-Baltistan
                 </Link>
               </li>
               <li>
-                <span className="text-gray-500 text-xs flex items-center gap-1">
-                  Gilgit-Baltistan (Coming Soon)
-                </span>
+                <Link href="/explore?region=coastal" className="hover:text-[#123C2D] transition font-medium">
+                  Karachi & Coastal Trails
+                </Link>
+              </li>
+              <li>
+                <Link href="/explore" className="hover:text-[#123C2D] transition font-medium">
+                  All Tours & Packages
+                </Link>
               </li>
             </ul>
           </div>
 
           {/* About & Trust */}
           <div className="space-y-3">
-            <h4 className="text-sm font-semibold uppercase tracking-wider text-[#B99550]">
-              Company
+            <h4 className="text-xs font-bold uppercase tracking-wider text-[#123C2D]">
+              Company & Care
             </h4>
-            <ul className="space-y-2 text-sm text-gray-300">
+            <ul className="space-y-2 text-sm text-gray-600">
               <li>
-                <Link href="/about" className="hover:text-[#B99550] transition">
+                <Link href="/about" className="hover:text-[#123C2D] transition font-medium">
                   About Us & Story
                 </Link>
               </li>
               <li>
-                <Link href="/safety-guide" className="hover:text-[#B99550] transition flex items-center gap-1.5">
+                <Link href="/safety-guide" className="hover:text-[#123C2D] transition font-medium flex items-center gap-1.5">
                   <Shield className="w-3.5 h-3.5 text-[#B99550]" />
                   Universal Safety & SOS
                 </Link>
               </li>
               <li>
-                <Link href="/faq" className="hover:text-[#B99550] transition">
-                  FAQ & Guide
-                </Link>
-              </li>
-              <li>
-                <Link href="/contact" className="hover:text-[#B99550] transition">
-                  Contact Us
+                <Link href="/contact" className="hover:text-[#123C2D] transition font-medium">
+                  Contact Support
                 </Link>
               </li>
             </ul>
@@ -189,14 +191,14 @@ export function Footer() {
 
           {/* Newsletter Form */}
           <div className="space-y-3">
-            <h4 className="text-sm font-semibold uppercase tracking-wider text-[#B99550]">
+            <h4 className="text-xs font-bold uppercase tracking-wider text-[#123C2D]">
               Stay Inspired
             </h4>
-            <p className="text-xs text-gray-300">
+            <p className="text-xs text-gray-600 leading-relaxed">
               Get stories, cultural tips, and seasonal trip recommendations right to your inbox.
             </p>
             {subscribed ? (
-              <div className="p-3 bg-[#123C2D] border border-[#B99550]/40 rounded-lg text-xs text-[#B99550]">
+              <div className="p-3 bg-emerald-50 border border-emerald-200 rounded-lg text-xs text-[#123C2D] font-medium">
                 Shukriya! You are now subscribed to Daastaan stories.
               </div>
             ) : (
@@ -208,11 +210,11 @@ export function Footer() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="Enter your email"
-                    className="w-full bg-[#123C2D] border border-[#B99550]/30 rounded-lg px-3 py-2 text-xs text-[#F7F3E9] placeholder-gray-400 focus:outline-none focus:border-[#B99550]"
+                    className="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-xs text-gray-800 placeholder-gray-400 focus:outline-none focus:border-[#123C2D] shadow-sm"
                   />
                   <button
                     type="submit"
-                    className="absolute right-1 top-1 bottom-1 px-3 bg-[#B99550] hover:bg-[#c9a65f] text-[#123C2D] rounded-md text-xs font-semibold flex items-center transition"
+                    className="absolute right-1 top-1 bottom-1 px-3 bg-[#123C2D] hover:bg-[#0B251B] text-white rounded-md text-xs font-semibold flex items-center transition"
                   >
                     <ArrowRight className="w-3.5 h-3.5" />
                   </button>
@@ -226,16 +228,16 @@ export function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-8 border-t border-[#B99550]/15 flex flex-col sm:flex-row items-center justify-between text-xs text-gray-400 gap-4">
+        <div className="pt-8 border-t border-gray-200 flex flex-col sm:flex-row items-center justify-between text-xs text-gray-500 gap-4">
           <p>© 2026 Daastaan-e-Pakistan. All rights reserved. Discover Pakistan. Live Its Stories.</p>
           <div className="flex space-x-6">
-            <Link href="/terms" className="hover:text-[#B99550] transition">
-              Terms of Service
+            <Link href="/safety-guide" className="hover:text-[#123C2D] transition">
+              Universal Safety
             </Link>
-            <Link href="/privacy" className="hover:text-[#B99550] transition">
+            <Link href="/about" className="hover:text-[#123C2D] transition">
               Privacy Policy
             </Link>
-            <Link href="/contact" className="hover:text-[#B99550] transition">
+            <Link href="/contact" className="hover:text-[#123C2D] transition">
               Support
             </Link>
           </div>

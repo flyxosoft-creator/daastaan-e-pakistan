@@ -45,8 +45,9 @@ export default function SignupPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F7F3E9] flex flex-col justify-center py-12 sm:px-6 lg:px-8 font-sans">
-      <div className="sm:mx-auto sm:w-full sm:max-w-md space-y-3">
+    <div className="min-h-screen bg-white bg-tech-grid relative flex flex-col justify-center py-12 sm:px-6 lg:px-8 font-sans">
+      <div className="ambient-glow absolute inset-0 pointer-events-none" />
+      <div className="relative z-10 sm:mx-auto sm:w-full sm:max-w-md space-y-3">
         <Link
           href="/"
           className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#123C2D] hover:text-[#B99550] transition mx-auto"
