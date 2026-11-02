@@ -76,7 +76,7 @@ function AnimatedSection({
   );
 }
 
-/* ─── 1. Hero Section (Matching Official Montage Mockup) ───────────── */
+/* ─── 1. Hero Section (Clean, Modern, Non-Technical Friendly) ──────── */
 function HeroSection() {
   const router = useRouter();
   const [searchQuery, setSearchQuery] = useState('');
@@ -90,111 +90,158 @@ function HeroSection() {
     }
   };
 
+  const handleQuickSearch = (term: string) => {
+    router.push(`/explore?q=${encodeURIComponent(term)}`);
+  };
+
   return (
-    <section className="relative pt-[104px] sm:pt-[112px] bg-[#EAE8E2] overflow-hidden">
-      {/* Background Panoramic Montage of Pakistan (Faisal Mosque, Karakoram, Lahore Fort, Truck Art) */}
-      <div className="relative min-h-[460px] sm:min-h-[520px] lg:min-h-[580px] w-full flex items-center justify-center">
+    <section className="relative bg-[#0F2F23] overflow-hidden">
+      {/* High-Resolution Clean Photographic Background of Pakistan */}
+      <div className="relative min-h-[500px] sm:min-h-[560px] lg:min-h-[620px] w-full flex items-center justify-center">
         <div className="absolute inset-0 z-0">
           <img
-            src="/images/hero-pakistan-montage.jpg"
-            alt="Daastaan e Pakistan — Faisal Mosque, Karakoram Mountains, Lahore Fort & Truck Art"
-            className="w-full h-full object-cover object-center"
+            src="/images/hero-cinematic-pakistan.jpg"
+            alt="Scenic Mountains and Alpine Waters of Northern Pakistan"
+            className="w-full h-full object-cover object-center brightness-[0.88]"
           />
-          {/* Subtle gradient to ensure flawless readability */}
-          <div className="absolute inset-0 bg-gradient-to-b from-white/40 via-transparent to-white/60" />
+          {/* Subtle soft gradient scrim to ensure text and search bar pop cleanly */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-black/40" />
         </div>
 
-        {/* Center Content Overlay */}
-        <div className="relative z-10 max-w-4xl mx-auto text-center px-4 sm:px-6 py-12 sm:py-16">
+        {/* Center Content: Clean, Easy-to-Read, Non-Technical User Friendly */}
+        <div className="relative z-10 max-w-4xl mx-auto text-center px-4 sm:px-6 py-12 sm:py-16 space-y-6">
+          {/* Trust Badge */}
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-white text-xs font-semibold tracking-wide shadow-sm"
+          >
+            <ShieldCheck className="w-4 h-4 text-[#E5B558]" />
+            <span>Verified Guides • 24/7 Universal Safety • Handcrafted Itineraries</span>
+          </motion.div>
+
+          {/* Main Headline */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="space-y-3"
+            transition={{ duration: 0.7, delay: 0.1 }}
+            className="space-y-2"
           >
-            {/* Title with Calligraphic Charm */}
-            <h1 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold text-[#123C2D] tracking-tight drop-shadow-sm">
-              Daastaan e Pakistan
+            <h1 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold text-white tracking-tight drop-shadow-[0_4px_16px_rgba(0,0,0,0.6)]">
+              Discover Pakistan.{' '}
+              <span className="text-[#E5B558]">Live Its Stories.</span>
             </h1>
 
-            {/* Golden Swoosh Underline */}
-            <div className="w-44 sm:w-60 h-1.5 bg-gradient-to-r from-transparent via-[#B99550] to-transparent rounded-full mx-auto" />
-
             {/* Subtitle */}
-            <p className="font-serif italic text-sm sm:text-lg lg:text-xl text-[#292D2A] max-w-2xl mx-auto leading-relaxed drop-shadow-sm pt-1">
-              Discover the Land, Experience the Culture,
-              <br className="hidden sm:inline" /> Be a Part of Our Story
+            <p className="font-sans text-sm sm:text-base lg:text-lg text-white/95 max-w-2xl mx-auto leading-relaxed drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)] font-normal">
+              Connect with verified local storytellers for authentic cultural walks, legendary food trails, and breathtaking mountain expeditions.
             </p>
           </motion.div>
 
-          {/* Interactive Search Bar Matching Mockup */}
-          <motion.form
+          {/* Big, Intuitive, Easy-to-Use Search Bar */}
+          <motion.div
             initial={{ opacity: 0, y: 25 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            onSubmit={handleSearch}
-            className="max-w-2xl mx-auto mt-6 sm:mt-8 w-full"
+            className="max-w-2xl mx-auto w-full pt-2"
           >
-            <div className="relative flex items-center bg-white rounded-full shadow-2xl p-1.5 sm:p-2 border border-gray-200/90 hover:border-[#123C2D]/50 transition-all">
-              <Search className="w-5 h-5 text-gray-400 ml-3.5 shrink-0" />
+            <form
+              onSubmit={handleSearch}
+              className="relative flex items-center bg-white rounded-full shadow-2xl p-1.5 sm:p-2 border-2 border-white hover:border-[#E5B558] transition-all"
+            >
+              <Search className="w-5 h-5 text-gray-400 ml-4 shrink-0" />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search Tours, Destinations or Experiences..."
-                className="w-full bg-transparent px-3.5 py-2 sm:py-2.5 text-xs sm:text-sm text-gray-800 placeholder-gray-500 focus:outline-none"
+                placeholder="Where to? (e.g. Lahore, Hunza, Swat, Margalla Hills...)"
+                className="w-full bg-transparent px-3 py-2 text-xs sm:text-sm text-gray-800 placeholder-gray-500 focus:outline-none font-medium"
               />
               <button
                 type="submit"
-                className="px-6 sm:px-8 py-2.5 sm:py-3 rounded-full bg-[#123C2D] hover:bg-[#0c2b20] text-white font-semibold text-xs sm:text-sm tracking-wide transition shadow-md hover:shadow-lg shrink-0"
+                className="px-6 sm:px-8 py-2.5 sm:py-3 rounded-full bg-[#123C2D] hover:bg-[#B99550] hover:text-[#123C2D] text-white font-bold text-xs sm:text-sm tracking-wide transition-all shadow-md shrink-0"
               >
-                Search
+                Search Tours
+              </button>
+            </form>
+
+            {/* Quick Clickable Suggestions for Non-Technical Users */}
+            <div className="flex flex-wrap items-center justify-center gap-2 pt-3 text-xs text-white/90 drop-shadow">
+              <span className="text-white/70 font-medium">Quick search:</span>
+              <button
+                type="button"
+                onClick={() => handleQuickSearch('Lahore')}
+                className="px-2.5 py-0.5 rounded-full bg-white/15 hover:bg-white/30 backdrop-blur-sm border border-white/20 transition-all text-white"
+              >
+                📍 Lahore Walled City
+              </button>
+              <button
+                type="button"
+                onClick={() => handleQuickSearch('Hunza')}
+                className="px-2.5 py-0.5 rounded-full bg-white/15 hover:bg-white/30 backdrop-blur-sm border border-white/20 transition-all text-white"
+              >
+                🏔️ Hunza Valley
+              </button>
+              <button
+                type="button"
+                onClick={() => handleQuickSearch('Food')}
+                className="px-2.5 py-0.5 rounded-full bg-white/15 hover:bg-white/30 backdrop-blur-sm border border-white/20 transition-all text-white"
+              >
+                🍲 Food Trails
+              </button>
+              <button
+                type="button"
+                onClick={() => handleQuickSearch('Islamabad')}
+                className="px-2.5 py-0.5 rounded-full bg-white/15 hover:bg-white/30 backdrop-blur-sm border border-white/20 transition-all text-white"
+              >
+                🌲 Margalla Hills
               </button>
             </div>
-          </motion.form>
+          </motion.div>
         </div>
       </div>
 
       {/* ─── Feature Highlights Bar (Directly below hero) ─────────────── */}
-      <div className="bg-[#F6F3EC] border-y border-[#E2DCce] py-4 sm:py-5 px-4 sm:px-6 lg:px-8 shadow-inner">
+      <div className="bg-[#F7F4EE] border-t border-b border-[#E2DCce] py-5 px-4 sm:px-6 lg:px-8 shadow-inner">
         <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-5 divide-y md:divide-y-0 md:divide-x divide-[#D8D2C2] text-[#123C2D]">
           {/* 1. Breathtaking Landscapes */}
           <div className="flex items-center justify-center gap-3 p-3 text-left">
             <Mountain className="w-7 h-7 text-[#123C2D] shrink-0" />
-            <div className="text-xs sm:text-sm font-bold leading-tight">
-              Breathtaking<br />Landscapes
+            <div className="text-xs sm:text-sm font-bold leading-tight text-[#123C2D]">
+              Breathtaking<br /><span className="text-[#B99550] font-semibold text-[11px] sm:text-xs">Landscapes</span>
             </div>
           </div>
 
           {/* 2. Rich Cultural Heritage */}
           <div className="flex items-center justify-center gap-3 p-3 text-left">
             <Landmark className="w-7 h-7 text-[#123C2D] shrink-0" />
-            <div className="text-xs sm:text-sm font-bold leading-tight">
-              Rich Cultural<br />Heritage
+            <div className="text-xs sm:text-sm font-bold leading-tight text-[#123C2D]">
+              Rich Cultural<br /><span className="text-[#B99550] font-semibold text-[11px] sm:text-xs">Heritage</span>
             </div>
           </div>
 
           {/* 3. Vibrant Traditions */}
           <div className="flex items-center justify-center gap-3 p-3 text-left">
             <Sparkles className="w-7 h-7 text-[#123C2D] shrink-0" />
-            <div className="text-xs sm:text-sm font-bold leading-tight">
-              Vibrant<br />Traditions
+            <div className="text-xs sm:text-sm font-bold leading-tight text-[#123C2D]">
+              Vibrant<br /><span className="text-[#B99550] font-semibold text-[11px] sm:text-xs">Traditions</span>
             </div>
           </div>
 
           {/* 4. Warm Hospitality */}
           <div className="flex items-center justify-center gap-3 p-3 text-left">
             <Users className="w-7 h-7 text-[#123C2D] shrink-0" />
-            <div className="text-xs sm:text-sm font-bold leading-tight">
-              Warm<br />Hospitality
+            <div className="text-xs sm:text-sm font-bold leading-tight text-[#123C2D]">
+              Warm<br /><span className="text-[#B99550] font-semibold text-[11px] sm:text-xs">Hospitality</span>
             </div>
           </div>
 
           {/* 5. Unforgettable Journeys */}
           <div className="flex items-center justify-center gap-3 p-3 text-left col-span-2 md:col-span-1 border-t md:border-t-0">
             <Globe className="w-7 h-7 text-[#123C2D] shrink-0" />
-            <div className="text-xs sm:text-sm font-bold leading-tight">
-              Unforgettable<br />Journeys
+            <div className="text-xs sm:text-sm font-bold leading-tight text-[#123C2D]">
+              Unforgettable<br /><span className="text-[#B99550] font-semibold text-[11px] sm:text-xs">Journeys</span>
             </div>
           </div>
         </div>

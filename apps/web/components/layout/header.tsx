@@ -30,9 +30,9 @@ export function Header() {
   }, []);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+    <header className="sticky top-0 left-0 right-0 z-50 shadow-md">
       {/* ─── Top Contact Bar ────────────────────────────────────────── */}
-      <div className="bg-[#0B251B] text-white/90 text-xs border-b border-[#B99550]/20 py-1.5 px-4 sm:px-6 lg:px-8">
+      <div className="bg-[#0B251B] text-white/90 text-xs border-b border-[#B99550]/20 py-2 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           {/* Left: Contact Info */}
           <div className="flex items-center space-x-3 sm:space-x-5 text-[11px] sm:text-xs">
@@ -62,7 +62,7 @@ export function Header() {
                 href="https://instagram.com"
                 target="_blank"
                 rel="noreferrer"
-                className="w-5 h-5 rounded-full bg-gradient-to-tr from-amber-500 via-rose-500 to-purple-600 flex items-center justify-center text-white hover:opacity-90 transition-opacity"
+                className="w-5 h-5 rounded-full bg-white/10 hover:bg-[#B99550] flex items-center justify-center text-white hover:text-[#0B251B] transition-all"
                 aria-label="Instagram"
               >
                 <Instagram className="w-3 h-3" />
@@ -71,7 +71,7 @@ export function Header() {
                 href="https://facebook.com"
                 target="_blank"
                 rel="noreferrer"
-                className="w-5 h-5 rounded-full bg-[#1877F2] flex items-center justify-center text-white hover:opacity-90 transition-opacity"
+                className="w-5 h-5 rounded-full bg-white/10 hover:bg-[#B99550] flex items-center justify-center text-white hover:text-[#0B251B] transition-all"
                 aria-label="Facebook"
               >
                 <Facebook className="w-3 h-3" />
@@ -80,7 +80,7 @@ export function Header() {
 
             <Link
               href="/explore"
-              className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#B99550] hover:bg-[#a38240] text-[#0B251B] text-[11px] sm:text-xs font-bold tracking-wide transition-all shadow-sm"
+              className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-[#B99550] hover:bg-[#a38240] text-[#0B251B] text-[11px] sm:text-xs font-bold tracking-wide transition-all shadow-sm"
             >
               <Plane className="w-3 h-3 text-[#0B251B]" />
               <span>Plan Your Trip</span>
@@ -90,92 +90,64 @@ export function Header() {
       </div>
 
       {/* ─── Main White Header / Navigation ─────────────────────────── */}
-      <div className="bg-white/98 backdrop-blur-md shadow-md border-b border-gray-100 py-2 sm:py-2.5 px-4 sm:px-6 lg:px-8">
+      <div className="bg-white/98 backdrop-blur-md shadow-sm border-b border-gray-100 py-3 sm:py-3.5 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
-          {/* Logo with Pakistan Map & Landmarks */}
+          {/* Official Daastaan-e-Pakistan Horizontal Logo */}
           <Link href="/" className="flex items-center group py-0.5">
             <img
-              src="/images/logo-map-pakistan.png"
-              alt="Daastaan e Pakistan — Discover • Explore • Experience"
-              className="h-12 sm:h-14 lg:h-16 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+              src="/images/logo-official-horizontal-dark.png"
+              alt="Daastaan-e-Pakistan — Discover Pakistan. Live Its Stories."
+              className="h-10 sm:h-12 lg:h-14 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
             />
           </Link>
 
           {/* Desktop Nav Items */}
-          <nav className="hidden lg:flex items-center space-x-1 xl:space-x-2 text-xs xl:text-sm font-medium text-gray-800">
+          <nav className="hidden lg:flex items-center space-x-1 xl:space-x-2 text-xs xl:text-sm font-semibold text-gray-800">
             {/* Home Pill */}
             <Link
               href="/"
-              className={`px-3.5 py-1.5 rounded-md font-semibold transition-colors ${
+              className={`px-3.5 py-2 rounded-full transition-colors ${
                 pathname === '/'
-                  ? 'bg-[#123C2D] text-white'
+                  ? 'bg-[#123C2D] text-white shadow-sm'
                   : 'text-gray-700 hover:text-[#123C2D] hover:bg-gray-100'
               }`}
             >
               Home
             </Link>
 
-            {/* About Us Dropdown */}
+            {/* Destinations Dropdown */}
             <div
               className="relative"
-              onMouseEnter={() => setOpenDropdown('about')}
+              onMouseEnter={() => setOpenDropdown('destinations')}
               onMouseLeave={() => setOpenDropdown(null)}
             >
-              <button className="flex items-center gap-1 px-3 py-1.5 rounded-md hover:text-[#123C2D] hover:bg-gray-100 transition-colors">
-                <span>About Us</span>
-                <ChevronDown className="w-3.5 h-3.5 opacity-70" />
-              </button>
-              {openDropdown === 'about' && (
-                <div className="absolute top-full left-0 w-48 bg-white shadow-xl rounded-lg border border-gray-100 py-2 mt-1 z-50">
-                  <Link
-                    href="/about"
-                    className="block px-4 py-2 text-xs text-gray-700 hover:bg-[#F7F3E9] hover:text-[#123C2D]"
-                  >
-                    Our Story & Mission
-                  </Link>
-                  <Link
-                    href="/safety-guide"
-                    className="block px-4 py-2 text-xs text-gray-700 hover:bg-[#F7F3E9] hover:text-[#123C2D]"
-                  >
-                    Universal Safety Protocol
-                  </Link>
-                </div>
-              )}
-            </div>
-
-            {/* Explore Pakistan Dropdown */}
-            <div
-              className="relative"
-              onMouseEnter={() => setOpenDropdown('explore')}
-              onMouseLeave={() => setOpenDropdown(null)}
-            >
-              <button className="flex items-center gap-1 px-3 py-1.5 rounded-md hover:text-[#123C2D] hover:bg-gray-100 transition-colors">
+              <button className="flex items-center gap-1 px-3 py-2 rounded-md hover:text-[#123C2D] hover:bg-gray-100 transition-colors">
                 <span>Explore Pakistan</span>
-                <ChevronDown className="w-3.5 h-3.5 opacity-70" />
+                <ChevronDown className="w-3.5 h-3.5 opacity-60" />
               </button>
-              {openDropdown === 'explore' && (
-                <div className="absolute top-full left-0 w-52 bg-white shadow-xl rounded-lg border border-gray-100 py-2 mt-1 z-50">
+              {openDropdown === 'destinations' && (
+                <div className="absolute top-full left-0 w-52 bg-white shadow-xl rounded-xl border border-gray-100 py-2 mt-1 z-50 animate-in fade-in slide-in-from-top-2 duration-200">
                   <Link
                     href="/explore/lahore"
-                    className="block px-4 py-2 text-xs text-gray-700 hover:bg-[#F7F3E9] hover:text-[#123C2D]"
+                    className="block px-4 py-2.5 text-xs text-gray-700 hover:bg-[#F7F3E9] hover:text-[#123C2D] font-medium"
                   >
                     📍 Lahore (Walled City)
                   </Link>
                   <Link
                     href="/explore/islamabad"
-                    className="block px-4 py-2 text-xs text-gray-700 hover:bg-[#F7F3E9] hover:text-[#123C2D]"
+                    className="block px-4 py-2.5 text-xs text-gray-700 hover:bg-[#F7F3E9] hover:text-[#123C2D] font-medium"
                   >
                     📍 Islamabad & Margalla
                   </Link>
                   <Link
                     href="/explore?region=northern"
-                    className="block px-4 py-2 text-xs text-gray-700 hover:bg-[#F7F3E9] hover:text-[#123C2D]"
+                    className="block px-4 py-2.5 text-xs text-gray-700 hover:bg-[#F7F3E9] hover:text-[#123C2D] font-medium"
                   >
-                    🏔️ Northern Pakistan
+                    🏔️ Northern Valleys
                   </Link>
                   <Link
                     href="/explore?region=coastal"
-                    className="block px-4 py-2 text-xs text-gray-700 hover:bg-[#F7F3E9] hover:text-[#123C2D]"
+                    className="block px-4 py-2.5 text-xs text-gray-700 hover:bg-[#F7F3E9] hover:text-[#123C2D] font-medium"
                   >
                     🌊 Coastal Beauty
                   </Link>
@@ -183,94 +155,68 @@ export function Header() {
               )}
             </div>
 
-            {/* Tours & Travel Dropdown */}
+            {/* Tours & Experiences Dropdown */}
             <div
               className="relative"
               onMouseEnter={() => setOpenDropdown('tours')}
               onMouseLeave={() => setOpenDropdown(null)}
             >
-              <button className="flex items-center gap-1 px-3 py-1.5 rounded-md hover:text-[#123C2D] hover:bg-gray-100 transition-colors">
+              <button className="flex items-center gap-1 px-3 py-2 rounded-md hover:text-[#123C2D] hover:bg-gray-100 transition-colors">
                 <span>Tours & Travel</span>
-                <ChevronDown className="w-3.5 h-3.5 opacity-70" />
+                <ChevronDown className="w-3.5 h-3.5 opacity-60" />
               </button>
               {openDropdown === 'tours' && (
-                <div className="absolute top-full left-0 w-48 bg-white shadow-xl rounded-lg border border-gray-100 py-2 mt-1 z-50">
+                <div className="absolute top-full left-0 w-52 bg-white shadow-xl rounded-xl border border-gray-100 py-2 mt-1 z-50 animate-in fade-in slide-in-from-top-2 duration-200">
                   <Link
                     href="/explore"
-                    className="block px-4 py-2 text-xs text-gray-700 hover:bg-[#F7F3E9] hover:text-[#123C2D]"
+                    className="block px-4 py-2.5 text-xs text-gray-700 hover:bg-[#F7F3E9] hover:text-[#123C2D] font-medium"
                   >
                     All Curated Tours
                   </Link>
                   <Link
                     href="/explore?tier=PREMIUM"
-                    className="block px-4 py-2 text-xs text-gray-700 hover:bg-[#F7F3E9] hover:text-[#123C2D]"
+                    className="block px-4 py-2.5 text-xs text-gray-700 hover:bg-[#F7F3E9] hover:text-[#123C2D] font-medium"
                   >
-                    Royal & Luxury Tiers
+                    👑 Royal & Luxury Tiers
                   </Link>
                   <Link
                     href="/explore?category=adventure"
-                    className="block px-4 py-2 text-xs text-gray-700 hover:bg-[#F7F3E9] hover:text-[#123C2D]"
+                    className="block px-4 py-2.5 text-xs text-gray-700 hover:bg-[#F7F3E9] hover:text-[#123C2D] font-medium"
                   >
-                    Adventure Expeditions
+                    🧗 Adventure & Expeditions
                   </Link>
                 </div>
               )}
             </div>
 
-            {/* Our Services Dropdown */}
-            <div
-              className="relative"
-              onMouseEnter={() => setOpenDropdown('services')}
-              onMouseLeave={() => setOpenDropdown(null)}
-            >
-              <button className="flex items-center gap-1 px-3 py-1.5 rounded-md hover:text-[#123C2D] hover:bg-gray-100 transition-colors">
-                <span>Our Services</span>
-                <ChevronDown className="w-3.5 h-3.5 opacity-70" />
-              </button>
-              {openDropdown === 'services' && (
-                <div className="absolute top-full left-0 w-52 bg-white shadow-xl rounded-lg border border-gray-100 py-2 mt-1 z-50">
-                  <Link
-                    href="/safety-guide"
-                    className="block px-4 py-2 text-xs text-gray-700 hover:bg-[#F7F3E9] hover:text-[#123C2D]"
-                  >
-                    Verified Local Guides
-                  </Link>
-                  <Link
-                    href="/explore"
-                    className="block px-4 py-2 text-xs text-gray-700 hover:bg-[#F7F3E9] hover:text-[#123C2D]"
-                  >
-                    Custom Itinerary Builder
-                  </Link>
-                  <Link
-                    href="/safety-guide"
-                    className="block px-4 py-2 text-xs text-gray-700 hover:bg-[#F7F3E9] hover:text-[#123C2D]"
-                  >
-                    24/7 Universal Safety & SOS
-                  </Link>
-                </div>
-              )}
-            </div>
-
-            {/* Blog */}
+            {/* Safety Protocol */}
             <Link
-              href="/blog"
-              className="px-3 py-1.5 rounded-md hover:text-[#123C2D] hover:bg-gray-100 transition-colors"
+              href="/safety-guide"
+              className="px-3 py-2 rounded-md hover:text-[#123C2D] hover:bg-gray-100 transition-colors"
             >
-              Blog
+              Universal Safety
             </Link>
 
-            {/* Contact Us */}
+            {/* About */}
+            <Link
+              href="/about"
+              className="px-3 py-2 rounded-md hover:text-[#123C2D] hover:bg-gray-100 transition-colors"
+            >
+              About Us
+            </Link>
+
+            {/* Contact */}
             <Link
               href="/contact"
-              className="px-3 py-1.5 rounded-md hover:text-[#123C2D] hover:bg-gray-100 transition-colors"
+              className="px-3 py-2 rounded-md hover:text-[#123C2D] hover:bg-gray-100 transition-colors"
             >
-              Contact Us
+              Contact
             </Link>
 
             {/* Search Icon Trigger */}
             <Link
               href="/explore"
-              className="p-2 rounded-full hover:bg-gray-100 text-gray-700 hover:text-[#123C2D] transition-colors ml-1"
+              className="p-2 rounded-full hover:bg-gray-100 text-gray-700 hover:text-[#123C2D] transition-colors ml-2"
               aria-label="Search tours and destinations"
             >
               <Search className="w-4 h-4" />
