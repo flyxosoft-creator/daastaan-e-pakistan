@@ -23,6 +23,7 @@ import {
   Instagram,
   Facebook,
   Twitter,
+  ChevronLeft,
   ChevronRight,
   Sparkles,
   Search,
@@ -347,79 +348,297 @@ function FeatureHighlightsBar() {
   );
 }
 
-/* ─── 2. Discover Pakistan Section (Matching 5 Cards Grid) ─────────── */
+/* ─── 2. Discover Pakistan Section (Large Movable Interactive Slider) ── */
 const DISCOVER_CARDS = [
   {
+    id: 'northern',
     title: 'Northern Pakistan',
-    image: '/images/card-northern-pakistan.jpg',
+    tagline: 'Hunza, Skardu & Gilgit',
+    badge: '7,000m Karakoram Peaks',
+    description: 'Sapphire alpine lakes, soaring 7,000m glacial pinnacles, and ancient Silk Route fortresses.',
+    image: '/images/hero-cinematic-pakistan.jpg',
+    toursCount: '14 Curated Tours',
     href: '/explore?region=northern',
   },
   {
+    id: 'historical',
     title: 'Historical Cities',
-    image: '/images/card-historical-cities.jpg',
+    tagline: 'Lahore, Multan & Peshawar',
+    badge: 'Mughal & Living Heritage',
+    description: '500 years of living history, UNESCO royal palaces, and world-renowned street food bazaars.',
+    image: '/images/hero-lahore.jpg',
+    toursCount: '18 Curated Tours',
     href: '/explore/lahore',
   },
   {
+    id: 'coastal',
     title: 'Coastal Beauty',
-    image: '/images/card-coastal-beauty.jpg',
+    tagline: 'Karachi, Ormara & Gwadar',
+    badge: 'Arabian Sea Coastline',
+    description: 'Golden sunlit beaches, azure coastal lagoons, camel trails, and legendary fresh seafood feasts.',
+    image: '/images/hero-karachi.jpg',
+    toursCount: '8 Curated Tours',
     href: '/explore?region=coastal',
   },
   {
+    id: 'culture',
     title: 'Culture & Traditions',
-    image: '/images/card-culture-traditions.jpg',
+    tagline: 'Folk Art, Shrines & Bazaars',
+    badge: 'Folk Art & Heritage',
+    description: 'Vibrant truck art workshops, sufi poetry gatherings, and centuries of master artisan craftsmanship.',
+    image: '/images/discover-culture-traditions.jpg',
+    toursCount: '11 Curated Tours',
     href: '/explore?category=culture',
   },
   {
-    title: 'Adventure Tours',
-    image: '/images/card-adventure-tours.jpg',
+    id: 'adventure',
+    title: 'Adventure Treks',
+    tagline: 'Fairy Meadows & Deosai Plains',
+    badge: 'High-Altitude Wilderness',
+    description: 'Rugged jeep safaris across high-altitude plateaus, alpine passes, and trails facing Nanga Parbat.',
+    image: '/images/hero-hunza.jpg',
+    toursCount: '12 Curated Tours',
     href: '/explore?category=adventure',
+  },
+  {
+    id: 'swat',
+    title: 'Swat Valley & Kalam',
+    tagline: 'The Switzerland of the East',
+    badge: 'Emerald Valleys & Rivers',
+    description: 'Emerald alpine rivers, fragrant pine forests, ancient Gandhara ruins, and snow-kissed meadows.',
+    image: '/images/hero-mountains-lake.jpg',
+    toursCount: '9 Curated Tours',
+    href: '/explore?region=swat',
   },
 ];
 
 function DiscoverPakistanSection() {
+  const sliderRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  // Mouse Drag to Slide state
+  const [isMouseDown, setIsMouseDown] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [scrollLeftState, setScrollLeftState] = useState(0);
+  const [hasDragged, setHasDragged] = useState(false);
+
+  const checkScrollState = () => {
+    if (!sliderRef.current) return;
+    const { scrollLeft, scrollWidth, clientWidth } = sliderRef.current;
+    setCanScrollLeft(scrollLeft > 15);
+    setCanScrollRight(scrollLeft + clientWidth < scrollWidth - 15);
+
+    // Approximate active card index based on card width
+    const cardWidth = 380;
+    const currentIndex = Math.round(scrollLeft / cardWidth);
+    setActiveIndex(Math.max(0, Math.min(DISCOVER_CARDS.length - 1, currentIndex)));
+  };
+
+  useEffect(() => {
+    const el = sliderRef.current;
+    if (!el) return;
+    checkScrollState();
+    el.addEventListener('scroll', checkScrollState);
+    window.addEventListener('resize', checkScrollState);
+    return () => {
+      el.removeEventListener('scroll', checkScrollState);
+      window.removeEventListener('resize', checkScrollState);
+    };
+  }, []);
+
+  const scroll = (direction: 'left' | 'right') => {
+    if (!sliderRef.current) return;
+    const cardWidth = 400;
+    sliderRef.current.scrollBy({
+      left: direction === 'left' ? -cardWidth : cardWidth,
+      behavior: 'smooth',
+    });
+  };
+
+  const scrollToCard = (index: number) => {
+    if (!sliderRef.current) return;
+    const cardWidth = 400;
+    sliderRef.current.scrollTo({
+      left: index * cardWidth,
+      behavior: 'smooth',
+    });
+  };
+
+  // Mouse drag handling
+  const handleMouseDown = (e: React.MouseEvent) => {
+    if (!sliderRef.current) return;
+    setIsMouseDown(true);
+    setHasDragged(false);
+    setStartX(e.pageX - sliderRef.current.offsetLeft);
+    setScrollLeftState(sliderRef.current.scrollLeft);
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isMouseDown || !sliderRef.current) return;
+    e.preventDefault();
+    const x = e.pageX - sliderRef.current.offsetLeft;
+    const walk = (x - startX) * 1.5;
+    if (Math.abs(walk) > 6) {
+      setHasDragged(true);
+    }
+    sliderRef.current.scrollLeft = scrollLeftState - walk;
+  };
+
+  const handleMouseUp = () => {
+    setIsMouseDown(false);
+    setTimeout(() => setHasDragged(false), 50);
+  };
+
   return (
-    <section className="py-16 sm:py-20 bg-white">
+    <section className="py-16 sm:py-24 bg-white overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Title Header with Clean Theme Gradient */}
-        <div className="text-center space-y-2 mb-10 sm:mb-12">
-          <p className="text-xs font-bold uppercase tracking-widest text-[#B99550]">
-            Curated Regional Trails
-          </p>
-          <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-gray-900">
-            Discover{' '}
-            <span className="bg-gradient-to-r from-[#123C2D] to-[#B99550] bg-clip-text text-transparent">
-              Pakistan
-            </span>
-          </h2>
-          <p className="text-sm sm:text-base text-gray-600 max-w-xl mx-auto">
-            From the Karakoram heights to ancient Mughal streets and azure coastal bays.
-          </p>
+        {/* Title Header with Slider Navigation Controls */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8 sm:mb-12">
+          <div className="space-y-2 text-left">
+            <p className="text-xs font-bold uppercase tracking-widest text-[#B99550]">
+              Curated Regional Trails
+            </p>
+            <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-gray-900">
+              Discover{' '}
+              <span className="bg-gradient-to-r from-[#123C2D] to-[#B99550] bg-clip-text text-transparent">
+                Pakistan
+              </span>
+            </h2>
+            <p className="text-sm sm:text-base text-gray-600 max-w-xl">
+              From the Karakoram heights and ancient Mughal havelis to azure Arabian coastlines.
+            </p>
+          </div>
+
+          {/* Slider Navigation Buttons */}
+          <div className="flex items-center gap-3 shrink-0">
+            <button
+              onClick={() => scroll('left')}
+              disabled={!canScrollLeft}
+              className={`w-11 h-11 rounded-full border flex items-center justify-center transition-all ${
+                canScrollLeft
+                  ? 'border-gray-300 bg-white hover:bg-[#123C2D] text-gray-700 hover:text-white shadow-sm hover:shadow-md cursor-pointer'
+                  : 'border-gray-200 bg-gray-100 text-gray-300 cursor-not-allowed'
+              }`}
+              aria-label="Previous destination"
+            >
+              <ChevronLeft className="w-5 h-5" />
+            </button>
+            <button
+              onClick={() => scroll('right')}
+              disabled={!canScrollRight}
+              className={`w-11 h-11 rounded-full border flex items-center justify-center transition-all ${
+                canScrollRight
+                  ? 'border-gray-300 bg-white hover:bg-[#123C2D] text-gray-700 hover:text-white shadow-sm hover:shadow-md cursor-pointer'
+                  : 'border-gray-200 bg-gray-100 text-gray-300 cursor-not-allowed'
+              }`}
+              aria-label="Next destination"
+            >
+              <ChevronRight className="w-5 h-5" />
+            </button>
+          </div>
         </div>
 
-        {/* 5 Photo Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 sm:gap-5">
+        {/* Large Movable Horizontal Slider */}
+        <div
+          ref={sliderRef}
+          onMouseDown={handleMouseDown}
+          onMouseMove={handleMouseMove}
+          onMouseUp={handleMouseUp}
+          onMouseLeave={handleMouseUp}
+          className={`flex gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory scrollbar-none pb-4 pt-1 select-none ${
+            isMouseDown ? 'cursor-grabbing' : 'cursor-grab'
+          }`}
+          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+        >
           {DISCOVER_CARDS.map((card) => (
             <Link
-              key={card.title}
+              key={card.id}
               href={card.href}
-              className="group relative rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 h-52 sm:h-56 border border-gray-200/80 hover:border-[#B99550]/50"
+              onClick={(e) => {
+                if (hasDragged) {
+                  e.preventDefault();
+                }
+              }}
+              className="group relative w-[310px] sm:w-[360px] md:w-[390px] lg:w-[410px] h-[480px] sm:h-[520px] rounded-3xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-500 border border-gray-200/90 shrink-0 snap-start flex flex-col justify-between p-6 sm:p-7"
             >
-              <img
-                src={card.image}
-                alt={card.title}
-                className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
-              <div className="absolute bottom-3.5 left-3.5 right-3.5 flex items-center justify-between">
-                <span className="text-white font-bold text-xs sm:text-sm drop-shadow-md leading-tight">
-                  {card.title}
+              {/* High-Resolution Background Photography */}
+              <div className="absolute inset-0 z-0">
+                <img
+                  src={card.image}
+                  alt={card.title}
+                  className="w-full h-full object-cover object-center group-hover:scale-108 transition-transform duration-700"
+                />
+              </div>
+
+              {/* Dual Direction Cinematic Gradient Overlay */}
+              <div className="absolute inset-0 z-1 bg-gradient-to-t from-black/95 via-black/45 to-black/30 group-hover:from-black/90 transition-colors" />
+
+              {/* Card Top Pill Elements */}
+              <div className="relative z-10 flex items-center justify-between gap-2">
+                <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-white text-xs font-semibold shadow-xs">
+                  <Sparkles className="w-3.5 h-3.5 text-[#E5B558]" />
+                  <span>{card.badge}</span>
                 </span>
-                <div className="w-6 h-6 rounded-full border border-white/60 flex items-center justify-center text-white text-xs group-hover:bg-[#B99550] group-hover:border-[#B99550] group-hover:text-[#123C2D] transition-colors shrink-0">
-                  <ChevronRight className="w-3.5 h-3.5" />
+
+                <span className="inline-flex items-center px-3 py-1 rounded-full bg-black/45 backdrop-blur-md border border-white/20 text-[#E5B558] text-xs font-bold shadow-xs">
+                  {card.toursCount}
+                </span>
+              </div>
+
+              {/* Card Bottom Content Elements */}
+              <div className="relative z-10 space-y-3 pt-12">
+                <div className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#E5B558]">
+                  <MapPin className="w-3.5 h-3.5" />
+                  <span>{card.tagline}</span>
+                </div>
+
+                <h3 className="font-serif text-2xl sm:text-3xl font-bold text-white drop-shadow-md leading-tight group-hover:text-[#F7F3E9] transition-colors">
+                  {card.title}
+                </h3>
+
+                <p className="text-xs sm:text-sm text-white/90 leading-relaxed line-clamp-2 font-normal drop-shadow">
+                  {card.description}
+                </p>
+
+                {/* Explore Action Button */}
+                <div className="pt-2 flex items-center justify-between border-t border-white/20">
+                  <span className="text-xs sm:text-sm font-bold text-white group-hover:text-[#E5B558] transition-colors flex items-center gap-1.5">
+                    <span>Explore Region</span>
+                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  </span>
+                  <div className="w-9 h-9 rounded-full border border-white/40 bg-white/10 backdrop-blur-md flex items-center justify-center text-white group-hover:bg-[#B99550] group-hover:border-[#B99550] group-hover:text-[#0A2418] transition-all duration-300 group-hover:scale-110 shadow-md">
+                    <ChevronRight className="w-4 h-4" />
+                  </div>
                 </div>
               </div>
             </Link>
           ))}
+        </div>
+
+        {/* Bottom Pagination Dots & Drag Hint */}
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mt-8 pt-2">
+          {/* Subtle Drag Hint */}
+          <p className="text-xs text-gray-400 font-medium hidden sm:block">
+            ← Drag or swipe horizontally to discover all regions →
+          </p>
+
+          {/* Interactive Navigation Dots */}
+          <div className="flex items-center gap-2 mx-auto sm:mx-0">
+            {DISCOVER_CARDS.map((_, dotIdx) => (
+              <button
+                key={dotIdx}
+                onClick={() => scrollToCard(dotIdx)}
+                className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
+                  activeIndex === dotIdx
+                    ? 'w-8 bg-[#123C2D]'
+                    : 'w-2 bg-gray-300 hover:bg-gray-400'
+                }`}
+                aria-label={`Go to slide ${dotIdx + 1}`}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </section>
