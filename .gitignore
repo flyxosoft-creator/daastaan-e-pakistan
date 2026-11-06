@@ -39,6 +39,13 @@ pnpm-debug.log*
 # Test coverage
 coverage/
 
+# PWA service worker outputs
+apps/web/public/sw.js*
+apps/web/public/workbox-*.js*
+
+# Scratch
+scratch/
+
 # Vercel
 .vercel/
 
