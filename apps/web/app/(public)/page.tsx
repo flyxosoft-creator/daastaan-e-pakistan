@@ -133,8 +133,12 @@ function HeroSection() {
     }
   };
 
-  const handleQuickSearch = (term: string) => {
-    router.push(`/explore?q=${encodeURIComponent(term)}`);
+  const handleQuickSearch = (term: string, directUrl?: string) => {
+    if (directUrl) {
+      router.push(directUrl);
+    } else {
+      router.push(`/explore?q=${encodeURIComponent(term)}`);
+    }
   };
 
   const active = HERO_SLIDES[currentSlide];
@@ -227,29 +231,29 @@ function HeroSection() {
             <span className="text-white/75 font-medium">Quick search:</span>
             <button
               type="button"
-              onClick={() => handleQuickSearch('Lahore')}
-              className="px-3 py-1 rounded-full bg-white/20 hover:bg-white/35 backdrop-blur-md border border-white/25 transition-all text-white font-medium"
+              onClick={() => handleQuickSearch('Lahore', '/explore/lahore')}
+              className="px-3.5 py-1.5 rounded-full bg-white/20 hover:bg-white/35 backdrop-blur-md border border-white/25 transition-all text-white font-medium flex items-center gap-1 cursor-pointer"
             >
-              📍 Lahore Walled City
+              📍 Lahore
             </button>
             <button
               type="button"
-              onClick={() => handleQuickSearch('Hunza')}
-              className="px-3 py-1 rounded-full bg-white/20 hover:bg-white/35 backdrop-blur-md border border-white/25 transition-all text-white font-medium"
+              onClick={() => handleQuickSearch('Northern Pakistan', '/explore/northern-pakistan')}
+              className="px-3.5 py-1.5 rounded-full bg-white/20 hover:bg-white/35 backdrop-blur-md border border-white/25 transition-all text-white font-medium flex items-center gap-1 cursor-pointer"
             >
-              🏔️ Hunza Valley
+              🏔️ Northern Pakistan
             </button>
             <button
               type="button"
-              onClick={() => handleQuickSearch('Food')}
-              className="px-3 py-1 rounded-full bg-white/20 hover:bg-white/35 backdrop-blur-md border border-white/25 transition-all text-white font-medium"
+              onClick={() => handleQuickSearch('Activities', '/activities')}
+              className="px-3.5 py-1.5 rounded-full bg-white/20 hover:bg-white/35 backdrop-blur-md border border-white/25 transition-all text-white font-medium flex items-center gap-1 cursor-pointer"
             >
-              🍲 Food Trails
+              🎪 Cultural Activities
             </button>
             <button
               type="button"
-              onClick={() => handleQuickSearch('Karachi')}
-              className="px-3 py-1 rounded-full bg-white/20 hover:bg-white/35 backdrop-blur-md border border-white/25 transition-all text-white font-medium"
+              onClick={() => handleQuickSearch('Karachi', '/explore?q=Karachi')}
+              className="px-3.5 py-1.5 rounded-full bg-white/20 hover:bg-white/35 backdrop-blur-md border border-white/25 transition-all text-white font-medium flex items-center gap-1 cursor-pointer"
             >
               🌊 Karachi Coast
             </button>

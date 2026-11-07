@@ -29,8 +29,8 @@ const config: Config = {
         },
       },
       fontFamily: {
-        serif: ['Playfair Display', 'Georgia', 'serif'],
-        sans: ['Plus Jakarta Sans', 'system-ui', 'sans-serif'],
+        serif: ['Cormorant Garamond', 'Cinzel', 'Georgia', 'serif'],
+        sans: ['Outfit', 'system-ui', 'sans-serif'],
       },
       animation: {
         fadeIn: 'fadeIn 0.6s ease-in-out forwards',

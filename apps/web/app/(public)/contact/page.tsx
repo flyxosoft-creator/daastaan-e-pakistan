@@ -100,7 +100,7 @@ export default function ContactPage() {
               </a>
 
               <a
-                href="mailto:enquiries@daastaanepakistan.org"
+                href="mailto:info@daastaanepakista.com"
                 className="flex items-start gap-4 p-5 rounded-2xl bg-[#FAF9F5] border border-gray-200/90 hover:border-[#B99550]/50 hover:shadow-md transition-all group"
               >
                 <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-[#123C2D] to-[#1F5C45] text-[#B99550] flex items-center justify-center shrink-0 shadow-xs group-hover:scale-105 transition-transform">
@@ -111,7 +111,7 @@ export default function ContactPage() {
                     Official Email
                   </h4>
                   <p className="font-serif font-bold text-base text-gray-900 mt-0.5">
-                    enquiries@daastaanepakistan.org
+                    info@daastaanepakista.com
                   </p>
                   <p className="text-xs text-gray-500 mt-0.5">
                     For bookings, press & guide partnerships

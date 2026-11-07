@@ -70,18 +70,31 @@ export default function BookTourPage({
   const searchParams = useSearchParams();
   const resolvedParams = use(params);
 
-  // Initial party size from URL query param if present
+  // Initial parameters from URL query param if present
   const initialParty = parseInt(searchParams?.get('partySize') || '2', 10);
+  const paramStartDate = searchParams?.get('startDate');
+  const paramEndDate = searchParams?.get('endDate');
+  const paramCurrency = (searchParams?.get('currency') as 'USD' | 'GBP') || 'USD';
+
+  const defaultTomorrow = new Date(Date.now() + 86400000).toISOString().split('T')[0];
 
   // Stepper State (1 to 4)
   const [currentStep, setCurrentStep] = useState(1);
 
-  // Step 1 State: Date & Group
-  const [selectedDate, setSelectedDate] = useState(
-    new Date(Date.now() + 86400000).toISOString().split('T')[0]
-  );
+  // Step 1 State: Dates & Group
+  const [startDate, setStartDate] = useState(paramStartDate || defaultTomorrow);
+  const [endDate, setEndDate] = useState(paramEndDate || paramStartDate || defaultTomorrow);
   const [selectedTimeSlot, setSelectedTimeSlot] = useState('09:00 AM');
   const [partySize, setPartySize] = useState(initialParty || 2);
+
+  const calcDays = () => {
+    if (!startDate || !endDate) return 1;
+    const s = new Date(startDate);
+    const e = new Date(endDate);
+    const diff = Math.round((e.getTime() - s.getTime()) / (1000 * 60 * 60 * 24)) + 1;
+    return Math.max(1, diff);
+  };
+  const totalDays = calcDays();
 
   // Step 2 State: Guide Selection
   const [selectedGuideId, setSelectedGuideId] = useState<string | null>(null);
@@ -103,7 +116,7 @@ export default function BookTourPage({
   const [promoCode, setPromoCode] = useState('');
   const [promoDiscountPkr, setPromoDiscountPkr] = useState(0);
   const [acceptTerms, setAcceptTerms] = useState(false);
-  const [currency, setCurrency] = useState<'PKR' | 'USD' | 'GBP'>('PKR');
+  const [currency, setCurrency] = useState<'USD' | 'GBP'>(paramCurrency === 'GBP' ? 'GBP' : 'USD');
   const [loading, setLoading] = useState(false);
 
   // Package Data (Walled City Heritage Walk default)
@@ -159,8 +172,8 @@ export default function BookTourPage({
   // Step Progression Validator
   const handleNextStep = () => {
     if (currentStep === 1) {
-      if (!selectedDate) {
-        alert('Please choose a tour date.');
+      if (!startDate || !endDate) {
+        alert('Please choose tour start and end dates.');
         return;
       }
     }
@@ -282,8 +295,10 @@ export default function BookTourPage({
               <div>
                 {currentStep === 1 && (
                   <StepDateGroup
-                    selectedDate={selectedDate}
-                    onSelectDate={setSelectedDate}
+                    startDate={startDate}
+                    onSelectStartDate={setStartDate}
+                    endDate={endDate}
+                    onSelectEndDate={setEndDate}
                     selectedTimeSlot={selectedTimeSlot}
                     onSelectTimeSlot={setSelectedTimeSlot}
                     partySize={partySize}
@@ -317,7 +332,9 @@ export default function BookTourPage({
                   <StepReviewPayment
                     packageTitle={packageTitle}
                     cityName={cityName}
-                    selectedDate={selectedDate}
+                    selectedDate={startDate === endDate ? startDate : `${startDate} to ${endDate}`}
+                    startDate={startDate}
+                    endDate={endDate}
                     selectedTimeSlot={selectedTimeSlot}
                     partySize={partySize}
                     guideName={guideDisplayName}
@@ -393,9 +410,21 @@ export default function BookTourPage({
                 <div className="flex items-center justify-between">
                   <span className="text-gray-500 flex items-center gap-1.5">
                     <Calendar className="w-3.5 h-3.5 text-[#B99550]" />
-                    <span>Tour Date:</span>
+                    <span>Tour Dates:</span>
                   </span>
-                  <span className="font-bold text-[#123C2D]">{selectedDate}</span>
+                  <span className="font-bold text-[#123C2D]">
+                    {startDate === endDate ? startDate : `${startDate} → ${endDate}`}
+                  </span>
+                </div>
+
+                <div className="flex items-center justify-between">
+                  <span className="text-gray-500 flex items-center gap-1.5">
+                    <Clock className="w-3.5 h-3.5 text-[#B99550]" />
+                    <span>Duration:</span>
+                  </span>
+                  <span className="font-bold text-[#123C2D]">
+                    {totalDays === 1 ? '1 Day (Single Day)' : `${totalDays} Days Multi-Day`}
+                  </span>
                 </div>
 
                 <div className="flex items-center justify-between">

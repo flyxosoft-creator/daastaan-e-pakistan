@@ -44,8 +44,10 @@ interface StepReviewPaymentProps {
   hasHotelPickup: boolean;
   acceptTerms: boolean;
   onToggleAcceptTerms: (accept: boolean) => void;
-  currency: 'PKR' | 'USD' | 'GBP';
-  onChangeCurrency: (curr: 'PKR' | 'USD' | 'GBP') => void;
+  currency: 'USD' | 'GBP';
+  onChangeCurrency: (curr: 'USD' | 'GBP') => void;
+  startDate?: string;
+  endDate?: string;
   onCompleteBooking: () => void;
   loading: boolean;
 }
@@ -78,9 +80,7 @@ export function StepReviewPayment({
   loading,
 }: StepReviewPaymentProps) {
   const [promoInput, setPromoInput] = useState(promoCode);
-  const [selectedGateway, setSelectedGateway] = useState<'SAFEPAY' | 'STRIPE'>(
-    currency === 'PKR' ? 'SAFEPAY' : 'STRIPE'
-  );
+  const [selectedGateway, setSelectedGateway] = useState<'SAFEPAY' | 'STRIPE'>('STRIPE');
 
   const subtotalPkr =
     basePricePkr * partySize +
@@ -254,22 +254,33 @@ export function StepReviewPayment({
             <span>Select Payment Method</span>
           </label>
 
-          {/* Currency Switcher */}
-          <div className="flex items-center gap-1">
-            <span className="text-xs text-gray-500">Currency:</span>
-            <select
-              value={currency}
-              onChange={(e) => {
-                const c = e.target.value as 'PKR' | 'USD' | 'GBP';
-                onChangeCurrency(c);
-                setSelectedGateway(c === 'PKR' ? 'SAFEPAY' : 'STRIPE');
-              }}
-              className="text-xs border border-gray-200 rounded px-2 py-1 bg-white font-bold text-[#123C2D]"
-            >
-              <option value="PKR">PKR (₨)</option>
-              <option value="USD">USD ($)</option>
-              <option value="GBP">GBP (£)</option>
-            </select>
+          {/* Currency Switcher (USD and GBP ONLY) */}
+          <div className="flex items-center gap-1.5">
+            <span className="text-xs text-gray-500 font-semibold">Currency:</span>
+            <div className="inline-flex rounded-lg border border-gray-200 p-0.5 bg-gray-50">
+              <button
+                type="button"
+                onClick={() => onChangeCurrency('USD')}
+                className={`px-2.5 py-1 text-xs font-bold rounded-md transition ${
+                  currency === 'USD'
+                    ? 'bg-[#123C2D] text-white shadow-xs'
+                    : 'text-gray-600 hover:text-[#123C2D]'
+                }`}
+              >
+                USD ($)
+              </button>
+              <button
+                type="button"
+                onClick={() => onChangeCurrency('GBP')}
+                className={`px-2.5 py-1 text-xs font-bold rounded-md transition ${
+                  currency === 'GBP'
+                    ? 'bg-[#123C2D] text-white shadow-xs'
+                    : 'text-gray-600 hover:text-[#123C2D]'
+                }`}
+              >
+                GBP (£)
+              </button>
+            </div>
           </div>
         </div>
 

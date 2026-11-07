@@ -173,7 +173,30 @@ export default function PackageDetailPage({
 
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [partySize, setPartySize] = useState(2);
-  const [selectedCurrency, setSelectedCurrency] = useState<'PKR' | 'USD' | 'GBP'>('PKR');
+  const [selectedCurrency, setSelectedCurrency] = useState<'USD' | 'GBP'>('USD');
+
+  // Tour dates setup (Single or Multi-day)
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  const tomorrowStr = tomorrow.toISOString().split('T')[0];
+
+  const defaultEnd = new Date(tomorrow);
+  if (pkg.durationDays && pkg.durationDays > 1) {
+    defaultEnd.setDate(defaultEnd.getDate() + (pkg.durationDays - 1));
+  }
+  const defaultEndStr = defaultEnd.toISOString().split('T')[0];
+
+  const [startDate, setStartDate] = useState(tomorrowStr);
+  const [endDate, setEndDate] = useState(defaultEndStr);
+
+  const calcDays = () => {
+    if (!startDate || !endDate) return 1;
+    const s = new Date(startDate);
+    const e = new Date(endDate);
+    const diff = Math.round((e.getTime() - s.getTime()) / (1000 * 60 * 60 * 24)) + 1;
+    return Math.max(1, diff);
+  };
+  const totalDays = calcDays();
 
   const durationText = pkg.durationDays
     ? `${pkg.durationDays} ${pkg.durationDays === 1 ? 'Day' : 'Days'}`
@@ -408,7 +431,43 @@ export default function PackageDetailPage({
 
           {/* Right Column: Pricing & Booking Card (Sticky on desktop, sticky on bottom mobile) */}
           <div className="lg:col-span-1">
-            <div className="sticky top-24 bg-white rounded-2xl p-6 border-2 border-[#B99550]/40 shadow-xl space-y-6">
+            <div className="sticky top-24 bg-white rounded-2xl p-6 border-2 border-[#B99550]/40 shadow-xl space-y-5">
+              {/* Currency Selector on Top (USD and GBP ONLY) */}
+              <div className="space-y-1.5 pb-3 border-b border-gray-100">
+                <div className="flex items-center justify-between">
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-gray-500">
+                    Select Currency
+                  </span>
+                  <span className="text-[10px] text-gray-400">USD or GBP only</span>
+                </div>
+                <div className="grid grid-cols-2 gap-2 bg-[#FAF6ED] p-1 rounded-xl border border-[#B99550]/20">
+                  <button
+                    type="button"
+                    onClick={() => setSelectedCurrency('USD')}
+                    className={`py-1.5 px-3 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 ${
+                      selectedCurrency === 'USD'
+                        ? 'bg-[#123C2D] text-[#FAF6ED] shadow-sm'
+                        : 'text-gray-700 hover:text-[#123C2D]'
+                    }`}
+                  >
+                    <span>USD</span>
+                    <span className="text-[10px] opacity-80">($)</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setSelectedCurrency('GBP')}
+                    className={`py-1.5 px-3 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 ${
+                      selectedCurrency === 'GBP'
+                        ? 'bg-[#123C2D] text-[#FAF6ED] shadow-sm'
+                        : 'text-gray-700 hover:text-[#123C2D]'
+                    }`}
+                  >
+                    <span>GBP</span>
+                    <span className="text-[10px] opacity-80">(£)</span>
+                  </button>
+                </div>
+              </div>
+
               {/* Price Header (Revealed on detail page per FR-016 / FR-058) */}
               <div className="space-y-1 pb-4 border-b border-gray-100">
                 <span className="text-xs font-semibold uppercase tracking-wider text-gray-500">
@@ -425,6 +484,60 @@ export default function PackageDetailPage({
                 <div className="text-[11px] text-gray-500">
                   ({formatPrice(pkg.basePricePkr, selectedCurrency)} per guest)
                 </div>
+              </div>
+
+              {/* Tour Start & End Date (Single or Multi-day) */}
+              <div className="space-y-2.5 pb-4 border-b border-gray-100">
+                <div className="flex items-center justify-between">
+                  <label className="text-xs font-bold uppercase tracking-wider text-gray-700 flex items-center gap-1.5">
+                    <Calendar className="w-3.5 h-3.5 text-[#B99550]" />
+                    <span>Tour Schedule</span>
+                  </label>
+                  <span className="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-[#123C2D]/10 text-[#123C2D]">
+                    {totalDays === 1 ? 'Single Day Tour' : `${totalDays} Days Multi-Day`}
+                  </span>
+                </div>
+
+                <div className="grid grid-cols-2 gap-2.5">
+                  <div className="space-y-1">
+                    <span className="text-[10px] uppercase font-bold text-gray-500">Start Date</span>
+                    <input
+                      type="date"
+                      value={startDate}
+                      min={tomorrowStr}
+                      onChange={(e) => {
+                        const newStart = e.target.value;
+                        setStartDate(newStart);
+                        if (new Date(endDate) < new Date(newStart)) {
+                          setEndDate(newStart);
+                        }
+                      }}
+                      className="w-full text-xs border border-gray-300 rounded-lg px-2.5 py-1.5 bg-white text-gray-800 focus:outline-none focus:border-[#B99550]"
+                    />
+                  </div>
+
+                  <div className="space-y-1">
+                    <span className="text-[10px] uppercase font-bold text-gray-500">End Date</span>
+                    <input
+                      type="date"
+                      value={endDate}
+                      min={startDate || tomorrowStr}
+                      onChange={(e) => {
+                        const newEnd = e.target.value;
+                        if (new Date(newEnd) >= new Date(startDate)) {
+                          setEndDate(newEnd);
+                        }
+                      }}
+                      className="w-full text-xs border border-gray-300 rounded-lg px-2.5 py-1.5 bg-white text-gray-800 focus:outline-none focus:border-[#B99550]"
+                    />
+                  </div>
+                </div>
+
+                <p className="text-[10px] text-gray-500">
+                  {totalDays === 1
+                    ? 'Same-day return itinerary'
+                    : `Multi-day expedition from ${startDate} to ${endDate}`}
+                </p>
               </div>
 
               {/* Guest Selector */}
@@ -466,7 +579,7 @@ export default function PackageDetailPage({
 
               {/* Direct Booking CTA */}
               <Link
-                href={`/book/${pkg.slug}?partySize=${partySize}`}
+                href={`/book/${pkg.slug}?partySize=${partySize}&startDate=${startDate}&endDate=${endDate}&currency=${selectedCurrency}`}
                 className="w-full py-3.5 px-4 bg-[#B99550] hover:bg-[#c9a65f] text-[#123C2D] font-bold text-sm rounded-xl flex items-center justify-center gap-2 shadow-lg hover:shadow-xl transition-all"
               >
                 <span>Reserve Experience</span>

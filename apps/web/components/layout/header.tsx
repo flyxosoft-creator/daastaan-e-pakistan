@@ -37,11 +37,11 @@ export function Header() {
           {/* Left: Contact Info */}
           <div className="flex items-center space-x-3 sm:space-x-5">
             <a
-              href="mailto:enquiries@daastaanepakistan.org"
+              href="mailto:info@daastaanepakista.com"
               className="flex items-center gap-1.5 hover:text-[#123C2D] transition-colors"
             >
               <Mail className="w-3.5 h-3.5 text-[#B99550]" />
-              <span className="hidden sm:inline">enquiries@daastaanepakistan.org</span>
+              <span className="hidden sm:inline">info@daastaanepakista.com</span>
               <span className="sm:hidden">Email</span>
             </a>
             <span className="text-gray-300">|</span>
@@ -108,6 +108,17 @@ export function Header() {
               }`}
             >
               DESTINATIONS
+            </Link>
+
+            <Link
+              href="/activities"
+              className={`transition-colors hover:text-[#123C2D] ${
+                pathname === '/activities'
+                  ? 'text-[#123C2D] font-bold border-b-2 border-[#123C2D] pb-1'
+                  : ''
+              }`}
+            >
+              ACTIVITIES
             </Link>
 
             <Link
@@ -191,6 +202,13 @@ export function Header() {
             className="block text-[#123C2D] font-bold text-sm py-1.5"
           >
             DESTINATIONS
+          </Link>
+          <Link
+            href="/activities"
+            onClick={() => setMobileMenuOpen(false)}
+            className="block text-gray-700 font-semibold text-sm py-1.5 hover:text-[#123C2D]"
+          >
+            ACTIVITIES
           </Link>
           <Link
             href="/explore?type=experiences"
