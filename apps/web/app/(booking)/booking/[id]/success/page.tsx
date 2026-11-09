@@ -1,6 +1,6 @@
 'use client';
 
-import React, { use } from 'react';
+import React, { use, useState } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { Header } from '@/components/layout/header';
@@ -17,7 +17,11 @@ import {
   Share2,
   ArrowRight,
   Smartphone,
-  ExternalLink
+  ExternalLink,
+  Printer,
+  FileText,
+  X,
+  BadgeCheck,
 } from 'lucide-react';
 
 export default function BookingSuccessPage({
@@ -29,6 +33,11 @@ export default function BookingSuccessPage({
   const searchParams = useSearchParams();
   const city = searchParams?.get('city') || 'Lahore';
   const partySize = searchParams?.get('party') || '2';
+  const currency = searchParams?.get('currency') || 'USD';
+  const startDate = searchParams?.get('startDate') || 'Tomorrow';
+  const endDate = searchParams?.get('endDate') || startDate;
+
+  const [showInvoiceModal, setShowInvoiceModal] = useState(false);
 
   // Generate downloadable .ics calendar file
   const handleDownloadCalendar = () => {
@@ -51,6 +60,10 @@ END:VCALENDAR`;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+  };
+
+  const handlePrint = () => {
+    window.print();
   };
 
   return (
@@ -79,6 +92,14 @@ END:VCALENDAR`;
           {/* Quick Action Badges */}
           <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
             <button
+              onClick={() => setShowInvoiceModal(true)}
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#123C2D] text-[#FAF6ED] text-xs font-bold hover:bg-[#1a5540] transition shadow-md"
+            >
+              <FileText className="w-4 h-4 text-[#B99550]" />
+              <span>Download Official PDF Receipt</span>
+            </button>
+
+            <button
               onClick={handleDownloadCalendar}
               className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border border-gray-300 text-xs font-bold text-gray-700 hover:bg-gray-50 transition"
             >
@@ -87,7 +108,7 @@ END:VCALENDAR`;
             </button>
 
             <a
-              href="https://wa.me/923001234567?text=Hello%20Daastaan%20Team!%20I%20have%20booked%20tour%20BK-1090"
+              href={`https://wa.me/923001234567?text=Hello%20Daastaan%20Team!%20I%20have%20booked%20tour%20${resolvedParams.id}`}
               target="_blank"
               rel="noreferrer"
               className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-600 text-white text-xs font-bold hover:bg-emerald-700 transition shadow-sm"
@@ -161,8 +182,133 @@ END:VCALENDAR`;
         </div>
       </main>
 
+      {/* Official Printable PDF Voucher Modal */}
+      {showInvoiceModal && (
+        <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto">
+          <div className="bg-white rounded-2xl max-w-2xl w-full p-6 sm:p-8 space-y-6 shadow-2xl border border-gray-200 my-8">
+            <div className="flex items-center justify-between pb-4 border-b border-gray-200">
+              <div className="flex items-center gap-2">
+                <FileText className="w-5 h-5 text-[#B99550]" />
+                <h3 className="font-serif text-lg font-bold text-[#123C2D]">
+                  Official Booking Voucher & Tax Receipt
+                </h3>
+              </div>
+              <button
+                onClick={() => setShowInvoiceModal(false)}
+                className="text-gray-400 hover:text-gray-600 p-1 rounded-lg"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            {/* Printable Area */}
+            <div className="space-y-6 text-xs text-gray-800 border p-6 rounded-xl bg-gray-50/50">
+              <div className="flex justify-between items-start">
+                <div>
+                  <div className="font-serif text-xl font-bold text-[#123C2D]">
+                    Daastaan-e-Pakistan
+                  </div>
+                  <div className="text-[11px] text-gray-500">
+                    Department of Tourist Services Lic. #DTS-PAK-2026
+                  </div>
+                  <div className="text-[11px] text-gray-500">
+                    Official Inquiries: info@daastaanepakista.com
+                  </div>
+                </div>
+                <div className="text-right">
+                  <div className="font-mono font-bold text-[#123C2D] text-sm">
+                    {resolvedParams.id}
+                  </div>
+                  <div className="text-[11px] text-gray-500">
+                    Date: {new Date().toLocaleDateString('en-GB')}
+                  </div>
+                  <div className="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-full mt-1">
+                    <BadgeCheck className="w-3.5 h-3.5" />
+                    <span>PAID IN FULL</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4 border-t border-b border-gray-200 py-3">
+                <div>
+                  <span className="font-bold text-gray-600 block text-[10px] uppercase">
+                    Experience
+                  </span>
+                  <span className="font-bold text-gray-900 text-sm">
+                    Walled City Heritage Walk
+                  </span>
+                  <span className="text-gray-500 block">Destination: {city}</span>
+                </div>
+                <div>
+                  <span className="font-bold text-gray-600 block text-[10px] uppercase">
+                    Schedule & Guests
+                  </span>
+                  <span className="font-bold text-gray-900">
+                    {startDate} {endDate !== startDate ? `→ ${endDate}` : ''}
+                  </span>
+                  <span className="text-gray-500 block">
+                    Party: {partySize} Registered {parseInt(partySize) === 1 ? 'Guest' : 'Guests'}
+                  </span>
+                </div>
+              </div>
+
+              {/* Financial Breakdown */}
+              <div className="space-y-2">
+                <span className="font-bold text-gray-700 uppercase text-[10px] block">
+                  Invoice Itemization ({currency})
+                </span>
+                <div className="flex justify-between text-gray-600">
+                  <span>Tour Base Fee ({partySize} Guests)</span>
+                  <span className="font-medium text-gray-900">
+                    {currency === 'GBP' ? '£28.00' : '$35.00'}
+                  </span>
+                </div>
+                <div className="flex justify-between text-gray-600">
+                  <span>Universal GPS Safety Layer & Twilio SOS</span>
+                  <span className="text-emerald-700 font-semibold">INCLUDED</span>
+                </div>
+                <div className="flex justify-between text-gray-600">
+                  <span>Local Municipal & Heritage Surcharges</span>
+                  <span className="font-medium text-gray-900">
+                    {currency === 'GBP' ? '£2.00' : '$2.50'}
+                  </span>
+                </div>
+                <div className="border-t border-gray-300 pt-2 flex justify-between font-bold text-sm text-[#123C2D]">
+                  <span>Total Amount Paid</span>
+                  <span>{currency === 'GBP' ? '£30.00' : '$37.50'}</span>
+                </div>
+              </div>
+
+              <div className="text-[10px] text-gray-500 border-t pt-3 space-y-1">
+                <p>• Verified Guide: Tariq Mehmood (Phone: +92 300 4567890)</p>
+                <p>• Meeting Point: Delhi Gate, Lahore (Pickup arranged per booking request)</p>
+                <p>• Free cancellation policy: 100% refund up to 48 hours prior to start.</p>
+              </div>
+            </div>
+
+            {/* Modal Actions */}
+            <div className="flex items-center justify-end gap-3 pt-2">
+              <button
+                type="button"
+                onClick={handlePrint}
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#123C2D] text-[#FAF6ED] text-xs font-bold hover:bg-[#1a5540] transition shadow-md"
+              >
+                <Printer className="w-4 h-4 text-[#B99550]" />
+                <span>Print or Save as PDF</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => setShowInvoiceModal(false)}
+                className="px-4 py-2.5 rounded-xl border border-gray-300 text-xs font-bold text-gray-700 hover:bg-gray-100 transition"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       <Footer />
     </div>
   );
 }
-

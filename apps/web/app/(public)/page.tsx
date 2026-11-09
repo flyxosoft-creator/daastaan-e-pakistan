@@ -27,6 +27,7 @@ import {
   ChevronRight,
   Sparkles,
   Search,
+  X,
 } from 'lucide-react';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
@@ -126,10 +127,33 @@ function HeroSection() {
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    if (searchQuery.trim()) {
-      router.push(`/explore?q=${encodeURIComponent(searchQuery.trim())}`);
-    } else {
+    const q = searchQuery.trim().toLowerCase();
+    if (!q) {
       router.push('/explore');
+      return;
+    }
+    if (q.includes('lahore')) {
+      router.push('/explore/lahore');
+    } else if (
+      q.includes('hunza') ||
+      q.includes('skardu') ||
+      q.includes('swat') ||
+      q.includes('north') ||
+      q.includes('fairy') ||
+      q.includes('kalam')
+    ) {
+      router.push('/explore/northern-pakistan');
+    } else if (
+      q.includes('activit') ||
+      q.includes('festival') ||
+      q.includes('food') ||
+      q.includes('cook') ||
+      q.includes('sport') ||
+      q.includes('paint')
+    ) {
+      router.push('/activities');
+    } else {
+      router.push(`/explore?search=${encodeURIComponent(searchQuery.trim())}`);
     }
   };
 
@@ -218,6 +242,16 @@ function HeroSection() {
               placeholder="Where to? (e.g. Lahore, Hunza, Swat, Karachi...)"
               className="w-full bg-transparent px-3 py-2 text-xs sm:text-sm text-gray-800 placeholder-gray-500 focus:outline-none font-medium"
             />
+            {searchQuery && (
+              <button
+                type="button"
+                onClick={() => setSearchQuery('')}
+                className="mr-2 text-gray-400 hover:text-gray-600 p-1 rounded-full transition"
+                title="Clear search"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            )}
             <button
               type="submit"
               className="px-6 sm:px-8 py-2.5 sm:py-3 rounded-full bg-gradient-to-r from-[#123C2D] via-[#1a5540] to-[#123C2D] hover:from-[#0B251B] hover:to-[#123C2D] text-white font-bold text-xs sm:text-sm tracking-wide transition-all shadow-md shrink-0"
@@ -346,6 +380,31 @@ function FeatureHighlightsBar() {
           <div className="text-xs sm:text-sm font-bold leading-tight text-[#123C2D]">
             Unforgettable<br /><span className="text-[#B99550] font-semibold text-[11px] sm:text-xs">Journeys</span>
           </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ─── 2.1 Trust & Universal Safety Pillars (International Conversion Booster) ── */
+function TrustPillarsBanner() {
+  return (
+    <section className="bg-[#123C2D] text-[#F7F3E9] py-3.5 px-4 border-b border-[#B99550]/20 text-xs shadow-inner">
+      <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4">
+        <div className="flex items-center gap-2">
+          <ShieldCheck className="w-4 h-4 text-[#B99550] shrink-0" />
+          <span className="font-semibold text-white">Universal Safety:</span>
+          <span className="text-gray-300 hidden sm:inline">Live Web GPS Tracking & 1-Touch SOS Included with Every Tour</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <CheckCircle className="w-4 h-4 text-[#B99550] shrink-0" />
+          <span className="font-semibold text-white">100% Police-Cleared Guides</span>
+          <span className="text-gray-300 hidden md:inline">· Verified CNIC & Tourism Accreditation</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <Sparkles className="w-4 h-4 text-[#B99550] shrink-0" />
+          <span className="font-semibold text-white">Flexible Cancellation:</span>
+          <span className="text-gray-300 hidden sm:inline">100% Refund up to 48h Before Trip Start</span>
         </div>
       </div>
     </section>
@@ -1142,6 +1201,7 @@ export default function HomePage() {
 
         {/* 2. Feature Highlights Bar */}
         <FeatureHighlightsBar />
+        <TrustPillarsBanner />
 
         {/* 3. Discover Pakistan 5 Cards Grid */}
         <DiscoverPakistanSection />

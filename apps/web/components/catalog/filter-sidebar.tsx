@@ -53,13 +53,15 @@ export function FilterSidebar({ filters, onChange, onReset }: FilterSidebarProps
       {/* City Filter */}
       <div className="space-y-3">
         <label className="text-xs font-bold uppercase tracking-wider text-gray-700">
-          Destination City
+          Destination City / Region
         </label>
         <div className="space-y-1.5">
           {[
-            { id: '', label: 'All Cities' },
-            { id: 'lahore', label: 'Lahore (Walled City)' },
-            { id: 'islamabad', label: 'Islamabad (Capital)' },
+            { id: '', label: 'All Destinations' },
+            { id: 'lahore', label: 'Lahore (Cultural Capital)' },
+            { id: 'northern-pakistan', label: 'Northern Pakistan (Hunza & Skardu)' },
+            { id: 'islamabad', label: 'Islamabad (Margalla Foothills)' },
+            { id: 'karachi', label: 'Karachi (Coast & Heritage)' },
           ].map((item) => (
             <label
               key={item.id}

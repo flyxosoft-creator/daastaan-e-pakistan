@@ -1,12 +1,15 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, Suspense } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { ArrowLeft, Lock, Mail, Eye, EyeOff, ShieldCheck } from 'lucide-react';
 
-export default function LoginPage() {
+function LoginContent() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams?.get('callbackUrl') || '/explore';
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -23,7 +26,7 @@ export default function LoginPage() {
       // Mock / API call
       setTimeout(() => {
         setLoading(false);
-        router.push('/explore');
+        router.push(callbackUrl);
       }, 800);
     } catch (err: any) {
       setLoading(false);
@@ -100,25 +103,29 @@ export default function LoginPage() {
               <div className="w-full border-t border-gray-200" />
             </div>
             <div className="relative flex justify-center text-xs uppercase">
-              <span className="bg-white px-3 text-gray-500 font-semibold">Or email</span>
+              <span className="bg-white px-2 text-gray-500 font-semibold tracking-wider text-[10px]">
+                Or continue with email
+              </span>
             </div>
           </div>
 
-          <form className="space-y-4" onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <label className="block text-xs font-bold uppercase tracking-wider text-gray-700">
                 Email Address
               </label>
-              <div className="mt-1 relative">
+              <div className="mt-1 relative rounded-xl shadow-xs">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
+                  <Mail className="h-4 w-4" />
+                </div>
                 <input
                   type="email"
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="your.email@example.com"
-                  className="w-full pl-9 pr-3 py-2 text-sm border border-gray-300 rounded-xl focus:outline-none focus:border-[#B99550] focus:ring-1 focus:ring-[#B99550]"
+                  placeholder="name@example.com"
+                  className="block w-full pl-10 pr-3 py-2 text-xs border border-gray-300 rounded-xl focus:outline-none focus:ring-1 focus:ring-[#B99550] focus:border-[#B99550] bg-gray-50/50"
                 />
-                <Mail className="w-4 h-4 text-gray-400 absolute left-3 top-3" />
               </div>
             </div>
 
@@ -129,27 +136,33 @@ export default function LoginPage() {
                 </label>
                 <Link
                   href="/forgot-password"
-                  className="text-xs font-semibold text-[#123C2D] hover:text-[#B99550]"
+                  className="text-[11px] font-semibold text-[#123C2D] hover:text-[#B99550]"
                 >
-                  Forgot?
+                  Forgot password?
                 </Link>
               </div>
-              <div className="mt-1 relative">
+              <div className="mt-1 relative rounded-xl shadow-xs">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
+                  <Lock className="h-4 w-4" />
+                </div>
                 <input
                   type={showPassword ? 'text' : 'password'}
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
-                  className="w-full pl-9 pr-10 py-2 text-sm border border-gray-300 rounded-xl focus:outline-none focus:border-[#B99550] focus:ring-1 focus:ring-[#B99550]"
+                  className="block w-full pl-10 pr-10 py-2 text-xs border border-gray-300 rounded-xl focus:outline-none focus:ring-1 focus:ring-[#B99550] focus:border-[#B99550] bg-gray-50/50"
                 />
-                <Lock className="w-4 h-4 text-gray-400 absolute left-3 top-3" />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-2.5 text-gray-400 hover:text-gray-600"
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600"
                 >
-                  {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                  {showPassword ? (
+                    <EyeOff className="h-4 w-4" />
+                  ) : (
+                    <Eye className="h-4 w-4" />
+                  )}
                 </button>
               </div>
             </div>
@@ -178,7 +191,7 @@ export default function LoginPage() {
           <div className="text-center pt-2 border-t border-gray-100">
             <span className="text-xs text-gray-600">Don't have an account yet? </span>
             <Link
-              href="/signup"
+              href={`/signup${callbackUrl !== '/explore' ? `?callbackUrl=${encodeURIComponent(callbackUrl)}` : ''}`}
               className="text-xs font-bold text-[#123C2D] hover:text-[#B99550]"
             >
               Create Account
@@ -190,3 +203,10 @@ export default function LoginPage() {
   );
 }
 
+export default function LoginPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-[#FAF6ED]" />}>
+      <LoginContent />
+    </Suspense>
+  );
+}

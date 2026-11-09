@@ -1,15 +1,19 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, Suspense } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { ArrowLeft, Lock, Mail, User, ShieldCheck, Check } from 'lucide-react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { ArrowLeft, Lock, Mail, User, ShieldCheck, Check, Eye, EyeOff } from 'lucide-react';
 
-export default function SignupPage() {
+function SignupContent() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams?.get('callbackUrl') || '/explore';
+
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [acceptTerms, setAcceptTerms] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -36,7 +40,7 @@ export default function SignupPage() {
     try {
       setTimeout(() => {
         setLoading(false);
-        router.push('/explore');
+        router.push(callbackUrl);
       }, 900);
     } catch (err: any) {
       setLoading(false);
@@ -113,7 +117,9 @@ export default function SignupPage() {
               <div className="w-full border-t border-gray-200" />
             </div>
             <div className="relative flex justify-center text-xs uppercase">
-              <span className="bg-white px-3 text-gray-500 font-semibold">Or with email</span>
+              <span className="bg-white px-3 text-gray-500 font-semibold tracking-wider text-[10px]">
+                Or register with email
+              </span>
             </div>
           </div>
 
@@ -129,9 +135,9 @@ export default function SignupPage() {
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder="e.g. Ayesha Khan"
-                  className="w-full pl-9 pr-3 py-2 text-sm border border-gray-300 rounded-xl focus:outline-none focus:border-[#B99550] focus:ring-1 focus:ring-[#B99550]"
+                  className="w-full pl-9 pr-3 py-2 text-xs border border-gray-300 rounded-xl focus:outline-none focus:border-[#B99550] focus:ring-1 focus:ring-[#B99550] bg-gray-50/50"
                 />
-                <User className="w-4 h-4 text-gray-400 absolute left-3 top-3" />
+                <User className="w-4 h-4 text-gray-400 absolute left-3 top-2.5" />
               </div>
             </div>
 
@@ -146,9 +152,9 @@ export default function SignupPage() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="your.email@example.com"
-                  className="w-full pl-9 pr-3 py-2 text-sm border border-gray-300 rounded-xl focus:outline-none focus:border-[#B99550] focus:ring-1 focus:ring-[#B99550]"
+                  className="w-full pl-9 pr-3 py-2 text-xs border border-gray-300 rounded-xl focus:outline-none focus:border-[#B99550] focus:ring-1 focus:ring-[#B99550] bg-gray-50/50"
                 />
-                <Mail className="w-4 h-4 text-gray-400 absolute left-3 top-3" />
+                <Mail className="w-4 h-4 text-gray-400 absolute left-3 top-2.5" />
               </div>
             </div>
 
@@ -158,14 +164,25 @@ export default function SignupPage() {
               </label>
               <div className="mt-1 relative">
                 <input
-                  type="password"
+                  type={showPassword ? 'text' : 'password'}
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="At least 8 characters"
-                  className="w-full pl-9 pr-3 py-2 text-sm border border-gray-300 rounded-xl focus:outline-none focus:border-[#B99550] focus:ring-1 focus:ring-[#B99550]"
+                  className="w-full pl-9 pr-10 py-2 text-xs border border-gray-300 rounded-xl focus:outline-none focus:border-[#B99550] focus:ring-1 focus:ring-[#B99550] bg-gray-50/50"
                 />
-                <Lock className="w-4 h-4 text-gray-400 absolute left-3 top-3" />
+                <Lock className="w-4 h-4 text-gray-400 absolute left-3 top-2.5" />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600"
+                >
+                  {showPassword ? (
+                    <EyeOff className="h-4 w-4" />
+                  ) : (
+                    <Eye className="h-4 w-4" />
+                  )}
+                </button>
               </div>
 
               {/* Password Requirements Indicator */}
@@ -221,7 +238,7 @@ export default function SignupPage() {
           <div className="text-center pt-2 border-t border-gray-100">
             <span className="text-xs text-gray-600">Already have an account? </span>
             <Link
-              href="/login"
+              href={`/login${callbackUrl !== '/explore' ? `?callbackUrl=${encodeURIComponent(callbackUrl)}` : ''}`}
               className="text-xs font-bold text-[#123C2D] hover:text-[#B99550]"
             >
               Sign In
@@ -233,3 +250,10 @@ export default function SignupPage() {
   );
 }
 
+export default function SignupPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-[#FAF6ED]" />}>
+      <SignupContent />
+    </Suspense>
+  );
+}
