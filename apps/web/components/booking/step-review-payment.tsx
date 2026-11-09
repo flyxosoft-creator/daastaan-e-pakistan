@@ -11,7 +11,8 @@ import {
   PhoneCall,
   User,
   Heart,
-  ArrowRight
+  ArrowRight,
+  Lock,
 } from 'lucide-react';
 import { formatPrice } from '@/lib/currency';
 
@@ -341,6 +342,65 @@ export function StepReviewPayment({
             </p>
           </div>
         </div>
+
+        {/* Stripe Elements Form Preview when Stripe selected */}
+        {selectedGateway === 'STRIPE' && (
+          <div className="p-5 rounded-2xl bg-white border border-[#B99550]/40 shadow-xs space-y-4">
+            <div className="flex items-center justify-between pb-2 border-b border-gray-100">
+              <span className="text-xs font-bold uppercase tracking-wider text-gray-700 flex items-center gap-1.5">
+                <Lock className="w-3.5 h-3.5 text-[#B99550]" />
+                <span>Credit or Debit Card Payment (Stripe)</span>
+              </span>
+              <span className="text-[10px] text-gray-400">256-bit SSL Encrypted</span>
+            </div>
+
+            <div className="space-y-3">
+              <div>
+                <label className="text-[10px] uppercase font-bold text-gray-500 block mb-1">
+                  Card Number
+                </label>
+                <div className="relative">
+                  <input
+                    type="text"
+                    maxLength={19}
+                    placeholder="4242 •••• •••• 4242"
+                    className="w-full text-xs font-mono border border-gray-300 rounded-lg px-3 py-2 bg-gray-50/50 focus:bg-white focus:outline-none focus:border-[#B99550]"
+                  />
+                  <div className="absolute right-3 top-2 flex items-center gap-1 text-[10px] font-bold text-gray-400">
+                    <span>VISA</span>
+                    <span>MC</span>
+                    <span>AMEX</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="text-[10px] uppercase font-bold text-gray-500 block mb-1">
+                    Expiration Date
+                  </label>
+                  <input
+                    type="text"
+                    maxLength={5}
+                    placeholder="MM / YY"
+                    className="w-full text-xs font-mono border border-gray-300 rounded-lg px-3 py-2 bg-gray-50/50 focus:bg-white focus:outline-none focus:border-[#B99550]"
+                  />
+                </div>
+                <div>
+                  <label className="text-[10px] uppercase font-bold text-gray-500 block mb-1">
+                    CVC / CVV
+                  </label>
+                  <input
+                    type="text"
+                    maxLength={4}
+                    placeholder="123"
+                    className="w-full text-xs font-mono border border-gray-300 rounded-lg px-3 py-2 bg-gray-50/50 focus:bg-white focus:outline-none focus:border-[#B99550]"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Mandatory Terms & Conditions (FR-076) */}
