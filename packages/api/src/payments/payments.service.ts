@@ -2,15 +2,27 @@ import { Injectable, BadRequestException, Logger } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { NotificationsService } from '../notifications/notifications.service';
 import { BookingStatus, PaymentStatus } from '@prisma/client';
+import Stripe from 'stripe';
 
 @Injectable()
 export class PaymentsService {
   private readonly logger = new Logger(PaymentsService.name);
+  private stripe: Stripe | null = null;
 
   constructor(
     private prisma: PrismaService,
     private notifications: NotificationsService,
-  ) {}
+  ) {
+    const secretKey = process.env.STRIPE_SECRET_KEY;
+    if (secretKey) {
+      this.stripe = new Stripe(secretKey, {
+        apiVersion: '2024-11-20.acacia',
+      });
+      this.logger.log('[Stripe] Initialized live/test Stripe SDK');
+    } else {
+      this.logger.warn('[Stripe] No STRIPE_SECRET_KEY configured; running in staging mode');
+    }
+  }
 
   /**
    * Generates a Stripe PaymentIntent for USD/GBP international checkouts
@@ -22,17 +34,50 @@ export class PaymentsService {
     });
     if (!booking) throw new BadRequestException('Booking not found');
 
+    const amountInCents = Math.round(booking.chargedAmount * 100);
+
+    // Call real Stripe API if secret key is configured
+    if (this.stripe) {
+      try {
+        const paymentIntent = await this.stripe.paymentIntents.create({
+          amount: amountInCents,
+          currency: (booking.currency || 'usd').toLowerCase(),
+          metadata: { bookingId: booking.id },
+          automatic_payment_methods: { enabled: true },
+          description: `Daastaan Tour Booking: ${booking.id}`,
+        });
+
+        this.logger.log(
+          `[Stripe] Created PaymentIntent ${paymentIntent.id} for Booking ${booking.id}`,
+        );
+
+        return {
+          clientSecret: paymentIntent.client_secret,
+          paymentIntentId: paymentIntent.id,
+          bookingId: booking.id,
+          amount: booking.chargedAmount,
+          currency: booking.currency,
+          publishableKey: process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY,
+          isLive: true,
+        };
+      } catch (err: any) {
+        this.logger.error(`[Stripe Error] Failed to create PaymentIntent: ${err.message}`);
+        throw new BadRequestException(`Stripe error: ${err.message}`);
+      }
+    }
+
     this.logger.log(
-      `[Stripe] Creating PaymentIntent for Booking ${booking.id} (${booking.currency} ${booking.chargedAmount / 100})`,
+      `[Stripe Staging] Generated mock intent for Booking ${booking.id}`,
     );
 
     return {
-      clientSecret: `pi_live_secret_${booking.id}`,
+      clientSecret: `pi_mock_${booking.id}_secret_test123`,
       bookingId: booking.id,
       amount: booking.chargedAmount,
       currency: booking.currency,
       publishableKey:
         process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || 'pk_test_sample_daastaan',
+      isLive: false,
     };
   }
 

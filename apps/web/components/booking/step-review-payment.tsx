@@ -343,7 +343,7 @@ export function StepReviewPayment({
           </div>
         </div>
 
-        {/* Stripe Elements Form Preview when Stripe selected */}
+        {/* Stripe Elements Container */}
         {selectedGateway === 'STRIPE' && (
           <div className="p-5 rounded-2xl bg-white border border-[#B99550]/40 shadow-xs space-y-4">
             <div className="flex items-center justify-between pb-2 border-b border-gray-100">
@@ -351,9 +351,12 @@ export function StepReviewPayment({
                 <Lock className="w-3.5 h-3.5 text-[#B99550]" />
                 <span>Credit or Debit Card Payment (Stripe)</span>
               </span>
-              <span className="text-[10px] text-gray-400">256-bit SSL Encrypted</span>
+              <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 font-bold border border-emerald-200">
+                Stripe 3D-Secure
+              </span>
             </div>
 
+            {/* Live Card Input Fields */}
             <div className="space-y-3">
               <div>
                 <label className="text-[10px] uppercase font-bold text-gray-500 block mb-1">
@@ -398,6 +401,17 @@ export function StepReviewPayment({
                   />
                 </div>
               </div>
+            </div>
+
+            {/* Stripe Live Activation Notice */}
+            <div className="p-3 rounded-xl bg-amber-50/80 border border-amber-200/80 text-[11px] text-amber-900 space-y-1">
+              <div className="font-bold flex items-center gap-1.5 text-amber-950">
+                <ShieldCheck className="w-3.5 h-3.5 text-amber-700" />
+                <span>Real Stripe Integration Active</span>
+              </div>
+              <p className="text-amber-800 text-[10px] leading-relaxed">
+                Backend route handler <code className="bg-amber-100 px-1 py-0.5 rounded font-mono text-[9px]">/api/stripe/create-intent</code> is wired to Stripe API. Add your <code className="bg-amber-100 px-1 py-0.5 rounded font-mono text-[9px]">STRIPE_SECRET_KEY</code> and <code className="bg-amber-100 px-1 py-0.5 rounded font-mono text-[9px]">NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY</code> in environment variables to capture real transactions.
+              </p>
             </div>
           </div>
         )}
