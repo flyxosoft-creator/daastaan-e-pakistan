@@ -155,6 +155,24 @@ END:VCALENDAR`;
               </p>
             </div>
           </div>
+          <div className="flex flex-wrap gap-2 pt-2">
+            <Link
+              href={`/trips/${resolvedParams.id}`}
+              className="px-4 py-2.5 rounded-xl bg-[#B99550] hover:bg-[#a88440] text-black text-xs font-bold transition flex items-center gap-1.5 shadow-xs"
+            >
+              <ShieldCheck className="w-4 h-4 text-black" />
+              <span>Launch Live Trip & Safety Tracker</span>
+            </Link>
+            <a
+              href={`https://wa.me/923000000000?text=Hello%20Daastaan%20Team,%20my%20booking%20reference%20is%20${resolvedParams.id}.%20I%20have%20an%20inquiry.`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-4 py-2.5 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold transition flex items-center gap-1.5"
+            >
+              <MessageCircle className="w-4 h-4" />
+              <span>WhatsApp Concierge (24/7)</span>
+            </a>
+          </div>
         </div>
 
         {/* PWA Home-Screen Install Prompt (FR-127b) */}
@@ -212,7 +230,7 @@ END:VCALENDAR`;
                     Department of Tourist Services Lic. #DTS-PAK-2026
                   </div>
                   <div className="text-[11px] text-gray-500">
-                    Official Inquiries: info@daastaanepakista.com
+                    Official Inquiries: info@daastaanepakistan.com
                   </div>
                 </div>
                 <div className="text-right">
