@@ -31,6 +31,7 @@ import {
 } from 'lucide-react';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
+import { PackageCard, PackageCardData } from '@/components/catalog/package-card';
 
 /* ─── Animation Variants ─────────────────────────────── */
 const fadeUp = {
@@ -835,25 +836,96 @@ function HowItWorksSection() {
 }
 
 /* ─── 4. Featured Packages ───────────────────────────── */
-const demoPackages = [
-  { id: 1, title: 'Old Lahore Food Walk', city: 'Lahore', duration: '4 hrs', rating: 4.9, reviews: 128, tier: 'FOOD', color: 'from-orange-800 to-amber-700' },
-  { id: 2, title: 'Badshahi Mosque Heritage Tour', city: 'Lahore', duration: '3 hrs', rating: 4.8, reviews: 97, tier: 'CULTURAL', color: 'from-amber-900 to-yellow-800' },
-  { id: 3, title: 'Fairy Meadows Trek', city: 'Gilgit', duration: '3 days', rating: 5.0, reviews: 64, tier: 'NATURE', color: 'from-emerald-900 to-teal-800' },
-  { id: 4, title: 'Islamabad Family Day Out', city: 'Islamabad', duration: '6 hrs', rating: 4.7, reviews: 83, tier: 'FAMILY', color: 'from-blue-900 to-sky-800' },
-  { id: 5, title: 'Hunza Valley Jeep Safari', city: 'Hunza', duration: '2 days', rating: 4.9, reviews: 112, tier: 'NATURE', color: 'from-green-900 to-emerald-800' },
-  { id: 6, title: 'Karachi Street Food Safari', city: 'Karachi', duration: '3 hrs', rating: 4.8, reviews: 145, tier: 'FOOD', color: 'from-rose-900 to-orange-800' },
+const FEATURED_PACKAGES: PackageCardData[] = [
+  {
+    id: '1',
+    slug: 'lahore-walled-city-heritage-walk',
+    title: 'Walled City Heritage Walk — 2,000 Years of Lahore',
+    tier: 'CULTURAL',
+    city: { name: 'Lahore', slug: 'lahore' },
+    durationHours: 4,
+    minParty: 1,
+    maxParty: 8,
+    images: ['https://images.unsplash.com/photo-1598890777032-bde835ba27c2?q=80&w=800&auto=format&fit=crop'],
+    rating: 4.9,
+    reviewCount: 47,
+    description: 'Explore ancient gates, Wazir Khan Mosque, Lahore Fort & hidden Mughal havelis with a certified historian.',
+  },
+  {
+    id: '2',
+    slug: 'lahore-food-trail-gawalmandi',
+    title: 'Gawalmandi Food Trail — A Taste of Living Heritage',
+    tier: 'FOOD',
+    city: { name: 'Lahore', slug: 'lahore' },
+    durationHours: 3,
+    minParty: 1,
+    maxParty: 10,
+    images: ['https://images.unsplash.com/photo-1601050690597-df0568f70950?q=80&w=800&auto=format&fit=crop'],
+    rating: 4.9,
+    reviewCount: 38,
+    description: 'Wok-cooked Lahori karahi, slow-simmered nihari, piping hot naan, and rabri falooda with a local food expert.',
+  },
+  {
+    id: '3',
+    slug: 'hunza-silk-route-expedition',
+    title: 'Hunza Valley Silk Route & Glacier Expedition',
+    tier: 'NATURE',
+    city: { name: 'Northern Pakistan', slug: 'northern-pakistan' },
+    durationDays: 7,
+    minParty: 2,
+    maxParty: 8,
+    images: ['https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=800&auto=format&fit=crop'],
+    rating: 5.0,
+    reviewCount: 34,
+    description: 'Ancient Altit & Baltit forts, Passu Cones, Attabad Lake boating, and sunset views over Rakaposhi (7,788m).',
+  },
+  {
+    id: '4',
+    slug: 'skardu-deosai-safari',
+    title: 'Skardu & Deosai High-Altitude Wilderness Safari',
+    tier: 'NATURE',
+    city: { name: 'Northern Pakistan', slug: 'northern-pakistan' },
+    durationDays: 8,
+    minParty: 2,
+    maxParty: 8,
+    images: ['https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=800&auto=format&fit=crop'],
+    rating: 4.9,
+    reviewCount: 28,
+    description: 'Shangrila Resort, Katpana cold desert dunes, 400-year-old Shigar Fort, and the Land of Giants (Deosai Plains).',
+  },
+  {
+    id: '5',
+    slug: 'fairy-meadows-nanga-parbat-trek',
+    title: 'Fairy Meadows & Nanga Parbat Base Camp Trek',
+    tier: 'NATURE',
+    city: { name: 'Northern Pakistan', slug: 'northern-pakistan' },
+    durationDays: 6,
+    minParty: 2,
+    maxParty: 6,
+    images: ['https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=800&auto=format&fit=crop'],
+    rating: 5.0,
+    reviewCount: 19,
+    description: 'Legendary mountain Jeep track, pine forest hikes, and front-row camping beneath the 8,126m Killer Mountain.',
+  },
+  {
+    id: '6',
+    slug: 'karachi-coastal-heritage-and-mangrove-safari',
+    title: 'Karachi Mangroves Safari & Manora Island Cruise',
+    tier: 'NATURE',
+    city: { name: 'Karachi', slug: 'karachi' },
+    durationHours: 5,
+    minParty: 2,
+    maxParty: 10,
+    images: ['https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?q=80&w=800&auto=format&fit=crop'],
+    rating: 4.8,
+    reviewCount: 26,
+    description: 'Traditional private wooden boat cruise through Arabian Sea mangrove forests, lighthouse visit, and crab feast.',
+  },
 ];
-
-const tierColors: Record<string, string> = {
-  FOOD: 'bg-orange-50 text-orange-700 border border-orange-200',
-  CULTURAL: 'bg-amber-50 text-amber-700 border border-amber-200',
-  FAMILY: 'bg-blue-50 text-blue-700 border border-blue-200',
-  NATURE: 'bg-emerald-50 text-emerald-700 border border-emerald-200',
-};
 
 function FeaturedPackagesSection() {
   return (
-    <section className="py-20 bg-[#F3ECE0] border-t border-b border-[#E8DFD0]">
+    <section className="py-20 bg-[#FAF6ED] border-t border-b border-[#E8DFD0]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-10">
         <AnimatedSection className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
           <div className="space-y-1">
@@ -862,7 +934,7 @@ function FeaturedPackagesSection() {
             </p>
             <h2 className="font-serif text-3xl sm:text-4xl font-bold tracking-tight text-gray-900">
               Featured{' '}
-              <span className="bg-gradient-to-r from-[#123C2D] to-[#B99550] bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-[#123C2D] via-[#1a5540] to-[#B99550] bg-clip-text text-transparent">
                 Experiences
               </span>
             </h2>
@@ -877,55 +949,11 @@ function FeaturedPackagesSection() {
         </AnimatedSection>
       </div>
 
-      {/* Grid of Packages */}
+      {/* Grid of Packages - Exactly Same Dimensions and Style across App */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {demoPackages.slice(0, 6).map((pkg, i) => (
-            <motion.div
-              key={pkg.id}
-              variants={fadeIn}
-              custom={i}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-            >
-              <Link href={`/package/${pkg.title.toLowerCase().replace(/\s+/g, '-')}`}>
-                <div className="group rounded-2xl bg-white border border-gray-200/90 hover:border-[#B99550]/50 overflow-hidden shadow-xs hover:shadow-xl transition-all duration-300">
-                  <div className={`relative h-44 bg-gradient-to-br ${pkg.color} overflow-hidden`}>
-                    <div className="absolute top-3 left-3">
-                      <span className={`text-[11px] font-semibold px-2.5 py-0.5 rounded-full ${tierColors[pkg.tier]}`}>
-                        {pkg.tier.charAt(0) + pkg.tier.slice(1).toLowerCase()}
-                      </span>
-                    </div>
-                    <div className="absolute bottom-3 left-3 flex items-center gap-1.5 text-white/95 text-xs font-medium bg-black/40 backdrop-blur-xs px-2.5 py-1 rounded-full">
-                      <MapPin className="w-3 h-3 text-[#E5B558]" />
-                      <span>{pkg.city}</span>
-                    </div>
-                  </div>
-                  <div className="p-5 space-y-3">
-                    <h3 className="font-serif text-base font-bold text-gray-900 line-clamp-1 group-hover:text-[#123C2D] transition-colors">
-                      {pkg.title}
-                    </h3>
-                    <div className="flex items-center justify-between text-xs text-gray-500 pt-1 border-t border-gray-100">
-                      <span className="flex items-center gap-1 font-medium">
-                        <Clock className="w-3.5 h-3.5 text-gray-400" />
-                        {pkg.duration}
-                      </span>
-                      <div className="flex items-center gap-1">
-                        <Star className="w-3.5 h-3.5 fill-[#B99550] text-[#B99550]" />
-                        <span className="font-bold text-gray-800">{pkg.rating}</span>
-                        <span className="text-gray-400">({pkg.reviews})</span>
-                      </div>
-                    </div>
-                    <div className="pt-2">
-                      <span className="block w-full text-center py-2 rounded-xl bg-gray-50 group-hover:bg-[#123C2D] text-gray-700 group-hover:text-white text-xs font-bold transition-all">
-                        View Itinerary ↗
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </Link>
-            </motion.div>
+          {FEATURED_PACKAGES.map((pkg) => (
+            <PackageCard key={pkg.id} pkg={pkg} />
           ))}
         </div>
       </div>

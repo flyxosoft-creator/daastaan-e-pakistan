@@ -245,29 +245,31 @@ function ExploreContent() {
     <div className="min-h-screen bg-[#FAF6ED] flex flex-col font-sans">
       <Header />
 
-      {/* Modern Light Hero Strip */}
-      <section className="relative pt-12 pb-12 sm:pt-16 sm:pb-16 px-4 bg-[#FAF6ED] border-b border-[#E8DFD0] overflow-hidden bg-tech-grid">
+      {/* Modern Light Hero Strip - End-to-End Layout */}
+      <section className="relative pt-12 pb-12 sm:pt-16 sm:pb-16 w-full px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 bg-[#FAF6ED] border-b border-[#E8DFD0] overflow-hidden bg-tech-grid">
         <div className="ambient-glow absolute inset-0 pointer-events-none" />
-        <div className="relative max-w-7xl mx-auto text-center space-y-4">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#123C2D]/5 border border-[#123C2D]/10 text-[#123C2D] text-xs font-semibold tracking-wide shadow-xs">
+        <div className="relative w-full text-center space-y-4">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#123C2D]/5 border border-[#123C2D]/15 text-[#123C2D] text-xs font-semibold tracking-wider uppercase shadow-xs">
             <Compass className="w-3.5 h-3.5 text-[#B99550]" />
-            <span>Curated Tours by Verified Local Guides</span>
+            <span>Curated Tours by Verified Local Storytellers</span>
           </div>
-          <h1 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-gray-900">
+          <h1 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-gray-900 leading-tight">
             Discover Experiences Across{' '}
-            <span className="text-gradient-brand">Pakistan</span>
+            <span className="bg-gradient-to-r from-[#123C2D] via-[#1a5540] to-[#B99550] bg-clip-text text-transparent">
+              Pakistan
+            </span>
           </h1>
-          <p className="text-gray-600 max-w-2xl mx-auto text-sm sm:text-base leading-relaxed">
-            Every journey tells a story. Choose your destination, meet your verified local guide, and experience Pakistan with authentic warmth and safety.
+          <p className="text-gray-600 max-w-3xl mx-auto text-sm sm:text-base leading-relaxed">
+            Every journey tells a story. Choose your destination, meet your verified local guide, and experience Pakistan with authentic warmth, rich living history, and universal safety.
           </p>
         </div>
       </section>
 
-      {/* Main Content Area */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-12 flex-1 w-full bg-[#F3ECE0]">
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+      {/* Main Content Area - End-to-End Full Width Layout */}
+      <main className="w-full px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-10 sm:py-14 flex-1 bg-[#FAF6ED]">
+        <div className="grid grid-cols-1 lg:grid-cols-4 xl:grid-cols-5 gap-8 items-start">
           {/* Filters Sidebar */}
-          <div className="lg:col-span-1">
+          <div className="lg:col-span-1 xl:col-span-1 sticky top-24">
             <FilterSidebar
               filters={filters}
               onChange={handleFilterChange}
@@ -276,18 +278,18 @@ function ExploreContent() {
           </div>
 
           {/* Results Grid */}
-          <div className="lg:col-span-3 space-y-6">
+          <div className="lg:col-span-3 xl:col-span-4 space-y-6">
             {/* Top Interactive Search & Sort Toolbar */}
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between pb-4 border-b border-[#E8DFD0] gap-3 bg-[#FAF6ED] p-4 rounded-xl shadow-2xs">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between pb-4 border-b border-[#E8DFD0] gap-4 bg-[#F3ECE0]/70 backdrop-blur-sm p-4 sm:p-5 rounded-2xl border border-[#E8DFD0] shadow-2xs">
               {/* Instant Search Bar */}
               <div className="relative flex-1 max-w-md">
-                <Search className="w-4 h-4 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                <Search className="w-4 h-4 text-gray-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
                 <input
                   type="text"
                   value={searchQuery}
                   onChange={(e) => handleSearchChange(e.target.value)}
                   placeholder="Search by tour name, landmark, or keyword..."
-                  className="w-full pl-9 pr-8 py-2 text-xs border border-gray-200 rounded-lg bg-white text-gray-800 placeholder-gray-400 focus:outline-none focus:border-[#B99550] shadow-xs"
+                  className="w-full pl-10 pr-8 py-2.5 text-xs border border-gray-200 rounded-xl bg-white text-gray-800 placeholder-gray-400 focus:outline-none focus:border-[#B99550] focus:ring-1 focus:ring-[#B99550] shadow-xs transition"
                 />
                 {searchQuery && (
                   <button
@@ -302,7 +304,7 @@ function ExploreContent() {
               {/* Status and Sort */}
               <div className="flex items-center justify-between sm:justify-end gap-3">
                 <span className="text-xs text-gray-600 font-medium">
-                  <strong className="text-[#123C2D] font-bold">{filteredPackages.length}</strong> tours found
+                  <strong className="text-[#123C2D] font-bold">{filteredPackages.length}</strong> tours available
                 </span>
 
                 <div className="flex items-center gap-1.5">
@@ -310,7 +312,7 @@ function ExploreContent() {
                   <select
                     value={sortBy}
                     onChange={(e) => handleSortChange(e.target.value)}
-                    className="text-xs border border-gray-200 rounded-lg px-2.5 py-1.5 bg-[#FAF9F5] text-gray-800 focus:outline-none focus:border-[#B99550] cursor-pointer font-medium"
+                    className="text-xs border border-gray-200 rounded-xl px-3 py-2 bg-white text-gray-800 focus:outline-none focus:border-[#B99550] cursor-pointer font-medium shadow-xs"
                   >
                     <option value="popular">Most Popular</option>
                     <option value="rating">Highest Rated</option>
@@ -320,16 +322,16 @@ function ExploreContent() {
               </div>
             </div>
 
-            {/* Packages Grid */}
+            {/* Packages Grid - All Uniform Cards */}
             {filteredPackages.length > 0 ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6">
                 {filteredPackages.map((pkg) => (
                   <PackageCard key={pkg.id} pkg={pkg} />
                 ))}
               </div>
             ) : (
               /* Smart Zero-State Recovery Card */
-              <div className="bg-white rounded-2xl p-10 sm:p-14 text-center border border-gray-200 space-y-4 shadow-sm">
+              <div className="bg-white rounded-2xl p-10 sm:p-14 text-center border border-[#E8DFD0] space-y-4 shadow-sm">
                 <div className="w-12 h-12 rounded-full bg-[#123C2D]/5 text-[#B99550] flex items-center justify-center mx-auto">
                   <Sparkles className="w-6 h-6" />
                 </div>

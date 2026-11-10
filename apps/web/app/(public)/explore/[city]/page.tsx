@@ -258,13 +258,13 @@ export default function CityExplorePage({
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-black/60" />
 
-        <div className="relative max-w-7xl mx-auto w-full text-center px-4 py-16 space-y-4">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/15 backdrop-blur-md border border-white/20 text-[#E5B558] text-xs font-semibold tracking-wider uppercase">
+        <div className="relative w-full max-w-5xl mx-auto text-center px-4 sm:px-8 py-16 sm:py-20 space-y-4">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/15 backdrop-blur-md border border-white/20 text-[#E5B558] text-xs font-semibold tracking-wider uppercase">
             <MapPin className="w-3.5 h-3.5" />
             <span>Destination City • {cityData.urduName}</span>
           </div>
 
-          <h1 className="font-serif text-4xl sm:text-6xl font-bold text-white tracking-tight">
+          <h1 className="font-serif text-4xl sm:text-6xl font-bold text-white tracking-tight leading-tight">
             Explore {cityData.name}
           </h1>
 
@@ -272,7 +272,7 @@ export default function CityExplorePage({
             {cityData.tagline}
           </p>
 
-          <p className="text-white/90 max-w-2xl mx-auto text-sm leading-relaxed pt-2">
+          <p className="text-white/90 max-w-3xl mx-auto text-sm sm:text-base leading-relaxed pt-2">
             {cityData.description}
           </p>
 
@@ -281,7 +281,7 @@ export default function CityExplorePage({
             {cityData.highlights.map((h, i) => (
               <span
                 key={i}
-                className="px-3.5 py-1 rounded-full bg-white/20 backdrop-blur-md text-xs text-white border border-white/25 font-medium"
+                className="px-4 py-1.5 rounded-full bg-white/20 backdrop-blur-md text-xs text-white border border-white/25 font-medium shadow-xs"
               >
                 ✓ {h}
               </span>
@@ -290,13 +290,13 @@ export default function CityExplorePage({
         </div>
       </section>
 
-      {/* City Packages Section */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 flex-1 w-full space-y-10 bg-[#F3ECE0]">
-        <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between pb-4 border-b border-[#E8DFD0] gap-4 bg-[#FAF6ED] p-5 rounded-2xl shadow-2xs">
+      {/* City Packages Section - End-to-End Layout */}
+      <main className="w-full px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 sm:py-16 flex-1 space-y-10 bg-[#FAF6ED]">
+        <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between pb-4 border-b border-[#E8DFD0] gap-4 bg-[#F3ECE0]/70 backdrop-blur-sm p-6 rounded-2xl border border-[#E8DFD0] shadow-2xs">
           <div>
             <h2 className="font-serif text-2xl sm:text-3xl font-bold text-gray-900">
               Featured Tours in{' '}
-              <span className="text-gradient-brand">{cityData.name}</span>
+              <span className="bg-gradient-to-r from-[#123C2D] via-[#1a5540] to-[#B99550] bg-clip-text text-transparent">{cityData.name}</span>
             </h2>
             <p className="text-xs sm:text-sm text-gray-600 mt-1">
               Handcrafted itineraries guided by vetted local storytellers and cultural experts.
@@ -305,14 +305,14 @@ export default function CityExplorePage({
 
           <Link
             href="/explore"
-            className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-[#123C2D] hover:text-[#B99550] transition-colors"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#123C2D] hover:bg-[#B99550] text-white hover:text-[#0A2418] text-xs font-bold transition-all shadow-xs"
           >
             <span>View All Pakistan Tours</span>
-            <ArrowRight className="w-4 h-4" />
+            <ArrowRight className="w-3.5 h-3.5" />
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {cityData.packages.map((pkg) => (
             <PackageCard key={pkg.id} pkg={pkg} />
           ))}

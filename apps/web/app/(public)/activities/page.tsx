@@ -418,17 +418,17 @@ export default function ActivitiesPage() {
     <div className="min-h-screen bg-[#FAF6ED] flex flex-col font-sans">
       <Header />
 
-      {/* ─── Breadcrumb Strip ────────────────────────────────────────── */}
-      <div className="bg-[#F3ECE0] border-b border-[#E8DFD0] py-3 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto flex items-center gap-2 text-xs text-gray-600">
+      {/* ─── Breadcrumb Strip - Full Width ──────────────────────────── */}
+      <div className="bg-[#F3ECE0] border-b border-[#E8DFD0] py-3 w-full px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20">
+        <div className="w-full flex items-center gap-2 text-xs text-gray-600">
           <Link href="/" className="hover:text-[#123C2D]">Home</Link>
           <ChevronRight className="w-3 h-3 text-gray-400" />
           <span className="text-[#123C2D] font-bold">Activities & Experiences</span>
         </div>
       </div>
 
-      {/* ─── Hero Section ────────────────────────────────────────────── */}
-      <section className="relative min-h-[380px] sm:min-h-[440px] flex items-center bg-gray-950 overflow-hidden">
+      {/* ─── Hero Section - End-to-End Layout ────────────────────────── */}
+      <section className="relative min-h-[380px] sm:min-h-[440px] flex items-center bg-gray-950 overflow-hidden w-full px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20">
         <img
           src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?q=80&w=1600&auto=format&fit=crop"
           alt="Activities in Pakistan"
@@ -436,8 +436,8 @@ export default function ActivitiesPage() {
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-black/60" />
 
-        <div className="relative max-w-5xl mx-auto w-full text-center px-4 py-16 space-y-4">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/15 backdrop-blur-md border border-white/20 text-[#E5B558] text-xs font-semibold tracking-wider uppercase">
+        <div className="relative w-full max-w-5xl mx-auto text-center py-16 space-y-4">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/15 backdrop-blur-md border border-white/20 text-[#E5B558] text-xs font-semibold tracking-wider uppercase">
             <Sparkles className="w-3.5 h-3.5" />
             <span>Curated Lifestyle, Cultural & Outdoor Pursuits</span>
           </div>
@@ -456,9 +456,9 @@ export default function ActivitiesPage() {
         </div>
       </section>
 
-      {/* ─── Interactive Category Tabs ───────────────────────────────── */}
-      <section className="sticky top-[68px] sm:top-[74px] z-30 bg-[#FAF6ED]/95 backdrop-blur-md border-b border-[#E8DFD0] py-3.5 px-4 sm:px-6 lg:px-8 shadow-xs">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-3">
+      {/* ─── Interactive Category Tabs - Full Width Strip ─────────────── */}
+      <section className="sticky top-[68px] sm:top-[74px] z-30 bg-[#FAF6ED]/95 backdrop-blur-md border-b border-[#E8DFD0] py-3.5 w-full px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 shadow-xs">
+        <div className="w-full flex flex-col md:flex-row md:items-center justify-between gap-3">
           {/* Category Tabs */}
           <div className="flex items-center gap-1.5 sm:gap-2 overflow-x-auto pb-1 scrollbar-none">
             {[
@@ -476,10 +476,10 @@ export default function ActivitiesPage() {
                 <button
                   key={tab.id}
                   onClick={() => setSelectedCategory(tab.id as ActivityCategory)}
-                  className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold transition-all shrink-0 cursor-pointer ${
+                  className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-bold transition-all shrink-0 cursor-pointer shadow-2xs ${
                     isActive
-                      ? 'bg-[#123C2D] text-white shadow-sm'
-                      : 'bg-white/80 border border-[#DACFBF] text-gray-700 hover:bg-[#F3ECE0] hover:text-[#123C2D]'
+                      ? 'bg-[#123C2D] text-white shadow-xs'
+                      : 'bg-white/90 border border-[#E8DFD0] text-gray-700 hover:bg-[#F3ECE0] hover:text-[#123C2D]'
                   }`}
                 >
                   <Icon className={`w-3.5 h-3.5 ${isActive ? 'text-[#B99550]' : 'text-gray-500'}`} />
@@ -490,18 +490,18 @@ export default function ActivitiesPage() {
           </div>
 
           {/* Quick Search inside activities */}
-          <div className="relative w-full md:w-64">
+          <div className="relative w-full md:w-72">
             <input
               type="text"
               value={searchFilter}
               onChange={(e) => setSearchFilter(e.target.value)}
               placeholder="Search activities or cities..."
-              className="w-full pl-3 pr-8 py-1.5 text-xs bg-white border border-[#DACFBF] rounded-full text-gray-800 placeholder-gray-500 focus:outline-none focus:border-[#123C2D]"
+              className="w-full pl-4 pr-8 py-2 text-xs bg-white border border-[#E8DFD0] rounded-full text-gray-800 placeholder-gray-500 focus:outline-none focus:border-[#B99550] shadow-xs"
             />
             {searchFilter && (
               <button
                 onClick={() => setSearchFilter('')}
-                className="absolute right-2.5 top-1/2 -translate-y-1/2 text-xs text-gray-400 hover:text-gray-600"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-gray-400 hover:text-gray-600"
               >
                 ✕
               </button>
@@ -510,9 +510,9 @@ export default function ActivitiesPage() {
         </div>
       </section>
 
-      {/* ─── Activities Grid ─────────────────────────────────────────── */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 flex-1 w-full space-y-8">
-        <div className="flex items-center justify-between">
+      {/* ─── Activities Grid - End-to-End Layout ─────────────────────── */}
+      <main className="w-full px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 flex-1 space-y-8 bg-[#FAF6ED]">
+        <div className="flex items-center justify-between pb-4 border-b border-[#E8DFD0]">
           <div className="space-y-0.5">
             <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#123C2D]">
               {selectedCategory === 'all'
@@ -535,100 +535,103 @@ export default function ActivitiesPage() {
           </div>
         </div>
 
-        {/* Grid Cards */}
+        {/* Grid Cards - Exactly Same Dimensions and Style as PackageCard */}
         {filteredActivities.length === 0 ? (
-          <div className="text-center py-20 bg-white rounded-2xl border border-[#DACFBF] p-8 space-y-3">
+          <div className="text-center py-20 bg-white rounded-2xl border border-[#E8DFD0] p-8 space-y-3">
             <p className="text-sm font-semibold text-gray-700">No activities match your search.</p>
             <button
               onClick={() => {
                 setSelectedCategory('all');
                 setSearchFilter('');
               }}
-              className="px-4 py-2 bg-[#123C2D] text-white rounded-full text-xs font-bold"
+              className="px-5 py-2.5 bg-[#123C2D] text-white rounded-full text-xs font-bold shadow-xs hover:bg-[#B99550] hover:text-[#0A2418] transition"
             >
               Reset Filters
             </button>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {filteredActivities.map((act) => (
               <div
                 key={act.id}
-                className="group bg-white rounded-2xl overflow-hidden border border-[#DACFBF]/80 hover:border-[#B99550] shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col"
+                className="group relative h-[510px] w-full bg-white rounded-2xl overflow-hidden border border-[#E8DFD0] hover:border-[#B99550]/70 shadow-[0_4px_20px_-4px_rgba(18,60,45,0.06)] hover:shadow-[0_20px_45px_-10px_rgba(18,60,45,0.18)] transition-all duration-500 flex flex-col hover:-translate-y-1.5"
               >
-                {/* Image Banner */}
-                <div className="relative h-56 w-full overflow-hidden bg-gray-100">
+                {/* Top Gold Accent Border */}
+                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#B99550] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20" />
+
+                {/* Image Banner - Exactly 224px */}
+                <div className="relative h-[224px] shrink-0 w-full overflow-hidden bg-[#123C2D]">
                   <img
                     src={act.image}
                     alt={act.title}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-108 opacity-95 group-hover:opacity-100"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/30" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-black/30" />
 
                   {/* Category Pill */}
-                  <div className="absolute top-3 left-3">
-                    <span className="px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider bg-[#123C2D]/90 text-[#F7F3E9] backdrop-blur-md border border-[#B99550]/40">
+                  <div className="absolute top-3.5 left-3.5 z-10">
+                    <span className="px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider bg-[#123C2D]/90 text-[#F7F3E9] backdrop-blur-md border border-[#B99550]/40 shadow-xs">
                       {act.categoryLabel}
                     </span>
                   </div>
 
                   {/* Rating Badge */}
-                  <div className="absolute top-3 right-3 flex items-center gap-1 px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-md text-white text-xs font-bold">
-                    <Star className="w-3.5 h-3.5 text-[#B99550] fill-[#B99550]" />
+                  <div className="absolute top-3.5 right-3.5 z-10 flex items-center gap-1 px-3 py-1 rounded-full bg-black/50 backdrop-blur-md text-white text-[11px] font-bold border border-white/20 shadow-xs">
+                    <Star className="w-3.5 h-3.5 text-[#E5B558] fill-[#E5B558]" />
                     <span>{act.rating.toFixed(1)}</span>
                     <span className="text-[10px] text-gray-300 font-normal">({act.reviewsCount})</span>
                   </div>
 
                   {/* City Tag on Image */}
-                  <div className="absolute bottom-3 left-3 right-3 flex items-center gap-1.5 text-xs text-white/95 font-medium drop-shadow">
-                    <MapPin className="w-3.5 h-3.5 text-[#B99550] shrink-0" />
+                  <div className="absolute bottom-3 left-3.5 right-3.5 z-10 flex items-center gap-1.5 text-[11px] text-white/95 font-medium drop-shadow bg-black/55 backdrop-blur-md px-2.5 py-1 rounded-lg border border-white/15">
+                    <MapPin className="w-3.5 h-3.5 text-[#E5B558] shrink-0" />
                     <span className="truncate">{act.city}</span>
                   </div>
                 </div>
 
-                {/* Card Content */}
-                <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
-                  <div className="space-y-2">
-                    <h3 className="font-serif text-lg font-bold text-[#123C2D] group-hover:text-[#B99550] transition-colors leading-snug line-clamp-2">
+                {/* Card Content - Fixed Proportions & Typography */}
+                <div className="p-5 sm:p-6 flex-1 flex flex-col justify-between bg-gradient-to-b from-white via-white to-[#FAF6ED]/50">
+                  <div>
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-[10px] text-[#B99550] font-bold uppercase tracking-wider">
+                        {act.difficulty} Pace
+                      </span>
+                      <div className="flex items-center gap-3 text-[11px] text-gray-500 font-medium">
+                        <span className="flex items-center gap-1">
+                          <Clock className="w-3 h-3 text-[#B99550]" />
+                          {act.duration}
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <Users className="w-3 h-3 text-[#B99550]" />
+                          {act.groupSize}
+                        </span>
+                      </div>
+                    </div>
+
+                    <h3 className="font-serif text-[17px] sm:text-[18px] font-bold text-[#123C2D] group-hover:text-[#B99550] transition-colors leading-snug line-clamp-2 min-h-[3.1rem]">
                       {act.title}
                     </h3>
 
-                    <p className="text-xs text-gray-600 line-clamp-2 leading-relaxed">
+                    <p className="text-xs text-gray-600 mt-2 line-clamp-2 min-h-[2.5rem] leading-relaxed">
                       {act.description}
                     </p>
                   </div>
 
-                  {/* Key Metadata Pill Badges */}
-                  <div className="grid grid-cols-2 gap-2 text-[11px] text-gray-600 pt-2 border-t border-gray-100">
-                    <div className="flex items-center gap-1.5">
-                      <Clock className="w-3.5 h-3.5 text-[#B99550] shrink-0" />
-                      <span>{act.duration}</span>
+                  {/* Host Attribution & Reserve CTA */}
+                  <div className="mt-4 pt-4 border-t border-[#E8DFD0]/70 flex items-center justify-between">
+                    <div className="flex items-center gap-1.5 text-xs text-[#123C2D] font-medium tracking-wide truncate max-w-[130px]">
+                      <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                      <span className="truncate">{act.guideName}</span>
                     </div>
-                    <div className="flex items-center gap-1.5">
-                      <Users className="w-3.5 h-3.5 text-[#B99550] shrink-0" />
-                      <span>{act.groupSize}</span>
-                    </div>
-                  </div>
 
-                  {/* Host Attribution */}
-                  <div className="pt-2 border-t border-gray-100 flex items-center justify-between text-xs">
-                    <div className="flex items-center gap-1.5 text-gray-700">
-                      <ShieldCheck className="w-4 h-4 text-emerald-600" />
-                      <span className="font-semibold">{act.guideName}</span>
-                    </div>
-                    <span className="text-[10px] text-[#B99550] font-bold uppercase tracking-wider">
-                      {act.difficulty}
-                    </span>
+                    <Link
+                      href={`/package/${act.slug}`}
+                      className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#123C2D] group-hover:bg-[#B99550] text-white group-hover:text-[#0A2418] text-xs font-bold transition-all duration-300 shadow-xs"
+                    >
+                      <span>Reserve Activity</span>
+                      <ArrowRight className="w-3.5 h-3.5" />
+                    </Link>
                   </div>
-
-                  {/* Booking / Details CTA */}
-                  <Link
-                    href={`/package/${act.slug}`}
-                    className="w-full py-2.5 rounded-xl bg-[#123C2D] hover:bg-[#0B251B] text-white font-bold text-xs flex items-center justify-center gap-1.5 transition-all shadow-xs group-hover:bg-[#B99550] group-hover:text-[#123C2D]"
-                  >
-                    <span>Reserve Activity</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
-                  </Link>
                 </div>
               </div>
             ))}

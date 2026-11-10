@@ -55,12 +55,8 @@ export function Header() {
             </a>
           </div>
 
-          {/* Right: Certified Badge & Socials */}
+          {/* Right: Socials */}
           <div className="flex items-center space-x-3 sm:space-x-4">
-            <span className="hidden sm:inline-flex items-center gap-1 text-[11px] font-medium text-[#123C2D] bg-[#123C2D]/5 px-2.5 py-0.5 rounded-full border border-[#123C2D]/10">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#123C2D] animate-pulse" />
-              Verified Storytellers Nationwide
-            </span>
             <div className="flex items-center space-x-2">
               <a
                 href="https://instagram.com"
