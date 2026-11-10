@@ -75,6 +75,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="scroll-smooth">
+      <head>
+        <script src="https://js.stripe.com/dahlia/stripe.js" async></script>
+      </head>
       <body className="font-sans antialiased bg-[#FAF6ED] text-gray-800 selection:bg-[#B99550] selection:text-white">
         <Providers>
           {children}

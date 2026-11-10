@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { StripeEmbeddedForm } from './stripe-embedded-form';
 import {
   CreditCard,
   ShieldCheck,
@@ -343,76 +344,21 @@ export function StepReviewPayment({
           </div>
         </div>
 
-        {/* Stripe Elements Container */}
+        {/* Stripe Elements / Embedded Form Container */}
         {selectedGateway === 'STRIPE' && (
           <div className="p-5 rounded-2xl bg-white border border-[#B99550]/40 shadow-xs space-y-4">
             <div className="flex items-center justify-between pb-2 border-b border-gray-100">
               <span className="text-xs font-bold uppercase tracking-wider text-gray-700 flex items-center gap-1.5">
                 <Lock className="w-3.5 h-3.5 text-[#B99550]" />
-                <span>Credit or Debit Card Payment (Stripe)</span>
+                <span>Secure Stripe Checkout (Dahlia SDK)</span>
               </span>
               <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 font-bold border border-emerald-200">
                 Stripe 3D-Secure
               </span>
             </div>
 
-            {/* Live Card Input Fields */}
-            <div className="space-y-3">
-              <div>
-                <label className="text-[10px] uppercase font-bold text-gray-500 block mb-1">
-                  Card Number
-                </label>
-                <div className="relative">
-                  <input
-                    type="text"
-                    maxLength={19}
-                    placeholder="4242 •••• •••• 4242"
-                    className="w-full text-xs font-mono border border-gray-300 rounded-lg px-3 py-2 bg-gray-50/50 focus:bg-white focus:outline-none focus:border-[#B99550]"
-                  />
-                  <div className="absolute right-3 top-2 flex items-center gap-1 text-[10px] font-bold text-gray-400">
-                    <span>VISA</span>
-                    <span>MC</span>
-                    <span>AMEX</span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-2 gap-3">
-                <div>
-                  <label className="text-[10px] uppercase font-bold text-gray-500 block mb-1">
-                    Expiration Date
-                  </label>
-                  <input
-                    type="text"
-                    maxLength={5}
-                    placeholder="MM / YY"
-                    className="w-full text-xs font-mono border border-gray-300 rounded-lg px-3 py-2 bg-gray-50/50 focus:bg-white focus:outline-none focus:border-[#B99550]"
-                  />
-                </div>
-                <div>
-                  <label className="text-[10px] uppercase font-bold text-gray-500 block mb-1">
-                    CVC / CVV
-                  </label>
-                  <input
-                    type="text"
-                    maxLength={4}
-                    placeholder="123"
-                    className="w-full text-xs font-mono border border-gray-300 rounded-lg px-3 py-2 bg-gray-50/50 focus:bg-white focus:outline-none focus:border-[#B99550]"
-                  />
-                </div>
-              </div>
-            </div>
-
-            {/* Stripe Live Activation Notice */}
-            <div className="p-3 rounded-xl bg-amber-50/80 border border-amber-200/80 text-[11px] text-amber-900 space-y-1">
-              <div className="font-bold flex items-center gap-1.5 text-amber-950">
-                <ShieldCheck className="w-3.5 h-3.5 text-amber-700" />
-                <span>Real Stripe Integration Active</span>
-              </div>
-              <p className="text-amber-800 text-[10px] leading-relaxed">
-                Backend route handler <code className="bg-amber-100 px-1 py-0.5 rounded font-mono text-[9px]">/api/stripe/create-intent</code> is wired to Stripe API. Add your <code className="bg-amber-100 px-1 py-0.5 rounded font-mono text-[9px]">STRIPE_SECRET_KEY</code> and <code className="bg-amber-100 px-1 py-0.5 rounded font-mono text-[9px]">NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY</code> in environment variables to capture real transactions.
-              </p>
-            </div>
+            {/* Embedded Form Component */}
+            <StripeEmbeddedForm />
           </div>
         )}
       </div>
