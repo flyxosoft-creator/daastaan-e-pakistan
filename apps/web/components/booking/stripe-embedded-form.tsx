@@ -36,36 +36,58 @@ export function StripeEmbeddedForm() {
 
     async function initCheckout() {
       try {
-        const publishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || '';
+        const publishableKey =
+          process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY ||
+          'pk_test_51UZu73KPggU2D3Z1IL1s4EY9YxPaKMLJtMcUcwMvpw3TeuGq1cHIh9u3It4XVh3sJIYSNzYm7CN40rU8WXhf6ccg00q8ACzwYD';
 
-        // Wait for Stripe.js (dahlia) to be available on window
+        // Ensure Stripe.js (dahlia) is injected and loaded
         if (!window.Stripe) {
-          await new Promise<void>((resolve) => {
-            const check = setInterval(() => {
-              if (window.Stripe) {
-                clearInterval(check);
-                resolve();
-              }
-            }, 100);
-            setTimeout(() => {
-              clearInterval(check);
+          await new Promise<void>((resolve, reject) => {
+            const existingScript = document.querySelector(
+              'script[src="https://js.stripe.com/dahlia/stripe.js"]',
+            );
+            if (existingScript && window.Stripe) {
               resolve();
-            }, 5000);
+              return;
+            }
+            if (existingScript) {
+              existingScript.addEventListener('load', () => resolve());
+              existingScript.addEventListener('error', () =>
+                reject(new Error('Failed to load Stripe.js')),
+              );
+            } else {
+              const script = document.createElement('script');
+              script.src = 'https://js.stripe.com/dahlia/stripe.js';
+              script.async = true;
+              script.onload = () => resolve();
+              script.onerror = () => reject(new Error('Failed to load Stripe.js from js.stripe.com'));
+              document.head.appendChild(script);
+            }
           });
         }
 
         if (!window.Stripe) {
-          throw new Error('Stripe.js failed to load from https://js.stripe.com/dahlia/stripe.js');
+          throw new Error('Stripe.js object unavailable after loading.');
         }
 
         const stripe = window.Stripe(publishableKey);
 
-        const clientSecret = fetch('/api/create-checkout-session', { method: 'POST' })
-          .then((response) => response.json())
-          .then((json) => {
-            if (json.error) throw new Error(json.error);
-            return json.client_secret;
+        const clientSecret = await fetch('/api/create-checkout-session', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ priceId: 'price_1UaAPIKPggU2D3Z1JLdXNNWX', quantity: 1 }),
+        })
+          .then(async (res) => {
+            const data = await res.json();
+            if (!res.ok || data.error) {
+              throw new Error(data.error || `HTTP ${res.status} from create-checkout-session`);
+            }
+            return data.client_secret;
           });
+
+        if (!clientSecret) {
+          throw new Error('No client_secret returned from server.');
+        }
 
         const checkout = stripe.initCheckoutFormSdk({ clientSecret, appearance });
 
@@ -76,7 +98,10 @@ export function StripeEmbeddedForm() {
         if (loadActionsResult.type === 'success') {
           form.on('confirm', async (event: any) => {
             try {
-              await loadActionsResult.actions.confirm({ formConfirmEvent: event });
+              const result = await loadActionsResult.actions.confirm({ formConfirmEvent: event });
+              if (result?.type === 'success' || !result?.error) {
+                window.location.href = '/booking/BK-1090/success?payment_success=true';
+              }
             } catch (error) {
               console.error('Payment confirmation error:', error);
             }

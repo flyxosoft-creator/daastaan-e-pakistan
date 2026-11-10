@@ -380,19 +380,31 @@ export function StepReviewPayment({
       </div>
 
       {/* Final Submit Button */}
-      <button
-        type="button"
-        disabled={loading || !acceptTerms}
-        onClick={onCompleteBooking}
-        className="w-full py-4 px-6 bg-[#B99550] hover:bg-[#c9a65f] text-[#123C2D] font-bold text-base rounded-2xl flex items-center justify-center gap-2 shadow-xl hover:shadow-2xl transition-all disabled:opacity-50"
-      >
-        <span>
-          {loading
-            ? 'Processing Secure Reservation...'
-            : `Confirm & Pay ${formatPrice(totalPkr, currency)}`}
-        </span>
-        <ArrowRight className="w-5 h-5" />
-      </button>
+      {selectedGateway === 'SAFEPAY' ? (
+        <button
+          type="button"
+          disabled={loading || !acceptTerms}
+          onClick={onCompleteBooking}
+          className="w-full py-4 px-6 bg-[#B99550] hover:bg-[#c9a65f] text-[#123C2D] font-bold text-base rounded-2xl flex items-center justify-center gap-2 shadow-xl hover:shadow-2xl transition-all disabled:opacity-50"
+        >
+          <span>
+            {loading
+              ? 'Processing Secure Reservation...'
+              : `Confirm & Pay via Safepay (${formatPrice(totalPkr, currency)})`}
+          </span>
+          <ArrowRight className="w-5 h-5" />
+        </button>
+      ) : (
+        <div className="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-center space-y-1">
+          <div className="text-xs font-bold text-emerald-900 flex items-center justify-center gap-1.5">
+            <ShieldCheck className="w-4 h-4 text-emerald-700" />
+            <span>Complete Card Checkout via Stripe Form Above ↑</span>
+          </div>
+          <p className="text-[11px] text-emerald-800">
+            Submit your payment directly inside the secure 256-bit encrypted Stripe container above.
+          </p>
+        </div>
+      )}
 
       <div className="text-center text-xs text-gray-500 flex items-center justify-center gap-2">
         <ShieldCheck className="w-4 h-4 text-emerald-600" />
