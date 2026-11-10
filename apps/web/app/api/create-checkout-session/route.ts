@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 
 // Decoded fallback key for test environments where Vercel dashboard env vars are pending
 const defaultSecret = Buffer.from(
-  'c2tfdGVzdF81MVVadjczS1BnZ1UyRDNaMVhpWGdnMnBKR0JJeUhBeEtTdExNeEtRSURXVVhkSGtNVDZDc3AxNVIwWVFwTmVFdzZJUXpIdG81VG12M1BScFlPVmJzVm9zZDcwME0ybW1Xc3VS',
+  'c2tfdGVzdF81MVVadTczS1BnZ1UyRDNaMVhpWGcycEpHQkl5SEF4S1N0TE14S1FJRFdVWGRIa01UNkNzcDE1UjBZUXBOZUV3NklRekh0bzVUbXYzUFJwWU9WYnNWb3NkNzAwTTJtbVdzdVI=',
   'base64',
 ).toString('utf-8');
 
