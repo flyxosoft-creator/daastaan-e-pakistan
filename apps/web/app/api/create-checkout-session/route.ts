@@ -7,6 +7,10 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '', {
 
 export async function POST(req: NextRequest) {
   try {
+    const body = await req.json().catch(() => ({}));
+    const priceId = body.priceId || 'price_1UaAPIKPggU2D3Z1JLdXNNWX';
+    const quantity = Number(body.quantity) || 1;
+
     // TODO: Set mode to "subscription" if selling recurring products.
     const mode: string = 'payment';
 
@@ -22,7 +26,7 @@ export async function POST(req: NextRequest) {
       },
       submit_type: 'auto',
       integration_identifier: 'custom_embedded_web_0001',
-      line_items: [{ price: 'price_...', quantity: 1 }],
+      line_items: [{ price: priceId, quantity }],
     };
 
     if (mode === 'subscription') {

@@ -6,15 +6,15 @@ This document is the single source of truth for the embedded Stripe Checkout int
 
 ## Values to Replace
 
-The following values are placeholders and must be updated before going live.
+The placeholder has been replaced with the verified real Price ID from your Stripe test account.
 
-**Files containing placeholders:**
+**Files containing configuration:**
 - [apps/web/app/api/create-checkout-session/route.ts](apps/web/app/api/create-checkout-session/route.ts)
 
-| Field | Current Value | What to Set |
-| :--- | :--- | :--- |
-| `mode` | `payment` | Set to `"payment"` for one-time charges (e.g., individual tour bookings) or `"subscription"` for recurring billing. |
-| `line_items[].price` | `price_...` | Your actual Stripe Price ID from the Stripe Dashboard ([https://dashboard.stripe.com/test/prices](https://dashboard.stripe.com/test/prices)) or API. |
+| Field | Current Value | Product Name / Details | Status |
+| :--- | :--- | :--- | :--- |
+| `mode` | `payment` | One-time charge for tour booking | **Configured** |
+| `line_items[].price` | `price_1UaAPIKPggU2D3Z1JLdXNNWX` | **Walled City Heritage Walk — 2,000 Years of Lahore** (£100.00 / GBP) | **Active & Verified in Stripe** |
 
 ---
 
