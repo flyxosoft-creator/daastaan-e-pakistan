@@ -19,6 +19,11 @@ export async function POST(req: NextRequest) {
     // TODO: Set mode to "subscription" if selling recurring products.
     const mode: string = 'payment';
 
+    const origin =
+      req.headers.get('origin') ||
+      req.headers.get('referer')?.replace(/\/[^\/]*$/, '') ||
+      'https://daastaan-e-pakistan.vercel.app';
+
     const params = new URLSearchParams({
       ui_mode: 'form',
       mode,
@@ -27,6 +32,7 @@ export async function POST(req: NextRequest) {
       'automatic_tax[enabled]': 'false',
       submit_type: 'auto',
       integration_identifier: 'custom_embedded_web_0001',
+      return_url: `${origin}/booking/BK-1090/success?payment_success=true&session_id={CHECKOUT_SESSION_ID}`,
     });
 
     if (hasCustomAmount) {

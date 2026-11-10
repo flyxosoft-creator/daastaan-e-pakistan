@@ -118,12 +118,16 @@ export function StripeEmbeddedForm({
         if (loadActionsResult.type === 'success') {
           form.on('confirm', async (event: any) => {
             try {
+              setErrorMessage(null);
               const result = await loadActionsResult.actions.confirm({ formConfirmEvent: event });
-              if (result?.type === 'success' || !result?.error) {
+              if (result?.error) {
+                setErrorMessage(result.error.message || 'Payment confirmation failed. Please check your payment details.');
+              } else if (result?.type === 'success' || !result?.error) {
                 window.location.href = '/booking/BK-1090/success?payment_success=true';
               }
-            } catch (error) {
+            } catch (error: any) {
               console.error('Payment confirmation error:', error);
+              setErrorMessage(error?.message || 'Payment failed. Please verify your card details.');
             }
           });
         }
