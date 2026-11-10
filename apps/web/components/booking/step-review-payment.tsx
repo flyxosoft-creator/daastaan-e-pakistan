@@ -357,8 +357,14 @@ export function StepReviewPayment({
               </span>
             </div>
 
-            {/* Embedded Form Component */}
-            <StripeEmbeddedForm />
+            {/* Embedded Form Component (Synchronized with exact trip total & currency) */}
+            <StripeEmbeddedForm
+              key={`${currency}-${totalPkr}-${partySize}`}
+              totalAmountPaisa={totalPkr}
+              currency={currency}
+              packageTitle={packageTitle}
+              partySize={partySize}
+            />
           </div>
         )}
       </div>

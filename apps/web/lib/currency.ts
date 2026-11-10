@@ -34,3 +34,18 @@ export function formatPrice(
   return `${symbol}${converted.toFixed(2)}`;
 }
 
+/**
+ * Returns raw numeric converted amount in the target currency (e.g. 109.86 for £109.86)
+ */
+export function getConvertedAmount(
+  amountPaisa: number,
+  currency: CurrencyCode = 'PKR',
+  customRates?: Record<CurrencyCode, number>,
+): number {
+  const pkrRupees = amountPaisa / 100;
+  const rates = customRates || FALLBACK_RATES;
+  const rate = rates[currency] || 1;
+  const converted = pkrRupees * rate;
+  return Number(converted.toFixed(2));
+}
+

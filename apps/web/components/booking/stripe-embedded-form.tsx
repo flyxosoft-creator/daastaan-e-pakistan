@@ -1,6 +1,14 @@
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
+import { getConvertedAmount } from '@/lib/currency';
+
+interface StripeEmbeddedFormProps {
+  totalAmountPaisa: number;
+  currency: 'USD' | 'GBP';
+  packageTitle: string;
+  partySize: number;
+}
 
 declare global {
   interface Window {
@@ -25,7 +33,12 @@ const appearance = {
   },
 };
 
-export function StripeEmbeddedForm() {
+export function StripeEmbeddedForm({
+  totalAmountPaisa,
+  currency,
+  packageTitle,
+  partySize,
+}: StripeEmbeddedFormProps) {
   const [loading, setLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const mountedRef = useRef(false);
@@ -72,10 +85,17 @@ export function StripeEmbeddedForm() {
 
         const stripe = window.Stripe(publishableKey);
 
+        const convertedAmount = getConvertedAmount(totalAmountPaisa, currency);
+
         const clientSecret = await fetch('/api/create-checkout-session', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ priceId: 'price_1UaAPIKPggU2D3Z1JLdXNNWX', quantity: 1 }),
+          body: JSON.stringify({
+            amount: convertedAmount,
+            currency: currency.toLowerCase(),
+            packageTitle,
+            partySize,
+          }),
         })
           .then(async (res) => {
             const data = await res.json();
@@ -117,7 +137,7 @@ export function StripeEmbeddedForm() {
     }
 
     initCheckout();
-  }, []);
+  }, [totalAmountPaisa, currency, packageTitle, partySize]);
 
   return (
     <div className="space-y-4">
