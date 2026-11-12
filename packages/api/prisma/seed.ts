@@ -407,7 +407,7 @@ async function main() {
     garden:     '/images/packages/lahore/mughal-gardens.jpg',
     stadium:    '/images/packages/lahore/cricket-lahore.jpg',
     street:     '/images/packages/lahore/lens-on-lahore.jpg',
-    family:     `${BASE}/photo-1511895426328-dc8714191011?q=80&w=800&auto=format&fit=crop`,
+    family:     '/images/packages/lahore/family-lifestyle-package.jpg',
     kids:       `${BASE}/photo-1503454537195-1dcabb73ffb9?q=80&w=800&auto=format&fit=crop`,
     weekend:    `${BASE}/photo-1558618666-fcd25c85cd64?q=80&w=800&auto=format&fit=crop`,
     romantic:   `${BASE}/photo-1518998053901-5348d3961a04?q=80&w=800&auto=format&fit=crop`,

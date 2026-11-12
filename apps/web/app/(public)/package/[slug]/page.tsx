@@ -2,6 +2,7 @@
 
 import React, { useState, use } from 'react';
 import Link from 'next/link';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
 import { TierBadge } from '@/components/ui/tier-badge';
@@ -16,13 +17,10 @@ import {
   X,
   ShieldCheck,
   Calendar,
-  MessageCircle,
-  Share2,
-  Heart,
   ChevronRight,
   ArrowRight,
   Sparkles,
-  PhoneCall
+  Maximize2,
 } from 'lucide-react';
 
 interface ItineraryItem {
@@ -66,6 +64,103 @@ interface PackageDetailData {
   };
 }
 
+interface ExperienceTheme {
+  backdropFrom: string;
+  backdropVia: string;
+  backdropTo: string;
+  accentHex: string;
+  glowRgba: string;
+  ctaBg: string;
+  ctaText: string;
+  moodLabel: string;
+}
+
+function getExperienceTheme(tier: string, slug: string): ExperienceTheme {
+  const s = slug.toLowerCase();
+  if (s.includes('night') || s.includes('qawwali')) {
+    return {
+      backdropFrom: '#070B14',
+      backdropVia: '#111827',
+      backdropTo: '#090D16',
+      accentHex: '#F59E0B',
+      glowRgba: 'rgba(245, 158, 11, 0.22)',
+      ctaBg: 'linear-gradient(135deg, #D97706 0%, #F59E0B 100%)',
+      ctaText: '#090D16',
+      moodLabel: 'After-Dark Lantern Atmosphere',
+    };
+  }
+  if (tier === 'FOOD' || s.includes('food') || s.includes('cook')) {
+    return {
+      backdropFrom: '#1C0F08',
+      backdropVia: '#2B160C',
+      backdropTo: '#140A05',
+      accentHex: '#E69F45',
+      glowRgba: 'rgba(230, 159, 69, 0.22)',
+      ctaBg: 'linear-gradient(135deg, #B99550 0%, #E69F45 100%)',
+      ctaText: '#140A05',
+      moodLabel: 'Culinary & Spice Heritage',
+    };
+  }
+  if (tier === 'SPIRITUAL' || s.includes('sufi') || s.includes('nankana') || s.includes('kasur')) {
+    return {
+      backdropFrom: '#160E1E',
+      backdropVia: '#22152E',
+      backdropTo: '#0F0A15',
+      accentHex: '#E0A96D',
+      glowRgba: 'rgba(224, 169, 109, 0.22)',
+      ctaBg: 'linear-gradient(135deg, #B99550 0%, #E0A96D 100%)',
+      ctaText: '#0F0A15',
+      moodLabel: 'Sacred & Mystical Journey',
+    };
+  }
+  if (tier === 'SIGNATURE' || s.includes('shaam-e-mughal') || s.includes('honeymoon')) {
+    return {
+      backdropFrom: '#0A1F17',
+      backdropVia: '#123C2D',
+      backdropTo: '#071711',
+      accentHex: '#D4AF6E',
+      glowRgba: 'rgba(212, 175, 110, 0.26)',
+      ctaBg: 'linear-gradient(135deg, #B99550 0%, #E5C585 100%)',
+      ctaText: '#071711',
+      moodLabel: 'Royal Signature Collection',
+    };
+  }
+  if (tier === 'NATURE' || tier === 'SPORTS') {
+    return {
+      backdropFrom: '#081C18',
+      backdropVia: '#0F2E28',
+      backdropTo: '#061411',
+      accentHex: '#D4AF6E',
+      glowRgba: 'rgba(110, 231, 183, 0.16)',
+      ctaBg: 'linear-gradient(135deg, #B99550 0%, #D4AF6E 100%)',
+      ctaText: '#061411',
+      moodLabel: 'Open-Air Expedition',
+    };
+  }
+  if (tier === 'ARTS' || tier === 'LIFESTYLE' || tier === 'CORPORATE') {
+    return {
+      backdropFrom: '#161316',
+      backdropVia: '#231E22',
+      backdropTo: '#0F0D0F',
+      accentHex: '#D4AF6E',
+      glowRgba: 'rgba(212, 175, 110, 0.20)',
+      ctaBg: 'linear-gradient(135deg, #B99550 0%, #D4AF6E 100%)',
+      ctaText: '#0F0D0F',
+      moodLabel: 'Curated Cultural Lifestyle',
+    };
+  }
+  return {
+    backdropFrom: '#0A2418',
+    backdropVia: '#123C2D',
+    backdropTo: '#081B12',
+    accentHex: '#B99550',
+    glowRgba: 'rgba(185, 149, 80, 0.22)',
+    ctaBg: 'linear-gradient(135deg, #B99550 0%, #D4AF6E 100%)',
+    ctaText: '#081B12',
+    moodLabel: 'Living Heritage Story',
+  };
+}
+
 const SAMPLE_DETAILS: Record<string, PackageDetailData> = {
   'lahore-walled-city-heritage-walk': {
     id: 'pkg_1',
@@ -102,48 +197,41 @@ const SAMPLE_DETAILS: Record<string, PackageDetailData> = {
     itinerary: [
       {
         day: 1,
-        title: 'Morning Exploration of the Walled City',
+        title: 'Androon Lahore Discovery Walk',
         activities: [
           {
-            time: '09:00 AM',
-            title: 'Rendezvous at Delhi Gate',
+            time: '08:30',
+            title: 'Meet at Delhi Gate',
             description:
-              'Meet your guide at Delhi Gate, one of the original 13 gates of Lahore. Introductory briefing on Walled City architecture and etiquette.',
-            estimatedDuration: '20 min',
+              'Gather at the historic Delhi Gate with your certified storyteller for a cultural briefing and safety check-in.',
+            estimatedDuration: '15 min',
           },
           {
-            time: '09:20 AM',
-            title: 'Shahi Hammam (Royal Bathhouse)',
+            time: '08:45',
+            title: 'Shahi Hammam & Bazaar Walk',
             description:
-              'Explore the 17th-century Mughal bathhouse, celebrated for its exquisite fresco restorations and ancient subterranean heating system.',
-            estimatedDuration: '40 min',
-          },
-          {
-            time: '10:00 AM',
-            title: 'Wazir Khan Mosque (Fresco Masterpiece)',
-            description:
-              'Admire what architectural historians call "the mole on the cheek of Lahore" — the most richly ornamented Mughal mosque in the subcontinent.',
-            estimatedDuration: '50 min',
-          },
-          {
-            time: '11:00 AM',
-            title: 'Wandering the Craft Bazaars',
-            description:
-              'Stroll through Kasera Bazaar (brass & copper), Spice Bazaar (Akbari Mandi), and see hidden wooden balconies of ancient havelis.',
-            estimatedDuration: '45 min',
-          },
-          {
-            time: '11:45 AM',
-            title: 'Lahore Fort (UNESCO World Heritage)',
-            description:
-              'Enter the grand fortress: walk the Sheesh Mahal (Palace of Mirrors), Naulakha Pavilion, and hear stories of emperors and royal intrigue.',
+              'Explore the 17th-century Mughal royal bathhouse and wind through historic spice and copper bazaars.',
             estimatedDuration: '60 min',
           },
           {
-            time: '12:45 PM',
-            title: 'Chai & Stories at a Century-Old Teahouse',
+            time: '09:45',
+            title: 'Wazir Khan Mosque',
             description:
-              'Wrap up your walk with refreshing chai, samosas, and open conversation with your guide about modern Lahore life.',
+              'Admire the finest kashi-kari Persian tilework in South Asia and hear the stories of Mughal artisans.',
+            estimatedDuration: '45 min',
+          },
+          {
+            time: '10:45',
+            title: 'Lahore Fort (Shahi Qila)',
+            description:
+              'Walk through Sheesh Mahal, Alamgiri Gate, and royal courtyards overlooking Badshahi Mosque.',
+            estimatedDuration: '90 min',
+          },
+          {
+            time: '12:15',
+            title: 'Pink Kashmiri Chai Finale',
+            description:
+              'Conclude at a century-old teahouse in the Walled City with traditional tea and local sweets.',
             estimatedDuration: '30 min',
           },
         ],
@@ -151,14 +239,24 @@ const SAMPLE_DETAILS: Record<string, PackageDetailData> = {
     ],
     guide: {
       name: 'Tariq Mehmood',
-      gender: 'MALE',
-      avatarUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=300&auto=format&fit=crop',
+      gender: 'Male',
+      avatarUrl:
+        'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=300&auto=format&fit=crop',
       rating: 4.9,
       reviewCount: 47,
       languages: ['English', 'Urdu', 'Punjabi'],
       specialities: ['Mughal Architecture', 'Walled City History', 'Street Photography'],
       bio: 'Third-generation Lahorite with over 12 years uncovering the oral histories of Androon Lahore. Police cleared and certified by Punjab Tourism.',
     },
+  },
+};
+
+const cardReveal = {
+  hidden: { opacity: 0, y: 24 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] as const },
   },
 };
 
@@ -173,9 +271,15 @@ export default function PackageDetailPage({
     SAMPLE_DETAILS[resolvedParams.slug] ||
     SAMPLE_DETAILS['lahore-walled-city-heritage-walk'];
 
+  const theme = getExperienceTheme(pkg.tier, pkg.slug);
+
   const [activeImageIndex, setActiveImageIndex] = useState(0);
+  const [heroLoaded, setHeroLoaded] = useState(false);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
   const [partySize, setPartySize] = useState(2);
   const [selectedCurrency, setSelectedCurrency] = useState<'USD' | 'GBP'>('USD');
+
+  const activeImage = pkg.images[activeImageIndex] || pkg.images[0];
 
   // Tour dates setup (Single or Multi-day)
   const tomorrow = new Date();
@@ -205,113 +309,216 @@ export default function PackageDetailPage({
     : `${pkg.durationHours || 4} Hours`;
 
   return (
-    <div className="min-h-screen bg-[#FAF6ED] flex flex-col font-sans">
-      <Header />
+    <div
+      className="relative min-h-screen flex flex-col font-sans overflow-x-clip"
+      style={{
+        background: `linear-gradient(180deg, ${theme.backdropFrom} 0%, ${theme.backdropVia} 50%, ${theme.backdropTo} 100%)`,
+      }}
+    >
+      {/* ── Full-Viewport Ambient Experience Background ── */}
+      <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
+        <AnimatePresence mode="wait">
+          <motion.img
+            key={activeImage}
+            src={activeImage}
+            alt=""
+            aria-hidden="true"
+            initial={{ opacity: 0, scale: 1.12 }}
+            animate={{ opacity: 0.42, scale: 1.08 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
+            className="w-full h-full object-cover blur-2xl saturate-125 will-change-transform"
+          />
+        </AnimatePresence>
 
-      {/* Breadcrumb Strip */}
-      <div className="bg-[#F3ECE0] border-b border-[#E8DFD0] py-3.5 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto flex items-center gap-2 text-xs text-gray-600">
-          <Link href="/" className="hover:text-[#123C2D]">Home</Link>
-          <ChevronRight className="w-3 h-3 text-gray-400" />
-          <Link href="/explore" className="hover:text-[#123C2D]">Tours</Link>
-          <ChevronRight className="w-3 h-3 text-gray-400" />
-          <Link href={`/explore/${pkg.city.slug}`} className="hover:text-[#123C2D]">{pkg.city.name}</Link>
-          <ChevronRight className="w-3 h-3 text-gray-400" />
-          <span className="text-[#123C2D] font-semibold truncate max-w-xs">{pkg.title}</span>
-        </div>
+        {/* Dynamic atmospheric scrim & radial spotlight */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background: `radial-gradient(circle at 25% 20%, ${theme.glowRgba} 0%, transparent 55%), linear-gradient(180deg, rgba(8,14,12,0.55) 0%, rgba(8,14,12,0.72) 45%, ${theme.backdropTo}E8 100%)`,
+          }}
+        />
       </div>
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-1 w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
-          {/* Left Column: Media, Details, Itinerary, Guide */}
-          <div className="lg:col-span-2 space-y-8">
-            {/* Title & Metadata */}
-            <div className="space-y-3">
+      {/* ── Header ── */}
+      <div className="relative z-30">
+        <Header />
+      </div>
+
+      {/* ── Full-Bleed Cinematic Experience Hero ── */}
+      <section className="relative z-10 w-full min-h-[54vh] sm:min-h-[60vh] flex items-end overflow-hidden border-b border-white/10">
+        {/* Sharp Hero Photo with lazy blur-up & subtle Ken Burns motion */}
+        <div className="absolute inset-0">
+          {!heroLoaded && (
+            <div className="absolute inset-0 bg-gradient-to-br from-white/5 via-white/10 to-transparent animate-pulse" />
+          )}
+          <AnimatePresence mode="wait">
+            <motion.img
+              key={activeImage}
+              src={activeImage}
+              alt={pkg.title}
+              loading="eager"
+              onLoad={() => setHeroLoaded(true)}
+              initial={{ opacity: 0, scale: 1.06 }}
+              animate={{ opacity: heroLoaded ? 1 : 0.85, scale: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+              className="w-full h-full object-cover"
+            />
+          </AnimatePresence>
+
+          {/* Editorial dark gradient overlay for crisp text legibility */}
+          <div
+            className="absolute inset-0"
+            style={{
+              background: `linear-gradient(180deg, rgba(8,14,12,0.35) 0%, rgba(8,14,12,0.28) 38%, rgba(8,14,12,0.82) 78%, ${theme.backdropFrom} 100%)`,
+            }}
+          />
+        </div>
+
+        {/* Hero Foreground Content */}
+        <div className="relative z-10 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 pt-10 pb-10 sm:pb-12">
+          {/* Breadcrumb */}
+          <motion.nav
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="flex flex-wrap items-center gap-2 text-xs text-white/75 mb-5"
+          >
+            <Link href="/" className="hover:text-white transition-colors">Home</Link>
+            <ChevronRight className="w-3 h-3 text-white/40" />
+            <Link href="/explore" className="hover:text-white transition-colors">Tours</Link>
+            <ChevronRight className="w-3 h-3 text-white/40" />
+            <Link href={`/explore/${pkg.city.slug}`} className="hover:text-white transition-colors">
+              {pkg.city.name}
+            </Link>
+            <ChevronRight className="w-3 h-3 text-white/40" />
+            <span className="text-[#E5C585] font-semibold truncate max-w-xs">{pkg.title}</span>
+          </motion.nav>
+
+          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+              className="space-y-4 max-w-3xl"
+            >
+              {/* Mood & Metadata Pills */}
               <div className="flex flex-wrap items-center gap-2">
                 <TierBadge tier={pkg.tier} />
-                <span className="text-xs bg-white px-3 py-0.5 rounded-full border border-gray-200 text-gray-700 flex items-center gap-1">
-                  <MapPin className="w-3.5 h-3.5 text-[#B99550]" />
+                <span className="text-[11px] font-semibold uppercase tracking-wider px-3 py-1 rounded-full bg-white/15 backdrop-blur-md text-[#FDE68A] border border-white/20 flex items-center gap-1.5">
+                  <Sparkles className="w-3 h-3" />
+                  {theme.moodLabel}
+                </span>
+                <span className="text-xs bg-black/40 backdrop-blur-md px-3 py-1 rounded-full border border-white/15 text-white/90 flex items-center gap-1.5">
+                  <MapPin className="w-3.5 h-3.5 text-[#E5C585]" />
                   {pkg.city.name}
                 </span>
-                <span className="text-xs bg-white px-3 py-0.5 rounded-full border border-gray-200 text-gray-700 flex items-center gap-1">
-                  <Clock className="w-3.5 h-3.5 text-[#B99550]" />
+                <span className="text-xs bg-black/40 backdrop-blur-md px-3 py-1 rounded-full border border-white/15 text-white/90 flex items-center gap-1.5">
+                  <Clock className="w-3.5 h-3.5 text-[#E5C585]" />
                   {durationText}
                 </span>
-                <span className="text-xs bg-white px-3 py-0.5 rounded-full border border-gray-200 text-gray-700 flex items-center gap-1">
-                  <Users className="w-3.5 h-3.5 text-[#B99550]" />
+                <span className="text-xs bg-black/40 backdrop-blur-md px-3 py-1 rounded-full border border-white/15 text-white/90 flex items-center gap-1.5">
+                  <Users className="w-3.5 h-3.5 text-[#E5C585]" />
                   {pkg.minParty}–{pkg.maxParty} guests
                 </span>
               </div>
 
-              <h1 className="font-serif text-2xl sm:text-4xl font-bold text-[#123C2D] leading-tight">
+              <h1 className="font-serif text-3xl sm:text-5xl lg:text-[52px] font-bold text-white leading-[1.12] tracking-tight drop-shadow-[0_4px_24px_rgba(0,0,0,0.45)]">
                 {pkg.title}
               </h1>
 
-              <div className="flex items-center gap-4 text-sm">
-                <StarRating
-                  rating={pkg.rating}
-                  reviewCount={pkg.reviewCount}
-                  showNumber
-                  size="md"
-                />
-                <span className="text-gray-300">|</span>
-                <span className="text-xs text-emerald-800 font-semibold bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200 flex items-center gap-1">
-                  <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
-                  Universal Safety Protected
-                </span>
+              <div className="flex flex-wrap items-center gap-4 pt-1">
+                <div className="bg-black/40 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/15">
+                  <StarRating rating={pkg.rating} reviewCount={pkg.reviewCount} showNumber size="md" />
+                </div>
+                <div className="flex items-center gap-1.5 text-xs text-emerald-300 font-semibold bg-emerald-950/60 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-emerald-400/30">
+                  <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+                  <span>Universal Safety Protected</span>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setLightboxOpen(true)}
+                  className="inline-flex items-center gap-1.5 text-xs text-white/90 hover:text-white bg-black/40 hover:bg-black/60 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/20 transition cursor-pointer"
+                >
+                  <Maximize2 className="w-3.5 h-3.5 text-[#E5C585]" />
+                  <span>View Full Photo</span>
+                </button>
               </div>
-            </div>
+            </motion.div>
 
-            {/* Image Gallery */}
-            <div className="space-y-3">
-              <div className="relative h-72 sm:h-96 w-full rounded-2xl overflow-hidden bg-gray-200 shadow-md">
-                <img
-                  src={pkg.images[activeImageIndex] || pkg.images[0]}
-                  alt={pkg.title}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-
-              {/* Thumbnails */}
-              <div className="flex gap-3 overflow-x-auto pb-2">
+            {/* Floating Gallery Switcher */}
+            {pkg.images.length > 1 && (
+              <div className="flex items-center gap-2.5 bg-black/40 backdrop-blur-xl p-2 rounded-2xl border border-white/15 self-start lg:self-end">
                 {pkg.images.map((img, idx) => (
                   <button
                     key={idx}
+                    type="button"
                     onClick={() => setActiveImageIndex(idx)}
-                    className={`relative w-24 h-16 rounded-lg overflow-hidden border-2 transition shrink-0 ${
-                      activeImageIndex === idx ? 'border-[#B99550] shadow-md scale-105' : 'border-transparent opacity-70 hover:opacity-100'
+                    className={`relative w-16 h-12 rounded-xl overflow-hidden border-2 transition-all duration-300 cursor-pointer ${
+                      activeImageIndex === idx
+                        ? 'border-[#E5C585] shadow-lg scale-105'
+                        : 'border-transparent opacity-65 hover:opacity-100'
                     }`}
                   >
-                    <img src={img} alt={`Thumbnail ${idx}`} className="w-full h-full object-cover" />
+                    <img
+                      src={img}
+                      alt={`View ${idx + 1}`}
+                      loading="lazy"
+                      className="w-full h-full object-cover"
+                    />
                   </button>
                 ))}
               </div>
-            </div>
+            )}
+          </div>
+        </div>
+      </section>
 
+      {/* ── Main Content Over Frosted Ambient Backdrop ── */}
+      <main className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-12 flex-1 w-full">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-10">
+          {/* Left Column: Frosted Glass Editorial Cards */}
+          <div className="lg:col-span-2 space-y-8">
             {/* Overview Section */}
-            <div className="bg-white rounded-2xl p-6 sm:p-8 border border-[#B99550]/20 shadow-sm space-y-4">
-              <h2 className="font-serif text-xl sm:text-2xl font-bold text-[#123C2D]">
+            <motion.div
+              variants={cardReveal}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.15 }}
+              className="bg-[#FAF6ED]/92 backdrop-blur-xl rounded-2xl p-6 sm:p-8 border border-white/40 shadow-[0_20px_50px_-12px_rgba(0,0,0,0.45)] space-y-4"
+            >
+              <div className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.18em] text-[#B99550]">
+                <Sparkles className="w-3.5 h-3.5" />
+                <span>The Story</span>
+              </div>
+              <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#123C2D]">
                 Experience Overview
               </h2>
               <p className="text-gray-700 leading-relaxed text-sm sm:text-base">
                 {pkg.description}
               </p>
-            </div>
+            </motion.div>
 
             {/* Included & Excluded */}
-            <div className="bg-white rounded-2xl p-6 sm:p-8 border border-[#B99550]/20 shadow-sm space-y-6">
-              <h2 className="font-serif text-xl sm:text-2xl font-bold text-[#123C2D]">
-                What's Included & Excluded
+            <motion.div
+              variants={cardReveal}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.15 }}
+              className="bg-[#FAF6ED]/92 backdrop-blur-xl rounded-2xl p-6 sm:p-8 border border-white/40 shadow-[0_20px_50px_-12px_rgba(0,0,0,0.45)] space-y-6"
+            >
+              <h2 className="font-serif text-2xl font-bold text-[#123C2D]">
+                What&apos;s Included &amp; Excluded
               </h2>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {/* Included */}
-                <div className="space-y-3">
-                  <h3 className="text-sm font-bold uppercase tracking-wider text-emerald-800 flex items-center gap-1.5">
+                <div className="space-y-3 bg-white/60 rounded-xl p-4 border border-emerald-900/10">
+                  <h3 className="text-xs font-bold uppercase tracking-wider text-emerald-800 flex items-center gap-1.5">
                     <Check className="w-4 h-4 text-emerald-600" />
                     <span>Included in Tour</span>
                   </h3>
-                  <ul className="space-y-2 text-xs sm:text-sm text-gray-700">
+                  <ul className="space-y-2.5 text-xs sm:text-sm text-gray-700">
                     {pkg.included.map((item, i) => (
                       <li key={i} className="flex items-start gap-2">
                         <Check className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
@@ -321,13 +528,12 @@ export default function PackageDetailPage({
                   </ul>
                 </div>
 
-                {/* Excluded */}
-                <div className="space-y-3">
-                  <h3 className="text-sm font-bold uppercase tracking-wider text-rose-800 flex items-center gap-1.5">
+                <div className="space-y-3 bg-white/60 rounded-xl p-4 border border-rose-900/10">
+                  <h3 className="text-xs font-bold uppercase tracking-wider text-rose-800 flex items-center gap-1.5">
                     <X className="w-4 h-4 text-rose-600" />
                     <span>Not Included</span>
                   </h3>
-                  <ul className="space-y-2 text-xs sm:text-sm text-gray-700">
+                  <ul className="space-y-2.5 text-xs sm:text-sm text-gray-700">
                     {pkg.excluded.map((item, i) => (
                       <li key={i} className="flex items-start gap-2">
                         <X className="w-4 h-4 text-rose-500 shrink-0 mt-0.5" />
@@ -337,11 +543,17 @@ export default function PackageDetailPage({
                   </ul>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
             {/* Itinerary Timeline */}
-            <div className="bg-white rounded-2xl p-6 sm:p-8 border border-[#B99550]/20 shadow-sm space-y-6">
-              <h2 className="font-serif text-xl sm:text-2xl font-bold text-[#123C2D]">
+            <motion.div
+              variants={cardReveal}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.15 }}
+              className="bg-[#FAF6ED]/92 backdrop-blur-xl rounded-2xl p-6 sm:p-8 border border-white/40 shadow-[0_20px_50px_-12px_rgba(0,0,0,0.45)] space-y-6"
+            >
+              <h2 className="font-serif text-2xl font-bold text-[#123C2D]">
                 Tour Itinerary
               </h2>
 
@@ -353,28 +565,26 @@ export default function PackageDetailPage({
                     </div>
                   )}
 
-                  <div className="relative border-l-2 border-[#B99550]/40 pl-6 space-y-6 ml-2">
+                  <div className="relative border-l-2 border-[#B99550]/50 pl-6 space-y-6 ml-2">
                     {dayPlan.activities.map((act, actIdx) => (
                       <div key={actIdx} className="relative group">
-                        {/* Dot indicator */}
-                        <div className="absolute -left-[31px] top-1.5 w-3 h-3 rounded-full bg-[#B99550] border-2 border-white ring-2 ring-[#123C2D]/10" />
+                        <div className="absolute -left-[31px] top-1.5 w-3 h-3 rounded-full bg-[#B99550] border-2 border-[#FAF6ED] ring-2 ring-[#123C2D]/15 group-hover:scale-125 transition-transform" />
 
                         <div className="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-3">
                           {act.time && (
-                            <span className="text-xs font-bold text-[#123C2D] bg-[#B99550]/15 px-2 py-0.5 rounded">
+                            <span className="text-xs font-bold text-[#B99550] uppercase tracking-wider shrink-0">
                               {act.time}
                             </span>
                           )}
-                          <h4 className="font-serif font-bold text-base text-[#123C2D]">
+                          <h4 className="font-serif text-base font-bold text-[#123C2D]">
                             {act.title}
                           </h4>
                           {act.estimatedDuration && (
-                            <span className="text-xs text-gray-500">
+                            <span className="text-[11px] text-gray-500 font-medium">
                               ({act.estimatedDuration})
                             </span>
                           )}
                         </div>
-
                         <p className="text-xs sm:text-sm text-gray-600 mt-1 leading-relaxed">
                           {act.description}
                         </p>
@@ -383,19 +593,31 @@ export default function PackageDetailPage({
                   </div>
                 </div>
               ))}
-            </div>
+            </motion.div>
 
-            {/* Meet Your Guide */}
-            <div className="bg-white rounded-2xl p-6 sm:p-8 border border-[#B99550]/20 shadow-sm space-y-4">
-              <h2 className="font-serif text-xl sm:text-2xl font-bold text-[#123C2D]">
-                Meet Your Verified Guide
-              </h2>
+            {/* Guide Profile Card */}
+            <motion.div
+              variants={cardReveal}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.15 }}
+              className="bg-[#FAF6ED]/92 backdrop-blur-xl rounded-2xl p-6 sm:p-8 border border-white/40 shadow-[0_20px_50px_-12px_rgba(0,0,0,0.45)] space-y-5"
+            >
+              <div className="flex items-center justify-between border-b border-[#E8DFD0] pb-4">
+                <h2 className="font-serif text-2xl font-bold text-[#123C2D]">
+                  Your Verified Local Storyteller
+                </h2>
+                <span className="text-xs font-semibold text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">
+                  100% Vetted Guide
+                </span>
+              </div>
 
-              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6 pt-2">
+              <div className="flex flex-col sm:flex-row items-start gap-5">
                 <img
                   src={pkg.guide.avatarUrl}
                   alt={pkg.guide.name}
-                  className="w-20 h-20 rounded-full object-cover border-2 border-[#B99550] shadow-md"
+                  loading="lazy"
+                  className="w-20 h-20 rounded-full object-cover border-2 border-[#B99550] shadow-md shrink-0"
                 />
 
                 <div className="space-y-1.5 flex-1">
@@ -405,7 +627,7 @@ export default function PackageDetailPage({
                     </h3>
                     <span className="text-xs bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded font-semibold flex items-center gap-1">
                       <ShieldCheck className="w-3 h-3 text-emerald-700" />
-                      CNIC & Police Verified
+                      CNIC &amp; Police Verified
                     </span>
                   </div>
 
@@ -421,20 +643,25 @@ export default function PackageDetailPage({
 
                   <div className="flex flex-wrap gap-1.5 pt-2">
                     {pkg.guide.specialities.map((s, i) => (
-                      <span key={i} className="text-[11px] bg-gray-100 text-gray-700 px-2 py-0.5 rounded">
+                      <span key={i} className="text-[11px] bg-white/80 text-gray-700 px-2.5 py-0.5 rounded-full border border-gray-200/80">
                         #{s}
                       </span>
                     ))}
                   </div>
                 </div>
               </div>
-            </div>
+            </motion.div>
           </div>
 
-          {/* Right Column: Pricing & Booking Card (Sticky on desktop, sticky on bottom mobile) */}
+          {/* Right Column: Sticky Glassmorphic Booking Concierge */}
           <div className="lg:col-span-1">
-            <div className="sticky top-24 bg-white rounded-2xl p-6 border-2 border-[#B99550]/40 shadow-xl space-y-5">
-              {/* Currency Selector on Top (USD and GBP ONLY) */}
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+              className="sticky top-24 bg-white/95 backdrop-blur-2xl rounded-2xl p-6 border border-[#B99550]/45 shadow-[0_24px_64px_-12px_rgba(0,0,0,0.55)] space-y-5"
+            >
+              {/* Currency Selector */}
               <div className="space-y-1.5 pb-3 border-b border-gray-100">
                 <div className="flex items-center justify-between">
                   <span className="text-[11px] font-bold uppercase tracking-wider text-gray-500">
@@ -446,7 +673,7 @@ export default function PackageDetailPage({
                   <button
                     type="button"
                     onClick={() => setSelectedCurrency('USD')}
-                    className={`py-1.5 px-3 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 ${
+                    className={`py-1.5 px-3 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
                       selectedCurrency === 'USD'
                         ? 'bg-[#123C2D] text-[#FAF6ED] shadow-sm'
                         : 'text-gray-700 hover:text-[#123C2D]'
@@ -458,7 +685,7 @@ export default function PackageDetailPage({
                   <button
                     type="button"
                     onClick={() => setSelectedCurrency('GBP')}
-                    className={`py-1.5 px-3 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 ${
+                    className={`py-1.5 px-3 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
                       selectedCurrency === 'GBP'
                         ? 'bg-[#123C2D] text-[#FAF6ED] shadow-sm'
                         : 'text-gray-700 hover:text-[#123C2D]'
@@ -470,7 +697,7 @@ export default function PackageDetailPage({
                 </div>
               </div>
 
-              {/* Price Header (Revealed on detail page per FR-016 / FR-058) */}
+              {/* Price Header */}
               <div className="space-y-1 pb-4 border-b border-gray-100">
                 <span className="text-xs font-semibold uppercase tracking-wider text-gray-500">
                   Experience Price
@@ -488,7 +715,7 @@ export default function PackageDetailPage({
                 </div>
               </div>
 
-              {/* Tour Start & End Date (Single or Multi-day) */}
+              {/* Tour Start & End Date */}
               <div className="space-y-2.5 pb-4 border-b border-gray-100">
                 <div className="flex items-center justify-between">
                   <label className="text-xs font-bold uppercase tracking-wider text-gray-700 flex items-center gap-1.5">
@@ -517,7 +744,6 @@ export default function PackageDetailPage({
                       className="w-full text-xs border border-gray-300 rounded-lg px-2.5 py-1.5 bg-white text-gray-800 focus:outline-none focus:border-[#B99550]"
                     />
                   </div>
-
                   <div className="space-y-1">
                     <span className="text-[10px] uppercase font-bold text-gray-500">End Date</span>
                     <input
@@ -549,8 +775,9 @@ export default function PackageDetailPage({
                 </label>
                 <div className="flex items-center justify-between border border-gray-200 rounded-lg p-2 bg-gray-50">
                   <button
+                    type="button"
                     onClick={() => setPartySize(Math.max(1, partySize - 1))}
-                    className="w-8 h-8 rounded-md bg-white border border-gray-200 flex items-center justify-center font-bold text-gray-700 hover:bg-gray-100"
+                    className="w-8 h-8 rounded-md bg-white border border-gray-200 flex items-center justify-center font-bold text-gray-700 hover:bg-gray-100 cursor-pointer"
                   >
                     -
                   </button>
@@ -558,8 +785,9 @@ export default function PackageDetailPage({
                     {partySize} {partySize === 1 ? 'Person' : 'People'}
                   </span>
                   <button
+                    type="button"
                     onClick={() => setPartySize(Math.min(pkg.maxParty, partySize + 1))}
-                    className="w-8 h-8 rounded-md bg-white border border-gray-200 flex items-center justify-center font-bold text-gray-700 hover:bg-gray-100"
+                    className="w-8 h-8 rounded-md bg-white border border-gray-200 flex items-center justify-center font-bold text-gray-700 hover:bg-gray-100 cursor-pointer"
                   >
                     +
                   </button>
@@ -579,10 +807,11 @@ export default function PackageDetailPage({
                 </ul>
               </div>
 
-              {/* Direct Booking CTA */}
+              {/* Direct Booking CTA with dynamic experience accent */}
               <Link
                 href={`/book/${pkg.slug}?partySize=${partySize}&startDate=${startDate}&endDate=${endDate}&currency=${selectedCurrency}`}
-                className="w-full py-3.5 px-4 bg-[#B99550] hover:bg-[#c9a65f] text-[#123C2D] font-bold text-sm rounded-xl flex items-center justify-center gap-2 shadow-lg hover:shadow-xl transition-all"
+                style={{ background: theme.ctaBg, color: theme.ctaText }}
+                className="w-full py-3.5 px-4 font-bold text-sm rounded-xl flex items-center justify-center gap-2 shadow-lg hover:shadow-xl hover:brightness-105 transition-all"
               >
                 <span>Reserve Experience</span>
                 <ArrowRight className="w-4 h-4" />
@@ -591,13 +820,45 @@ export default function PackageDetailPage({
               <div className="text-center text-[11px] text-gray-500">
                 🔒 Free 100% refund up to 48 hours before trip start
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
       </main>
 
-      <Footer />
+      <div className="relative z-20">
+        <Footer />
+      </div>
+
+      {/* ── Fullscreen Photo Lightbox ── */}
+      <AnimatePresence>
+        {lightboxOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setLightboxOpen(false)}
+            className="fixed inset-0 z-50 bg-black/90 backdrop-blur-xl flex items-center justify-center p-4 sm:p-8"
+          >
+            <button
+              type="button"
+              onClick={() => setLightboxOpen(false)}
+              className="absolute top-6 right-6 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition cursor-pointer"
+              aria-label="Close photo preview"
+            >
+              <X className="w-5 h-5" />
+            </button>
+            <motion.img
+              initial={{ scale: 0.94, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.94, opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              src={activeImage}
+              alt={pkg.title}
+              className="max-w-full max-h-[88vh] rounded-2xl object-contain shadow-2xl border border-white/15"
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
-

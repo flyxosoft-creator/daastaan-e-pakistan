@@ -179,7 +179,7 @@ export const LAHORE_PACKAGES: LahorePackageDetail[] = [
   makePkg('lhr-13', 'lahore-family-lifestyle-special-package', 'Family, Lifestyle & Special Customer Package', PackageTier.FAMILY, 9, undefined, 700000,
     'A full-day family adventure across Lahore\'s best family attractions. Visit Lahore Zoo, Safari Park, Jilani Park or Greater Iqbal Park, and enjoy family-friendly rides at Joyland or a selected operating attraction. Lunch at a family restaurant with optional shopping or dessert stop.',
     ['Family guide & coordinator (8–10 hours)', 'Lahore Zoo entry', 'Safari Park visit', 'Joyland or attraction visit', 'Family restaurant lunch'],
-    ['Personal shopping', 'Additional rides or activities beyond inclusions'], FALLBACK_IMG.family, 4.7, 24),
+    ['Personal shopping', 'Additional rides or activities beyond inclusions'], '/images/packages/lahore/family-lifestyle-package.jpg', 4.7, 24),
 
   makePkg('lhr-14', 'lahore-kids-discovery-learning-tour', 'Kids Discovery Lahore', PackageTier.FAMILY, 9, undefined, 600000,
     'An educational adventure designed for children and school groups. Visit Lahore Museum or a suitable educational attraction, the History Museum at Minar-e-Pakistan, a Science Museum, participate in a supervised craft workshop, enjoy lunch, and complete a guided heritage quiz activity.',
