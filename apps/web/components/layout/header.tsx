@@ -30,7 +30,18 @@ export function Header() {
   }, []);
 
   return (
-    <header className="sticky top-0 left-0 right-0 z-50 bg-[#FAF6ED]/95 backdrop-blur-md border-b border-[#E8DFD0] shadow-xs transition-all">
+    <header
+      className={`sticky top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        isScrolled
+          ? 'bg-[#FAF6ED]/98 backdrop-blur-2xl shadow-[0_4px_32px_-4px_rgba(18,60,45,0.12)]'
+          : 'bg-[#FAF6ED]/95 backdrop-blur-md shadow-xs'
+      }`}
+    >
+      {/* Gold gradient border line — always visible, brighter on scroll */}
+      <div
+        className={`h-[1.5px] w-full transition-opacity duration-500 ${isScrolled ? 'opacity-100' : 'opacity-40'}`}
+        style={{ background: 'linear-gradient(90deg, transparent 0%, #B99550 20%, #D4AF6E 50%, #B99550 80%, transparent 100%)' }}
+      />
       {/* ─── Light Subtle Top Utility Bar ────────────────────────────── */}
       <div className="bg-[#F3ECE0] text-gray-700 text-[11px] sm:text-xs border-b border-[#E8DFD0] py-1.5 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
@@ -95,77 +106,48 @@ export function Header() {
 
           {/* Desktop Nav Items - Clean, Uncluttered, Essential */}
           <nav className="hidden lg:flex items-center space-x-6 xl:space-x-8 text-xs xl:text-sm font-semibold tracking-wider text-gray-700">
-            <Link
-              href="/explore"
-              className={`transition-colors hover:text-[#123C2D] ${
-                pathname === '/explore' && !pathname.includes('type=experiences')
-                  ? 'text-[#123C2D] font-bold border-b-2 border-[#123C2D] pb-1'
-                  : ''
-              }`}
-            >
-              DESTINATIONS
-            </Link>
-
-            <Link
-              href="/activities"
-              className={`transition-colors hover:text-[#123C2D] ${
-                pathname === '/activities'
-                  ? 'text-[#123C2D] font-bold border-b-2 border-[#123C2D] pb-1'
-                  : ''
-              }`}
-            >
-              ACTIVITIES
-            </Link>
-
-            <Link
-              href="/explore?type=experiences"
-              className="transition-colors hover:text-[#123C2D]"
-            >
-              EXPERIENCES
-            </Link>
-
-            <Link
-              href="/safety-guide"
-              className={`transition-colors hover:text-[#123C2D] ${
-                pathname === '/safety-guide' ? 'text-[#123C2D] font-bold border-b-2 border-[#123C2D] pb-1' : ''
-              }`}
-            >
-              UNIVERSAL SAFETY
-            </Link>
-
-            <Link
-              href="/about"
-              className={`transition-colors hover:text-[#123C2D] ${
-                pathname === '/about' ? 'text-[#123C2D] font-bold border-b-2 border-[#123C2D] pb-1' : ''
-              }`}
-            >
-              ABOUT
-            </Link>
-
-            <Link
-              href="/contact"
-              className={`transition-colors hover:text-[#123C2D] ${
-                pathname === '/contact' ? 'text-[#123C2D] font-bold border-b-2 border-[#123C2D] pb-1' : ''
-              }`}
-            >
-              CONTACT
-            </Link>
+            {[
+              { label: 'DESTINATIONS', href: '/explore', match: (p: string) => p === '/explore' && !p.includes('experiences') },
+              { label: 'ACTIVITIES',   href: '/activities', match: (p: string) => p === '/activities' },
+              { label: 'EXPERIENCES',  href: '/explore?type=experiences', match: () => false },
+              { label: 'UNIVERSAL SAFETY', href: '/safety-guide', match: (p: string) => p === '/safety-guide' },
+              { label: 'ABOUT',   href: '/about',   match: (p: string) => p === '/about' },
+              { label: 'CONTACT', href: '/contact', match: (p: string) => p === '/contact' },
+            ].map(({ label, href, match }) => {
+              const active = match(pathname);
+              return (
+                <Link
+                  key={label}
+                  href={href}
+                  className={`relative group pb-0.5 transition-colors duration-250 hover:text-[#123C2D] ${active ? 'text-[#123C2D] font-bold' : ''}`}
+                >
+                  {label}
+                  {/* Animated underline */}
+                  <span
+                    className={`absolute -bottom-0.5 left-0 h-[2px] rounded-full bg-gradient-to-r from-[#B99550] to-[#D4AF6E] transition-all duration-350 ${
+                      active ? 'w-full' : 'w-0 group-hover:w-full'
+                    }`}
+                  />
+                </Link>
+              );
+            })}
           </nav>
 
           {/* Desktop Right: Search & Action Button */}
           <div className="hidden lg:flex items-center space-x-3">
             <Link
               href="/explore"
-              className="p-2 rounded-full hover:bg-gray-100 text-gray-600 hover:text-[#123C2D] transition-colors"
+              className="p-2 rounded-full hover:bg-[#123C2D]/8 text-gray-600 hover:text-[#123C2D] transition-all duration-250"
               aria-label="Search tours and destinations"
             >
               <Search className="w-4 h-4" />
             </Link>
             <Link
               href="/explore"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-[#123C2D] to-[#1F5C45] hover:from-[#0B251B] hover:to-[#123C2D] text-white text-xs font-bold tracking-wide shadow-md shadow-[#123C2D]/15 hover:shadow-lg transition-all duration-300 hover:scale-[1.02]"
+              className="btn-premium text-xs"
             >
-              <span>Book a Tour ↗</span>
+              <span>Book a Tour</span>
+              <span className="text-[#D4AF6E]">↗</span>
             </Link>
           </div>
 

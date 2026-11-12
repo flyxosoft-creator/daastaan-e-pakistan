@@ -1,10 +1,18 @@
 // ─── Enums ───────────────────────────────────────────────────────────────────
 
 export enum PackageTier {
-  CULTURAL = 'CULTURAL',
-  FOOD = 'FOOD',
-  FAMILY = 'FAMILY',
-  NATURE = 'NATURE',
+  CULTURAL   = 'CULTURAL',
+  FOOD       = 'FOOD',
+  FAMILY     = 'FAMILY',
+  NATURE     = 'NATURE',
+  SPIRITUAL  = 'SPIRITUAL',
+  ADVENTURE  = 'ADVENTURE',
+  LIFESTYLE  = 'LIFESTYLE',
+  HERITAGE   = 'HERITAGE',
+  SIGNATURE  = 'SIGNATURE',
+  ARTS       = 'ARTS',
+  SPORTS     = 'SPORTS',
+  CORPORATE  = 'CORPORATE',
 }
 
 export enum BookingStatus {

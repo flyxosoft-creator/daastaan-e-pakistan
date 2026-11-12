@@ -36,16 +36,16 @@ export function PackageCard({ pkg }: PackageCardProps) {
   const coverImage = pkg.images?.[0] || '/images/default-tour.jpg';
 
   return (
-    <div className="group relative h-[510px] w-full bg-white rounded-2xl overflow-hidden border border-[#E8DFD0] hover:border-[#B99550]/70 shadow-[0_4px_20px_-4px_rgba(18,60,45,0.06)] hover:shadow-[0_20px_45px_-10px_rgba(18,60,45,0.18)] transition-all duration-500 flex flex-col hover:-translate-y-1.5">
-      {/* Subtle Top Gold Highlight Border on Hover */}
-      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#B99550] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20" />
+    <div className="group relative h-[510px] w-full bg-white rounded-2xl overflow-hidden border border-[#E8DFD0] hover:border-[#B99550]/80 shadow-[0_4px_20px_-4px_rgba(18,60,45,0.06)] hover:shadow-[0_28px_60px_-10px_rgba(18,60,45,0.22),inset_0_0_0_1px_rgba(185,149,80,0.18)] transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] flex flex-col hover:-translate-y-2 will-change-transform">
+      {/* Subtle Top Gold Highlight Border on Hover — 2px for visibility */}
+      <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#B99550] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20" />
 
       {/* Media Container - Fixed Uniform Height */}
       <div className="relative h-[224px] shrink-0 w-full overflow-hidden bg-[#123C2D]">
         <img
           src={coverImage}
           alt={pkg.title}
-          className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-700 ease-out opacity-95 group-hover:opacity-100"
+          className="w-full h-full object-cover group-hover:scale-[1.08] transition-transform duration-700 ease-out opacity-90 group-hover:opacity-100"
           onError={(e) => {
             (e.target as HTMLImageElement).src =
               'https://images.unsplash.com/photo-1598890777032-bde835ba27c2?q=80&w=800&auto=format&fit=crop';
@@ -111,7 +111,7 @@ export function PackageCard({ pkg }: PackageCardProps) {
           </div>
           <Link
             href={`/package/${pkg.slug}`}
-            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#123C2D] group-hover:bg-[#B99550] text-white group-hover:text-[#0A2418] text-xs font-bold transition-all duration-300 shadow-xs"
+            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#123C2D] group-hover:bg-gradient-to-r group-hover:from-[#B99550] group-hover:to-[#D4AF6E] text-white group-hover:text-[#0A2418] text-xs font-bold transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] shadow-sm group-hover:shadow-[0_4px_16px_-2px_rgba(185,149,80,0.5)]"
           >
             <span>View Details</span>
             <ArrowRight className="w-3.5 h-3.5" />

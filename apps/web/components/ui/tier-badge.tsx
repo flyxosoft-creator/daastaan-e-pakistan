@@ -6,50 +6,46 @@ interface TierBadgeProps {
   className?: string;
 }
 
-export function TierBadge({ tier, className = '' }: TierBadgeProps) {
-  const getBadgeStyle = () => {
-    switch (tier) {
-      case 'CULTURAL':
-      case PackageTier.CULTURAL:
-        return 'bg-[#B99550]/20 text-[#B99550] border-[#B99550]/40';
-      case 'FOOD':
-      case PackageTier.FOOD:
-        return 'bg-amber-500/20 text-amber-300 border-amber-500/40';
-      case 'FAMILY':
-      case PackageTier.FAMILY:
-        return 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40';
-      case 'NATURE':
-      case PackageTier.NATURE:
-        return 'bg-sky-500/20 text-sky-300 border-sky-500/40';
-      default:
-        return 'bg-[#B99550]/20 text-[#B99550] border-[#B99550]/40';
-    }
-  };
+const BADGE_STYLES: Record<string, string> = {
+  CULTURAL:  'bg-[#B99550]/20 text-[#B99550] border-[#B99550]/40',
+  FOOD:      'bg-amber-500/20 text-amber-300 border-amber-500/40',
+  FAMILY:    'bg-emerald-500/20 text-emerald-300 border-emerald-500/40',
+  NATURE:    'bg-sky-500/20 text-sky-300 border-sky-500/40',
+  SPIRITUAL: 'bg-purple-500/20 text-purple-300 border-purple-500/40',
+  ADVENTURE: 'bg-orange-500/20 text-orange-300 border-orange-500/40',
+  LIFESTYLE: 'bg-pink-400/20 text-pink-300 border-pink-400/40',
+  HERITAGE:  'bg-[#B99550]/20 text-[#D4AF6E] border-[#B99550]/40',
+  SIGNATURE: 'bg-gradient-to-r from-[#B99550]/30 to-[#D4AF6E]/20 text-[#D4AF6E] border-[#B99550]/60',
+  ARTS:      'bg-rose-500/20 text-rose-300 border-rose-500/40',
+  SPORTS:    'bg-blue-500/20 text-blue-300 border-blue-500/40',
+  CORPORATE: 'bg-slate-500/20 text-slate-300 border-slate-500/40',
+};
 
-  const getLabel = () => {
-    switch (tier) {
-      case 'CULTURAL':
-      case PackageTier.CULTURAL:
-        return 'Cultural Heritage';
-      case 'FOOD':
-      case PackageTier.FOOD:
-        return 'Food Trail';
-      case 'FAMILY':
-      case PackageTier.FAMILY:
-        return 'Family Adventure';
-      case 'NATURE':
-      case PackageTier.NATURE:
-        return 'Nature & Scenic';
-      default:
-        return tier;
-    }
-  };
+const BADGE_LABELS: Record<string, string> = {
+  CULTURAL:  'Cultural Heritage',
+  FOOD:      'Food Trail',
+  FAMILY:    'Family Adventure',
+  NATURE:    'Nature & Scenic',
+  SPIRITUAL: 'Spiritual & Sufi',
+  ADVENTURE: 'Adventure Trek',
+  LIFESTYLE: 'Lifestyle',
+  HERITAGE:  'Heritage',
+  SIGNATURE: '✦ Signature',
+  ARTS:      'Arts & Crafts',
+  SPORTS:    'Sports Tourism',
+  CORPORATE: 'Corporate',
+};
+
+export function TierBadge({ tier, className = '' }: TierBadgeProps) {
+  const key = typeof tier === 'string' ? tier : String(tier);
+  const style = BADGE_STYLES[key] ?? 'bg-[#B99550]/20 text-[#B99550] border-[#B99550]/40';
+  const label = BADGE_LABELS[key] ?? key;
 
   return (
     <span
-      className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold border backdrop-blur-sm ${getBadgeStyle()} ${className}`}
+      className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold border backdrop-blur-sm ${style} ${className}`}
     >
-      {getLabel()}
+      {label}
     </span>
   );
 }

@@ -88,10 +88,17 @@ export function FilterSidebar({ filters, onChange, onReset }: FilterSidebarProps
         <div className="space-y-1.5">
           {[
             { id: '', label: 'All Categories' },
+            { id: PackageTier.SIGNATURE, label: 'Signature Collection' },
+            { id: PackageTier.HERITAGE, label: 'Heritage & Monuments' },
             { id: PackageTier.CULTURAL, label: 'Cultural Heritage' },
-            { id: PackageTier.FOOD, label: 'Food Trail' },
-            { id: PackageTier.FAMILY, label: 'Family Adventure' },
+            { id: PackageTier.FOOD, label: 'Food & Culinary' },
+            { id: PackageTier.SPIRITUAL, label: 'Sufi & Spiritual' },
+            { id: PackageTier.ARTS, label: 'Arts & Photography' },
+            { id: PackageTier.FAMILY, label: 'Family & Kids' },
+            { id: PackageTier.LIFESTYLE, label: 'Lifestyle & Shopping' },
             { id: PackageTier.NATURE, label: 'Nature & Scenic' },
+            { id: PackageTier.SPORTS, label: 'Sports Tourism' },
+            { id: PackageTier.CORPORATE, label: 'Corporate & VIP' },
           ].map((item) => (
             <label
               key={item.id}

@@ -190,6 +190,8 @@ function HeroSection() {
 
       {/* Subtle cinematic gradient overlay to make text and search bar pop */}
       <div className="absolute inset-0 z-1 bg-gradient-to-t from-black/85 via-black/40 to-black/55" />
+      {/* Vignette for cinematic depth */}
+      <div className="absolute inset-0 z-1 vignette pointer-events-none" />
 
       {/* ─── Center Hero Content ─────────────────────────────────────── */}
       <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center py-16 sm:py-20 space-y-6 sm:space-y-8">
@@ -785,10 +787,10 @@ function HowItWorksSection() {
   return (
     <section id="how-it-works" className="py-20 bg-[#FAF6ED]" ref={ref}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <AnimatedSection className="text-center mb-14 space-y-2">
-          <p className="text-xs font-bold uppercase tracking-widest text-[#B99550]">
+        <AnimatedSection className="text-center mb-14 space-y-3">
+          <span className="inline-block text-[11px] font-bold uppercase tracking-[0.22em] text-[#B99550] pb-1 border-b-2 border-[#B99550]/60">
             Simple & Transparent
-          </p>
+          </span>
           <h2 className="font-serif text-3xl sm:text-4xl font-bold tracking-tight text-gray-900">
             How Daastaan{' '}
             <span className="bg-gradient-to-r from-[#123C2D] to-[#B99550] bg-clip-text text-transparent">
@@ -813,7 +815,7 @@ function HowItWorksSection() {
                 custom={i}
                 initial="hidden"
                 animate={inView ? 'visible' : 'hidden'}
-                className="flex flex-col items-center text-center group bg-[#F3ECE0] hover:bg-[#FAF6ED] p-6 rounded-2xl border border-[#E8DFD0] hover:border-[#B99550]/50 hover:shadow-lg transition-all duration-300"
+                className="flex flex-col items-center text-center group bg-[#F3ECE0] hover:bg-white p-6 rounded-2xl border border-[#E8DFD0] hover:border-[#B99550]/60 hover:shadow-[0_12px_32px_-6px_rgba(18,60,45,0.14)] transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
               >
                 {/* Number + icon circle */}
                 <div className="relative mb-5">
@@ -838,32 +840,60 @@ function HowItWorksSection() {
 /* ─── 4. Featured Packages ───────────────────────────── */
 const FEATURED_PACKAGES: PackageCardData[] = [
   {
-    id: '1',
-    slug: 'lahore-walled-city-heritage-walk',
-    title: 'Walled City Heritage Walk — 2,000 Years of Lahore',
+    id: 'lhr-01',
+    slug: 'lahore-shaam-e-mughal-royal-experience',
+    title: 'Shaam-e-Mughal – The Royal Lahore Experience',
+    tier: 'SIGNATURE',
+    city: { name: 'Lahore', slug: 'lahore' },
+    durationDays: 3,
+    minParty: 1,
+    maxParty: 12,
+    images: ['/images/packages/lahore/shaam-e-mughal.jpg'],
+    rating: 4.9,
+    reviewCount: 34,
+    description: 'The ultimate 3-day royal Lahore experience: Lahore Fort, Badshahi Mosque, Wazir Khan Mosque, Shalimar Gardens & Wagah Border.',
+  },
+  {
+    id: 'lhr-05',
+    slug: 'lahore-zaiqa-e-lahore-food-trail',
+    title: 'Zaiqa-e-Lahore – Food Trail',
+    tier: 'FOOD',
+    city: { name: 'Lahore', slug: 'lahore' },
+    durationHours: 5,
+    minParty: 1,
+    maxParty: 12,
+    images: ['/images/packages/lahore/zaiqa-e-lahore-food-trail.jpg'],
+    rating: 5.0,
+    reviewCount: 63,
+    description: 'Curated culinary journey through Androon Lahore: traditional breakfast, 6 iconic food stops, lassi, and falooda finale.',
+  },
+  {
+    id: 'lhr-08',
+    slug: 'lahore-sufi-spiritual-cultural-trail',
+    title: 'Sufi Lahore – Spiritual & Cultural Trail',
+    tier: 'SPIRITUAL',
+    city: { name: 'Lahore', slug: 'lahore' },
+    durationHours: 4,
+    minParty: 1,
+    maxParty: 12,
+    images: ['/images/packages/lahore/sufi-lahore.jpg'],
+    rating: 4.9,
+    reviewCount: 37,
+    description: 'Journey into the spiritual heart of Lahore: Data Darbar, Madho Lal Hussain & Mian Mir shrines with Sufi poetry.',
+  },
+  {
+    id: 'lhr-04',
+    slug: 'lahore-by-night-roshan-galiyan',
+    title: 'Lahore by Night – Roshan Galiyan',
     tier: 'CULTURAL',
     city: { name: 'Lahore', slug: 'lahore' },
     durationHours: 4,
     minParty: 1,
-    maxParty: 8,
-    images: ['https://images.unsplash.com/photo-1598890777032-bde835ba27c2?q=80&w=800&auto=format&fit=crop'],
+    maxParty: 12,
+    images: ['/images/packages/lahore/lahore-by-night.jpg'],
     rating: 4.9,
-    reviewCount: 47,
-    description: 'Explore ancient gates, Wazir Khan Mosque, Lahore Fort & hidden Mughal havelis with a certified historian.',
-  },
-  {
-    id: '2',
-    slug: 'lahore-food-trail-gawalmandi',
-    title: 'Gawalmandi Food Trail — A Taste of Living Heritage',
-    tier: 'FOOD',
-    city: { name: 'Lahore', slug: 'lahore' },
-    durationHours: 3,
-    minParty: 1,
-    maxParty: 10,
-    images: ['https://images.unsplash.com/photo-1601050690597-df0568f70950?q=80&w=800&auto=format&fit=crop'],
-    rating: 4.9,
-    reviewCount: 38,
-    description: 'Wok-cooked Lahori karahi, slow-simmered nihari, piping hot naan, and rabri falooda with a local food expert.',
+    reviewCount: 41,
+    description: 'Discover Lahore’s illuminated Walled City after dark with storytelling and rooftop dining at Fort Road Food Street.',
   },
   {
     id: '3',
@@ -892,34 +922,6 @@ const FEATURED_PACKAGES: PackageCardData[] = [
     rating: 4.9,
     reviewCount: 28,
     description: 'Shangrila Resort, Katpana cold desert dunes, 400-year-old Shigar Fort, and the Land of Giants (Deosai Plains).',
-  },
-  {
-    id: '5',
-    slug: 'fairy-meadows-nanga-parbat-trek',
-    title: 'Fairy Meadows & Nanga Parbat Base Camp Trek',
-    tier: 'NATURE',
-    city: { name: 'Northern Pakistan', slug: 'northern-pakistan' },
-    durationDays: 6,
-    minParty: 2,
-    maxParty: 6,
-    images: ['https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=800&auto=format&fit=crop'],
-    rating: 5.0,
-    reviewCount: 19,
-    description: 'Legendary mountain Jeep track, pine forest hikes, and front-row camping beneath the 8,126m Killer Mountain.',
-  },
-  {
-    id: '6',
-    slug: 'karachi-coastal-heritage-and-mangrove-safari',
-    title: 'Karachi Mangroves Safari & Manora Island Cruise',
-    tier: 'NATURE',
-    city: { name: 'Karachi', slug: 'karachi' },
-    durationHours: 5,
-    minParty: 2,
-    maxParty: 10,
-    images: ['https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?q=80&w=800&auto=format&fit=crop'],
-    rating: 4.8,
-    reviewCount: 26,
-    description: 'Traditional private wooden boat cruise through Arabian Sea mangrove forests, lighthouse visit, and crab feast.',
   },
 ];
 
@@ -1206,10 +1208,10 @@ function CTABannerSection() {
           <motion.div variants={fadeUp}>
             <Link
               href="/explore"
-              className="inline-flex items-center gap-2 px-10 py-4 rounded-full bg-brand-gold text-white font-bold text-base transition-all duration-300 hover:bg-brand-gold-light hover:shadow-gold-hover hover:-translate-y-0.5 active:scale-95"
+              className="btn-gold text-sm"
             >
-              Start Exploring Pakistan
-              <ArrowRight className="w-5 h-5" />
+              <span>Start Exploring Pakistan</span>
+              <ArrowRight className="w-4 h-4" />
             </Link>
           </motion.div>
         </AnimatedSection>
@@ -1231,16 +1233,34 @@ export default function HomePage() {
         <FeatureHighlightsBar />
         <TrustPillarsBanner />
 
+        {/* Gold divider */}
+        <hr className="divider-gold mx-8 sm:mx-16 lg:mx-32" />
+
         {/* 3. Discover Pakistan 5 Cards Grid */}
         <DiscoverPakistanSection />
 
         {/* 4. Callout Ribbon Banner */}
         <CalloutRibbonBanner />
 
+        {/* Gold divider */}
+        <hr className="divider-gold mx-8 sm:mx-16 lg:mx-32" />
+
         {/* 5. Core Tour Catalog & Platform Features */}
         <FeaturedPackagesSection />
+
+        {/* Gold divider */}
+        <hr className="divider-gold mx-8 sm:mx-16 lg:mx-32" />
+
         <HowItWorksSection />
+
+        {/* Gold divider */}
+        <hr className="divider-gold mx-8 sm:mx-16 lg:mx-32" />
+
         <TrustedGuidesSection />
+
+        {/* Gold divider */}
+        <hr className="divider-gold mx-8 sm:mx-16 lg:mx-32" />
+
         <LatestReviewsSection />
         <FromTheBlogSection />
         <CTABannerSection />

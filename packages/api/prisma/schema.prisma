@@ -17,6 +17,14 @@ enum PackageTier {
   FOOD
   FAMILY
   NATURE
+  SPIRITUAL
+  ADVENTURE
+  LIFESTYLE
+  HERITAGE
+  SIGNATURE
+  ARTS
+  SPORTS
+  CORPORATE
 }
 
 enum PackageStatus {

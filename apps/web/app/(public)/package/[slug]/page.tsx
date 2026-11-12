@@ -7,6 +7,7 @@ import { Footer } from '@/components/layout/footer';
 import { TierBadge } from '@/components/ui/tier-badge';
 import { StarRating } from '@/components/ui/star-rating';
 import { formatPrice } from '@/lib/currency';
+import { LAHORE_PACKAGE_DETAILS } from '@/lib/lahore-packages';
 import {
   Clock,
   Users,
@@ -168,6 +169,7 @@ export default function PackageDetailPage({
 }) {
   const resolvedParams = use(params);
   const pkg =
+    LAHORE_PACKAGE_DETAILS[resolvedParams.slug] ||
     SAMPLE_DETAILS[resolvedParams.slug] ||
     SAMPLE_DETAILS['lahore-walled-city-heritage-walk'];
 

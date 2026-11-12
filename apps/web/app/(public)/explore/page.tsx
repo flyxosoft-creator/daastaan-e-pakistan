@@ -6,6 +6,7 @@ import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
 import { PackageCard, PackageCardData } from '@/components/catalog/package-card';
 import { FilterSidebar, FilterState } from '@/components/catalog/filter-sidebar';
+import { LAHORE_PACKAGES } from '@/lib/lahore-packages';
 import { PackageTier } from '@dep/shared';
 import { Compass, Sparkles, Search, X, MapPin } from 'lucide-react';
 
@@ -151,6 +152,7 @@ const SAMPLE_PACKAGES: PackageCardData[] = [
     reviewCount: 19,
     description: 'Step into Emperor Shah Jahan\'s triple-terraced gardens with 410 fountains and intricate marble pavilions.',
   },
+  ...LAHORE_PACKAGES,
 ];
 
 function ExploreContent() {
