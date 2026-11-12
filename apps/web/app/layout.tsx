@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import './globals.css';
 import { Providers } from './providers';
 import { Toaster } from 'sonner';
+import { BrandLoader } from '@/components/ui/brand-loader';
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL ?? 'https://daastaanepakistan.com'),
@@ -80,6 +81,7 @@ export default function RootLayout({
       </head>
       <body className="font-sans antialiased bg-[#FAF6ED] text-gray-800 selection:bg-[#B99550] selection:text-white">
         <Providers>
+          <BrandLoader />
           {children}
           <Toaster
             position="top-right"
