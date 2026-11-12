@@ -2,7 +2,7 @@
 
 import React, { useState, use } from 'react';
 import Link from 'next/link';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
 import { TierBadge } from '@/components/ui/tier-badge';
@@ -252,12 +252,22 @@ const SAMPLE_DETAILS: Record<string, PackageDetailData> = {
 };
 
 const cardReveal = {
-  hidden: { opacity: 0, y: 24 },
+  hidden: { opacity: 0, y: 36, scale: 0.985 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] as const },
+    scale: 1,
+    transition: { duration: 0.85, ease: [0.16, 1, 0.3, 1] as const },
   },
+};
+
+const staggerItem = {
+  hidden: { opacity: 0, x: -12 },
+  visible: (i: number) => ({
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.55, delay: i * 0.07, ease: [0.16, 1, 0.3, 1] as const },
+  }),
 };
 
 export default function PackageDetailPage({
@@ -280,6 +290,8 @@ export default function PackageDetailPage({
   const [selectedCurrency, setSelectedCurrency] = useState<'USD' | 'GBP'>('USD');
 
   const activeImage = pkg.images[activeImageIndex] || pkg.images[0];
+  const { scrollY, scrollYProgress } = useScroll();
+  const heroParallaxY = useTransform(scrollY, [0, 600], [0, 80]);
 
   // Tour dates setup (Single or Multi-day)
   const tomorrow = new Date();
@@ -340,15 +352,21 @@ export default function PackageDetailPage({
         />
       </div>
 
+      {/* ── Top Gold Reading Progress Bar ── */}
+      <motion.div
+        style={{ scaleX: scrollYProgress, transformOrigin: '0% 50%' }}
+        className="fixed top-0 left-0 right-0 h-[2.5px] z-50 bg-gradient-to-r from-[#B99550] via-[#FDE68A] to-[#B99550] pointer-events-none"
+      />
+
       {/* ── Header ── */}
       <div className="relative z-30">
         <Header />
       </div>
 
       {/* ── Full-Bleed Cinematic Experience Hero ── */}
-      <section className="relative z-10 w-full min-h-[54vh] sm:min-h-[60vh] flex items-end overflow-hidden border-b border-white/10">
-        {/* Sharp Hero Photo with lazy blur-up & subtle Ken Burns motion */}
-        <div className="absolute inset-0">
+      <section className="relative z-10 w-full min-h-[56vh] sm:min-h-[62vh] flex items-end overflow-hidden border-b border-white/10">
+        {/* Sharp Hero Photo with lazy blur-up & subtle parallax */}
+        <motion.div style={{ y: heroParallaxY }} className="absolute inset-0 will-change-transform">
           {!heroLoaded && (
             <div className="absolute inset-0 bg-gradient-to-br from-white/5 via-white/10 to-transparent animate-pulse" />
           )}
@@ -374,10 +392,10 @@ export default function PackageDetailPage({
               background: `linear-gradient(180deg, rgba(8,14,12,0.35) 0%, rgba(8,14,12,0.28) 38%, rgba(8,14,12,0.82) 78%, ${theme.backdropFrom} 100%)`,
             }}
           />
-        </div>
+        </motion.div>
 
-        {/* Hero Foreground Content */}
-        <div className="relative z-10 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 pt-10 pb-10 sm:pb-12">
+        {/* Hero Foreground Content - Edge-to-Edge */}
+        <div className="relative z-10 w-full px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 pt-10 pb-10 sm:pb-12">
           {/* Breadcrumb */}
           <motion.nav
             initial={{ opacity: 0, y: 10 }}
@@ -475,11 +493,11 @@ export default function PackageDetailPage({
         </div>
       </section>
 
-      {/* ── Main Content Over Frosted Ambient Backdrop ── */}
-      <main className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-12 flex-1 w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-10">
+      {/* ── Main Content Over Frosted Ambient Backdrop - Edge-to-Edge ── */}
+      <main className="relative z-10 w-full px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-10 sm:py-12 flex-1">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
           {/* Left Column: Smoked Glass Editorial Cards */}
-          <div className="lg:col-span-2 space-y-8">
+          <div className="lg:col-span-8 xl:col-span-9 space-y-8">
             {/* Overview Section */}
             <motion.div
               variants={cardReveal}
@@ -520,10 +538,18 @@ export default function PackageDetailPage({
                   </h3>
                   <ul className="space-y-2.5 text-xs sm:text-sm text-[#FAF6ED]/90">
                     {pkg.included.map((item, i) => (
-                      <li key={i} className="flex items-start gap-2">
+                      <motion.li
+                        key={i}
+                        custom={i}
+                        variants={staggerItem}
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true, amount: 0.2 }}
+                        className="flex items-start gap-2"
+                      >
                         <Check className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
                         <span>{item}</span>
-                      </li>
+                      </motion.li>
                     ))}
                   </ul>
                 </div>
@@ -535,10 +561,18 @@ export default function PackageDetailPage({
                   </h3>
                   <ul className="space-y-2.5 text-xs sm:text-sm text-[#FAF6ED]/85">
                     {pkg.excluded.map((item, i) => (
-                      <li key={i} className="flex items-start gap-2">
+                      <motion.li
+                        key={i}
+                        custom={i}
+                        variants={staggerItem}
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true, amount: 0.2 }}
+                        className="flex items-start gap-2"
+                      >
                         <X className="w-4 h-4 text-rose-400 shrink-0 mt-0.5" />
                         <span>{item}</span>
-                      </li>
+                      </motion.li>
                     ))}
                   </ul>
                 </div>
@@ -567,7 +601,15 @@ export default function PackageDetailPage({
 
                   <div className="relative border-l-2 border-[#B99550]/60 pl-6 space-y-6 ml-2">
                     {dayPlan.activities.map((act, actIdx) => (
-                      <div key={actIdx} className="relative group">
+                      <motion.div
+                        key={actIdx}
+                        custom={actIdx}
+                        variants={staggerItem}
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true, amount: 0.2 }}
+                        className="relative group"
+                      >
                         <div className="absolute -left-[31px] top-1.5 w-3 h-3 rounded-full bg-[#E5C585] border-2 border-[#0A2418] ring-2 ring-[#E5C585]/30 group-hover:scale-125 transition-transform" />
 
                         <div className="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-3">
@@ -588,7 +630,7 @@ export default function PackageDetailPage({
                         <p className="text-xs sm:text-sm text-[#FAF6ED]/80 mt-1 leading-relaxed">
                           {act.description}
                         </p>
-                      </div>
+                      </motion.div>
                     ))}
                   </div>
                 </div>
@@ -654,7 +696,7 @@ export default function PackageDetailPage({
           </div>
 
           {/* Right Column: Sticky Glassmorphic Booking Concierge */}
-          <div className="lg:col-span-1">
+          <div className="lg:col-span-4 xl:col-span-3">
             <motion.div
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
