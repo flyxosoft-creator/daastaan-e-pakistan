@@ -478,7 +478,7 @@ export default function PackageDetailPage({
       {/* ── Main Content Over Frosted Ambient Backdrop ── */}
       <main className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-12 flex-1 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-10">
-          {/* Left Column: Frosted Glass Editorial Cards */}
+          {/* Left Column: Smoked Glass Editorial Cards */}
           <div className="lg:col-span-2 space-y-8">
             {/* Overview Section */}
             <motion.div
@@ -486,16 +486,16 @@ export default function PackageDetailPage({
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, amount: 0.15 }}
-              className="bg-[#FAF6ED]/92 backdrop-blur-xl rounded-2xl p-6 sm:p-8 border border-white/40 shadow-[0_20px_50px_-12px_rgba(0,0,0,0.45)] space-y-4"
+              className="bg-black/55 backdrop-blur-2xl rounded-2xl p-6 sm:p-8 border border-white/15 shadow-[0_20px_50px_-12px_rgba(0,0,0,0.55)] space-y-4"
             >
-              <div className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.18em] text-[#B99550]">
+              <div className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.18em] text-[#E5C585]">
                 <Sparkles className="w-3.5 h-3.5" />
                 <span>The Story</span>
               </div>
-              <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#123C2D]">
+              <h2 className="font-serif text-2xl sm:text-3xl font-bold text-white">
                 Experience Overview
               </h2>
-              <p className="text-gray-700 leading-relaxed text-sm sm:text-base">
+              <p className="text-[#FAF6ED]/85 leading-relaxed text-sm sm:text-base">
                 {pkg.description}
               </p>
             </motion.div>
@@ -506,37 +506,37 @@ export default function PackageDetailPage({
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, amount: 0.15 }}
-              className="bg-[#FAF6ED]/92 backdrop-blur-xl rounded-2xl p-6 sm:p-8 border border-white/40 shadow-[0_20px_50px_-12px_rgba(0,0,0,0.45)] space-y-6"
+              className="bg-black/55 backdrop-blur-2xl rounded-2xl p-6 sm:p-8 border border-white/15 shadow-[0_20px_50px_-12px_rgba(0,0,0,0.55)] space-y-6"
             >
-              <h2 className="font-serif text-2xl font-bold text-[#123C2D]">
+              <h2 className="font-serif text-2xl font-bold text-white">
                 What&apos;s Included &amp; Excluded
               </h2>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="space-y-3 bg-white/60 rounded-xl p-4 border border-emerald-900/10">
-                  <h3 className="text-xs font-bold uppercase tracking-wider text-emerald-800 flex items-center gap-1.5">
-                    <Check className="w-4 h-4 text-emerald-600" />
+                <div className="space-y-3 bg-white/10 rounded-xl p-5 border border-emerald-400/20">
+                  <h3 className="text-xs font-bold uppercase tracking-wider text-emerald-300 flex items-center gap-1.5">
+                    <Check className="w-4 h-4 text-emerald-400" />
                     <span>Included in Tour</span>
                   </h3>
-                  <ul className="space-y-2.5 text-xs sm:text-sm text-gray-700">
+                  <ul className="space-y-2.5 text-xs sm:text-sm text-[#FAF6ED]/90">
                     {pkg.included.map((item, i) => (
                       <li key={i} className="flex items-start gap-2">
-                        <Check className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                        <Check className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
                         <span>{item}</span>
                       </li>
                     ))}
                   </ul>
                 </div>
 
-                <div className="space-y-3 bg-white/60 rounded-xl p-4 border border-rose-900/10">
-                  <h3 className="text-xs font-bold uppercase tracking-wider text-rose-800 flex items-center gap-1.5">
-                    <X className="w-4 h-4 text-rose-600" />
+                <div className="space-y-3 bg-white/10 rounded-xl p-5 border border-rose-400/20">
+                  <h3 className="text-xs font-bold uppercase tracking-wider text-rose-300 flex items-center gap-1.5">
+                    <X className="w-4 h-4 text-rose-400" />
                     <span>Not Included</span>
                   </h3>
-                  <ul className="space-y-2.5 text-xs sm:text-sm text-gray-700">
+                  <ul className="space-y-2.5 text-xs sm:text-sm text-[#FAF6ED]/85">
                     {pkg.excluded.map((item, i) => (
                       <li key={i} className="flex items-start gap-2">
-                        <X className="w-4 h-4 text-rose-500 shrink-0 mt-0.5" />
+                        <X className="w-4 h-4 text-rose-400 shrink-0 mt-0.5" />
                         <span>{item}</span>
                       </li>
                     ))}
@@ -551,41 +551,41 @@ export default function PackageDetailPage({
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, amount: 0.15 }}
-              className="bg-[#FAF6ED]/92 backdrop-blur-xl rounded-2xl p-6 sm:p-8 border border-white/40 shadow-[0_20px_50px_-12px_rgba(0,0,0,0.45)] space-y-6"
+              className="bg-black/55 backdrop-blur-2xl rounded-2xl p-6 sm:p-8 border border-white/15 shadow-[0_20px_50px_-12px_rgba(0,0,0,0.55)] space-y-6"
             >
-              <h2 className="font-serif text-2xl font-bold text-[#123C2D]">
+              <h2 className="font-serif text-2xl font-bold text-white">
                 Tour Itinerary
               </h2>
 
               {pkg.itinerary.map((dayPlan, dayIdx) => (
                 <div key={dayIdx} className="space-y-4">
                   {pkg.itinerary.length > 1 && (
-                    <div className="text-sm font-bold text-[#B99550] uppercase tracking-wider">
+                    <div className="text-sm font-bold text-[#E5C585] uppercase tracking-wider">
                       Day {dayPlan.day} — {dayPlan.title}
                     </div>
                   )}
 
-                  <div className="relative border-l-2 border-[#B99550]/50 pl-6 space-y-6 ml-2">
+                  <div className="relative border-l-2 border-[#B99550]/60 pl-6 space-y-6 ml-2">
                     {dayPlan.activities.map((act, actIdx) => (
                       <div key={actIdx} className="relative group">
-                        <div className="absolute -left-[31px] top-1.5 w-3 h-3 rounded-full bg-[#B99550] border-2 border-[#FAF6ED] ring-2 ring-[#123C2D]/15 group-hover:scale-125 transition-transform" />
+                        <div className="absolute -left-[31px] top-1.5 w-3 h-3 rounded-full bg-[#E5C585] border-2 border-[#0A2418] ring-2 ring-[#E5C585]/30 group-hover:scale-125 transition-transform" />
 
                         <div className="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-3">
                           {act.time && (
-                            <span className="text-xs font-bold text-[#B99550] uppercase tracking-wider shrink-0">
+                            <span className="text-xs font-bold text-[#E5C585] uppercase tracking-wider shrink-0">
                               {act.time}
                             </span>
                           )}
-                          <h4 className="font-serif text-base font-bold text-[#123C2D]">
+                          <h4 className="font-serif text-base font-bold text-white">
                             {act.title}
                           </h4>
                           {act.estimatedDuration && (
-                            <span className="text-[11px] text-gray-500 font-medium">
+                            <span className="text-[11px] text-[#FAF6ED]/65 font-medium">
                               ({act.estimatedDuration})
                             </span>
                           )}
                         </div>
-                        <p className="text-xs sm:text-sm text-gray-600 mt-1 leading-relaxed">
+                        <p className="text-xs sm:text-sm text-[#FAF6ED]/80 mt-1 leading-relaxed">
                           {act.description}
                         </p>
                       </div>
@@ -601,13 +601,13 @@ export default function PackageDetailPage({
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, amount: 0.15 }}
-              className="bg-[#FAF6ED]/92 backdrop-blur-xl rounded-2xl p-6 sm:p-8 border border-white/40 shadow-[0_20px_50px_-12px_rgba(0,0,0,0.45)] space-y-5"
+              className="bg-black/55 backdrop-blur-2xl rounded-2xl p-6 sm:p-8 border border-white/15 shadow-[0_20px_50px_-12px_rgba(0,0,0,0.55)] space-y-5"
             >
-              <div className="flex items-center justify-between border-b border-[#E8DFD0] pb-4">
-                <h2 className="font-serif text-2xl font-bold text-[#123C2D]">
+              <div className="flex items-center justify-between border-b border-white/15 pb-4">
+                <h2 className="font-serif text-2xl font-bold text-white">
                   Your Verified Local Storyteller
                 </h2>
-                <span className="text-xs font-semibold text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">
+                <span className="text-xs font-semibold text-emerald-300 bg-emerald-950/70 px-3 py-1 rounded-full border border-emerald-400/30">
                   100% Vetted Guide
                 </span>
               </div>
@@ -617,33 +617,33 @@ export default function PackageDetailPage({
                   src={pkg.guide.avatarUrl}
                   alt={pkg.guide.name}
                   loading="lazy"
-                  className="w-20 h-20 rounded-full object-cover border-2 border-[#B99550] shadow-md shrink-0"
+                  className="w-20 h-20 rounded-full object-cover border-2 border-[#E5C585] shadow-md shrink-0"
                 />
 
                 <div className="space-y-1.5 flex-1">
                   <div className="flex flex-wrap items-center gap-2">
-                    <h3 className="font-serif text-lg font-bold text-[#123C2D]">
+                    <h3 className="font-serif text-lg font-bold text-white">
                       {pkg.guide.name}
                     </h3>
-                    <span className="text-xs bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded font-semibold flex items-center gap-1">
-                      <ShieldCheck className="w-3 h-3 text-emerald-700" />
+                    <span className="text-xs bg-emerald-950/70 text-emerald-300 border border-emerald-400/30 px-2.5 py-0.5 rounded-full font-semibold flex items-center gap-1">
+                      <ShieldCheck className="w-3 h-3 text-emerald-400" />
                       CNIC &amp; Police Verified
                     </span>
                   </div>
 
-                  <div className="flex items-center gap-3 text-xs text-gray-600">
+                  <div className="flex items-center gap-3 text-xs text-[#FAF6ED]/80">
                     <StarRating rating={pkg.guide.rating} reviewCount={pkg.guide.reviewCount} showNumber size="sm" />
                     <span>•</span>
                     <span>Speaks: {pkg.guide.languages.join(', ')}</span>
                   </div>
 
-                  <p className="text-xs text-gray-600 leading-relaxed pt-1">
+                  <p className="text-xs text-[#FAF6ED]/80 leading-relaxed pt-1">
                     {pkg.guide.bio}
                   </p>
 
                   <div className="flex flex-wrap gap-1.5 pt-2">
                     {pkg.guide.specialities.map((s, i) => (
-                      <span key={i} className="text-[11px] bg-white/80 text-gray-700 px-2.5 py-0.5 rounded-full border border-gray-200/80">
+                      <span key={i} className="text-[11px] bg-white/10 text-[#FAF6ED]/90 px-2.5 py-0.5 rounded-full border border-white/15">
                         #{s}
                       </span>
                     ))}
