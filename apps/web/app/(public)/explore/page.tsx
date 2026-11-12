@@ -244,7 +244,7 @@ function ExploreContent() {
   });
 
   return (
-    <div className="min-h-screen bg-[#FAF6ED] flex flex-col font-sans">
+    <div className="min-h-screen bg-[#FAF6ED] bg-tech-grid flex flex-col font-sans">
       <Header />
 
       {/* Modern Light Hero Strip - End-to-End Layout */}
@@ -268,7 +268,7 @@ function ExploreContent() {
       </section>
 
       {/* Main Content Area - End-to-End Full Width Layout */}
-      <main className="w-full px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-10 sm:py-14 flex-1 bg-[#FAF6ED]">
+      <main className="w-full px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-10 sm:py-14 flex-1 bg-[#FAF6ED] bg-tech-grid">
         <div className="grid grid-cols-1 lg:grid-cols-4 xl:grid-cols-5 gap-8 items-start">
           {/* Filters Sidebar */}
           <div className="lg:col-span-1 xl:col-span-1 sticky top-24">

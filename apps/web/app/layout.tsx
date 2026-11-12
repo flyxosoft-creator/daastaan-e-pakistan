@@ -79,7 +79,7 @@ export default function RootLayout({
       <head>
         <script src="https://js.stripe.com/dahlia/stripe.js" async></script>
       </head>
-      <body className="font-sans antialiased bg-[#FAF6ED] text-gray-800 selection:bg-[#B99550] selection:text-white">
+      <body className="font-sans antialiased bg-[#FAF6ED] bg-tech-grid text-gray-800 selection:bg-[#B99550] selection:text-white">
         <Providers>
           <BrandLoader />
           {children}

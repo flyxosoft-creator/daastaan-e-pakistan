@@ -248,7 +248,7 @@ export default function CityExplorePage({
   const cityData = CITIES[cityKey] || CITIES.lahore;
 
   return (
-    <div className="min-h-screen bg-[#FAF6ED] flex flex-col font-sans">
+    <div className="min-h-screen bg-[#FAF6ED] bg-tech-grid flex flex-col font-sans">
       <Header />
 
       {/* Hero Banner with Image */}
@@ -293,7 +293,7 @@ export default function CityExplorePage({
       </section>
 
       {/* City Packages Section - End-to-End Layout */}
-      <main className="w-full px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 sm:py-16 flex-1 space-y-10 bg-[#FAF6ED]">
+      <main className="w-full px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 sm:py-16 flex-1 space-y-10 bg-[#FAF6ED] bg-tech-grid">
         <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between pb-4 border-b border-[#E8DFD0] gap-4 bg-[#F3ECE0]/70 backdrop-blur-sm p-6 rounded-2xl border border-[#E8DFD0] shadow-2xs">
           <div>
             <h2 className="font-serif text-2xl sm:text-3xl font-bold text-gray-900">

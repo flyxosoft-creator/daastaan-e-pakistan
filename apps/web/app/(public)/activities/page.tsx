@@ -415,7 +415,7 @@ export default function ActivitiesPage() {
   });
 
   return (
-    <div className="min-h-screen bg-[#FAF6ED] flex flex-col font-sans">
+    <div className="min-h-screen bg-[#FAF6ED] bg-tech-grid flex flex-col font-sans">
       <Header />
 
       {/* ─── Breadcrumb Strip - Full Width ──────────────────────────── */}
@@ -511,7 +511,7 @@ export default function ActivitiesPage() {
       </section>
 
       {/* ─── Activities Grid - End-to-End Layout ─────────────────────── */}
-      <main className="w-full px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 flex-1 space-y-8 bg-[#FAF6ED]">
+      <main className="w-full px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 flex-1 space-y-8 bg-[#FAF6ED] bg-tech-grid">
         <div className="flex items-center justify-between pb-4 border-b border-[#E8DFD0]">
           <div className="space-y-0.5">
             <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#123C2D]">
