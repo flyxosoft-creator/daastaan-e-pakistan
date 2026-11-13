@@ -173,26 +173,38 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   // Sync NextAuth Google session into user profile state
   useEffect(() => {
     if (session?.user) {
-      const googleUser: UserProfile = {
-        id: (session.user as any).id || session.user.email || 'usr_google_user',
-        name: session.user.name || 'Valued Traveller',
-        email: session.user.email || '',
-        avatarUrl: session.user.image || undefined,
-        phone: '+92 300 1234567',
-        country: 'Pakistan',
-        referralCode: `DEP-${(session.user.name || 'GUEST').slice(0, 4).toUpperCase().replace(/[^A-Z]/g, 'X')}-${Math.floor(1000 + Math.random() * 9000)}`,
-        walletCreditPkr: 5000,
-        emailVerified: true,
-        emergencyContact: {
-          name: 'Primary Emergency Contact',
-          relationship: 'Family Member',
-          phone: '+92 300 7654321',
-          whatsapp: '+92 300 7654321',
-        },
-        dietaryPreferences: ['Halal Only'],
-        mobilityNotes: 'Standard',
-      };
-      persistUser(googleUser);
+      setUser((prevUser) => {
+        const googleUser: UserProfile = {
+          id: (session.user as any).id || session.user.email || 'usr_google_user',
+          name: session.user.name || prevUser?.name || 'Valued Traveller',
+          email: session.user.email || prevUser?.email || '',
+          avatarUrl: session.user.image || prevUser?.avatarUrl || undefined,
+          phone: prevUser?.phone || '',
+          country: prevUser?.country || 'International Guest',
+          referralCode:
+            prevUser?.referralCode ||
+            `DEP-${(session.user.name || 'GUEST')
+              .slice(0, 4)
+              .toUpperCase()
+              .replace(/[^A-Z]/g, 'X')}-${Math.floor(1000 + Math.random() * 9000)}`,
+          walletCreditPkr: 5000,
+          emailVerified: true,
+          emergencyContact: prevUser?.emergencyContact || {
+            name: '',
+            relationship: '',
+            phone: '',
+            whatsapp: '',
+          },
+          dietaryPreferences: prevUser?.dietaryPreferences || ['Halal Only'],
+          mobilityNotes: prevUser?.mobilityNotes || '',
+        };
+        try {
+          localStorage.setItem(STORAGE_KEY_USER, JSON.stringify(googleUser));
+        } catch {
+          // ignore
+        }
+        return googleUser;
+      });
     }
   }, [session]);
 

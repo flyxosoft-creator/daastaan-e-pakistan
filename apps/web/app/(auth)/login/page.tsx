@@ -35,10 +35,8 @@ function LoginContent() {
     setError('');
     try {
       await loginWithGoogle();
-      router.push(callbackUrl);
     } catch {
       setError('Google sign in failed. Please try again.');
-    } finally {
       setLoading(false);
     }
   };

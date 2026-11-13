@@ -41,10 +41,8 @@ function SignupContent() {
     setError('');
     try {
       await loginWithGoogle();
-      router.push(callbackUrl);
     } catch {
       setError('Google sign up failed. Please try again.');
-    } finally {
       setLoading(false);
     }
   };
