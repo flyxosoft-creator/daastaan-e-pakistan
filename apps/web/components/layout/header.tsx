@@ -20,6 +20,7 @@ import {
   LogOut,
   Sparkles,
   ArrowRight,
+  Award,
 } from 'lucide-react';
 
 export function Header() {
@@ -202,9 +203,12 @@ export function Header() {
                           <p className="text-[11px] text-gray-500 truncate">{user.email}</p>
                         </div>
                       </div>
-                      <div className="mt-2.5 flex items-center justify-between text-[10px] font-semibold text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded-lg border border-emerald-200">
-                        <span>Wallet Credit</span>
-                        <span className="font-bold text-emerald-700">PKR {user.walletCreditPkr.toLocaleString()}</span>
+                      <div className="mt-2.5 flex items-center justify-between text-[10px] font-semibold text-[#123C2D] bg-[#FAF6ED] px-2.5 py-1.5 rounded-lg border border-[#B99550]/30">
+                        <span className="flex items-center gap-1 text-[#B99550]">
+                          <Award className="w-3.5 h-3.5" />
+                          <span>Member Tier</span>
+                        </span>
+                        <span className="font-serif font-bold text-[#123C2D]">Heritage Patron</span>
                       </div>
                     </div>
 

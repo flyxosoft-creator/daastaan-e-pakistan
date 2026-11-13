@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, Suspense } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { ArrowLeft, Lock, Mail, User, ShieldCheck, Check, Eye, EyeOff } from 'lucide-react';
@@ -19,6 +19,17 @@ function SignupContent() {
   const [acceptTerms, setAcceptTerms] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+
+  useEffect(() => {
+    const authError = searchParams?.get('error');
+    if (authError === 'Configuration') {
+      setError(
+        'Google OAuth credentials (GOOGLE_CLIENT_ID & GOOGLE_CLIENT_SECRET) are pending in environment configuration.'
+      );
+    } else if (authError) {
+      setError(`Authentication notice: ${authError}. Please try again.`);
+    }
+  }, [searchParams]);
 
   // Password rules validation
   const hasMinLen = password.length >= 8;
