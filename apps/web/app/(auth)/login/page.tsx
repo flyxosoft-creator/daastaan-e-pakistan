@@ -4,11 +4,13 @@ import React, { useState, Suspense } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { ArrowLeft, Lock, Mail, Eye, EyeOff, ShieldCheck } from 'lucide-react';
+import { useAuth } from '@/lib/auth-context';
 
 function LoginContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const callbackUrl = searchParams?.get('callbackUrl') || '/explore';
+  const callbackUrl = searchParams?.get('callbackUrl') || '/dashboard';
+  const { login, loginWithGoogle } = useAuth();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -17,20 +19,31 @@ function LoginContent() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
+  const handleGoogleLogin = async () => {
+    setLoading(true);
+    setError('');
+    try {
+      await loginWithGoogle();
+      router.push(callbackUrl);
+    } catch {
+      setError('Google sign in failed. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError('');
 
     try {
-      // Mock / API call
-      setTimeout(() => {
-        setLoading(false);
-        router.push(callbackUrl);
-      }, 800);
-    } catch (err: any) {
-      setLoading(false);
+      await login(email, password);
+      router.push(callbackUrl);
+    } catch {
       setError('Invalid email or password. Please try again.');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -75,7 +88,9 @@ function LoginContent() {
           {/* Social Sign In Button */}
           <button
             type="button"
-            className="w-full flex items-center justify-center gap-3 py-2.5 px-4 border border-gray-300 rounded-xl shadow-sm bg-white text-xs font-semibold text-gray-700 hover:bg-gray-50 transition"
+            onClick={handleGoogleLogin}
+            disabled={loading}
+            className="w-full flex items-center justify-center gap-3 py-2.5 px-4 border border-gray-300 rounded-xl shadow-sm bg-white text-xs font-semibold text-gray-700 hover:bg-gray-50 transition cursor-pointer"
           >
             <svg className="w-4 h-4" viewBox="0 0 24 24">
               <path

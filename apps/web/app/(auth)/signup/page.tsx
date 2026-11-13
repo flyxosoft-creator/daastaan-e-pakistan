@@ -4,11 +4,13 @@ import React, { useState, Suspense } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { ArrowLeft, Lock, Mail, User, ShieldCheck, Check, Eye, EyeOff } from 'lucide-react';
+import { useAuth } from '@/lib/auth-context';
 
 function SignupContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const callbackUrl = searchParams?.get('callbackUrl') || '/explore';
+  const callbackUrl = searchParams?.get('callbackUrl') || '/dashboard';
+  const { signup, loginWithGoogle } = useAuth();
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -22,6 +24,19 @@ function SignupContent() {
   const hasMinLen = password.length >= 8;
   const hasUpper = /[A-Z]/.test(password);
   const hasDigit = /[0-9]/.test(password);
+
+  const handleGoogleSignup = async () => {
+    setLoading(true);
+    setError('');
+    try {
+      await loginWithGoogle();
+      router.push(callbackUrl);
+    } catch {
+      setError('Google sign up failed. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -38,13 +53,12 @@ function SignupContent() {
     setError('');
 
     try {
-      setTimeout(() => {
-        setLoading(false);
-        router.push(callbackUrl);
-      }, 900);
+      await signup(name, email, password);
+      router.push(callbackUrl);
     } catch (err: any) {
-      setLoading(false);
       setError('Unable to register. Please try again.');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -89,7 +103,9 @@ function SignupContent() {
           {/* Social Sign Up */}
           <button
             type="button"
-            className="w-full flex items-center justify-center gap-3 py-2.5 px-4 border border-gray-300 rounded-xl shadow-sm bg-white text-xs font-semibold text-gray-700 hover:bg-gray-50 transition"
+            onClick={handleGoogleSignup}
+            disabled={loading}
+            className="w-full flex items-center justify-center gap-3 py-2.5 px-4 border border-gray-300 rounded-xl shadow-sm bg-white text-xs font-semibold text-gray-700 hover:bg-gray-50 transition cursor-pointer"
           >
             <svg className="w-4 h-4" viewBox="0 0 24 24">
               <path
